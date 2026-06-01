@@ -1,6 +1,6 @@
-baseURL: https://example.org/
+baseURL: https://ku-lin.github.io/wp/
 locale: zh-CN
-title: My Blog
+title: ku-lin's blog
 theme:
   - PaperMod
 
@@ -37,7 +37,7 @@ menu:
 
 params:
   env: production
-  description: 使用 Hugo + PaperMod 构建的博客
+  description: ku-lin 的 Hugo 博客
   defaultTheme: auto
   ShowReadingTime: true
   ShowShareButtons: true
@@ -52,11 +52,11 @@ params:
   comments: false
   hideSummary: false
   homeInfoParams:
-    Title: 你的博客已经装好了
-    Content: 现在改 `hugo.yaml` 里的标题、描述和社交链接，然后开始写文章。
+    Title: ku-lin's blog
+    Content: 记录技术、写作和折腾过程。
   socialIcons:
     - name: github
-      url: https://github.com/yourname
+      url: https://github.com/ku-lin
 
 pygmentsUseClasses: true
 taxonomies:
