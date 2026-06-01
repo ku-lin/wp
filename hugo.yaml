@@ -5,6 +5,8 @@ theme:
   - PaperMod
 
 enableRobotsTXT: true
+ignoreLogs:
+  - warning-goldmark-raw-html
 
 caches:
   images:
@@ -17,11 +19,18 @@ outputs:
     - JSON
 
 markup:
+  goldmark:
+    renderer:
+      unsafe: true
   highlight:
     noClasses: false
 
 menu:
   main:
+    - identifier: knowledge
+      name: 知识库
+      url: /knowledge/
+      weight: 5
     - identifier: posts
       name: 文章
       url: /posts/

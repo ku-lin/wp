@@ -1,0 +1,88 @@
+{{- define "main" -}}
+{{- $knowledgePage := site.GetPage "/knowledge" -}}
+{{- $knowledgePages := where site.RegularPages "Section" "knowledge" -}}
+{{- $recentPages := first 8 ($knowledgePages.ByLastmod.Reverse) -}}
+{{- $topics := slice
+  (dict "path" "/knowledge/ctf比赛" "title" "CTF 比赛" "desc" "比赛记录、赛题整理和阶段复盘。" "tone" "tone-red")
+  (dict "path" "/knowledge/电子取证" "title" "电子取证" "desc" "美亚、平航和取证专项训练记录。" "tone" "tone-blue")
+  (dict "path" "/knowledge/ctfshow" "title" "CTFShow" "desc" "Web、Pwn、Crypto 和 Stega 的刷题笔记。" "tone" "tone-green")
+  (dict "path" "/knowledge/nssctf" "title" "NSSCTF" "desc" "按题型归档的训练题解和漏洞利用记录。" "tone" "tone-gold")
+  (dict "path" "/knowledge/学校" "title" "学校课程" "desc" "数据结构、计算机网络和日常课程资料。" "tone" "tone-purple")
+  (dict "path" "/knowledge/tool" "title" "工具与环境" "desc" "环境配置、脚本工具和操作手册。" "tone" "tone-slate")
+ -}}
+
+<section class="portal-hero">
+  <div class="portal-hero-copy">
+    <span class="portal-kicker">Knowledge Base</span>
+    <h1>{{ site.Title }}</h1>
+    <p>{{ site.Params.description }}</p>
+    <div class="portal-actions">
+      <a class="portal-btn portal-btn-primary" href="{{ "/knowledge/" | relURL }}">进入知识库</a>
+      <a class="portal-btn" href="{{ "/search/" | relURL }}">全站搜索</a>
+    </div>
+  </div>
+  <div class="portal-metrics">
+    <article>
+      <span>笔记总数</span>
+      <strong>{{ len $knowledgePages }}</strong>
+    </article>
+    <article>
+      <span>专题分区</span>
+      <strong>{{ len $topics }}</strong>
+    </article>
+    <article>
+      <span>内容形态</span>
+      <strong>题解 / 课程 / 工具</strong>
+    </article>
+  </div>
+</section>
+
+{{- with $knowledgePage }}
+<section class="portal-intro">
+  <div class="portal-section-heading">
+    <h2>{{ .Title }}</h2>
+    <a href="{{ .RelPermalink }}">查看全部</a>
+  </div>
+  <p>{{ .Summary | default .Description }}</p>
+</section>
+{{- end }}
+
+<section class="portal-grid-section">
+  <div class="portal-section-heading">
+    <h2>专题入口</h2>
+    <span>按内容用途而不是时间线组织</span>
+  </div>
+  <div class="portal-grid">
+    {{- range $topics }}
+      {{- $page := site.GetPage .path }}
+      {{- if $page }}
+      <a class="portal-card {{ .tone }}" href="{{ $page.RelPermalink }}">
+        <div>
+          <h3>{{ .title }}</h3>
+          <p>{{ .desc }}</p>
+        </div>
+        <span>{{ len $page.RegularPagesRecursive }} 篇</span>
+      </a>
+      {{- end }}
+    {{- end }}
+  </div>
+</section>
+
+<section class="portal-recent">
+  <div class="portal-section-heading">
+    <h2>最近整理</h2>
+    <a href="{{ "/archives/" | relURL }}">归档</a>
+  </div>
+  <div class="portal-list">
+    {{- range $recentPages }}
+    <article class="portal-list-item">
+      <div>
+        <span>{{ .Section }}</span>
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      </div>
+      <p>{{ .Summary | plainify | default .Description | default "已导入知识库，点击查看正文。" }}</p>
+    </article>
+    {{- end }}
+  </div>
+</section>
+{{- end -}}

@@ -1,0 +1,24 @@
+﻿---
+title: "The Sleuth Kit"
+draft: false
+---
+- 原始文档：[sleuthkit.md](../../sleuthkit/)
+- 原文使用领域：Forensics / 磁盘镜像
+- 核心用途：文件系统取证命令套件，fls/icat/mmls/istat/tsk_recover 等。
+- 位置/入口：`/usr/bin/fls`
+- 当前状态：已在 Kali SSH 环境中确认
+
+## 速查总结
+sleuthkit 的核心价值是：文件系统取证命令套件，fls/icat/mmls/istat/tsk_recover 等。 比赛时先确认输入文件、目标地址、凭据和权限，再逐步增加参数。
+
+## 常用示例
+```bash
+mmls disk.dd
+```
+```bash
+fls -r -o 2048 disk.dd
+```
+
+## 备注
+需要完整参数、更多截图或更长的实战流程时，直接回看上面的原始文档。
+
