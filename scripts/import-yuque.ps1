@@ -46,7 +46,7 @@ function Convert-MarkdownBody {
     param([string]$Content)
 
     $pattern = '(?<prefix>!?)\[(?<text>[^\]]*)\]\((?<dest>[^)]+)\)'
-    return [regex]::Replace($Content, $pattern, {
+    $content = [regex]::Replace($Content, $pattern, {
         param($match)
         $prefix = $match.Groups['prefix'].Value
         $text = $match.Groups['text'].Value
@@ -54,6 +54,13 @@ function Convert-MarkdownBody {
         $newDest = Convert-MarkdownLink -Target $dest
         return "$prefix[$text]($newDest)"
     })
+
+    $content = $content.Replace('{{', '&#123;&#123;')
+    $content = $content.Replace('}}', '&#125;&#125;')
+    $content = $content.Replace('{%', '&#123;%')
+    $content = $content.Replace('%}', '%&#125;')
+
+    return $content
 }
 
 function Get-TitleAndBody {

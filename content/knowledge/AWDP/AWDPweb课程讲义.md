@@ -231,7 +231,7 @@ if (preg_match('/system|tail|flag|exec|base64/i', $_SERVER['REQUEST_URI'])) {
 #### Python过滤代码
 
 ```python
-filter_list = ["{{", "}}", "{%", "%}", "os", "eval", "exec", "system"]
+filter_list = ["&#123;&#123;", "&#125;&#125;", "&#123;%", "%&#125;", "os", "eval", "exec", "system"]
 user_input = "用户输入的值"
 
 for keyword in filter_list:
@@ -1632,14 +1632,14 @@ def index():
 
 ```python
 # 方法1：过滤模板语法
-if '{{' in word or '}}' in word or '{%' in word or '%}' in word:
+if '&#123;&#123;' in word or '&#125;&#125;' in word or '&#123;%' in word or '%&#125;' in word:
     word = "Hacker!"
 
 # 方法2：使用沙箱模式
 from jinja2 import sandbox
 ```
 
-> **说明**：过滤掉 `{{`、`}}`、`{%`、`%}` 可以很大程度上防止SSTI
+> **说明**：过滤掉 `&#123;&#123;`、`&#125;&#125;`、`&#123;%`、`%&#125;` 可以很大程度上防止SSTI
 
 ### 5.2 反序列化漏洞
 

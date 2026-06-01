@@ -507,7 +507,7 @@ instance.config.filename
 
 因为 `instance` 中有 `config` 属性，而 `config` 中有 `filename` 属性，所以直接提交：
 
-{"config":{"filename":"/flag"}}
+{"config":{"filename":"/flag"&#125;&#125;
 
 merge 之后就会变成：
 

@@ -469,7 +469,7 @@ if(isset($_GET['wllm']))
     {
         if (preg_match('/' . $blackitem . '/m', $wllm)) {
         die("LTLT说不能用这些奇奇怪怪的符号哦！");
-    }}
+    &#125;&#125;
 if(preg_match('/[a-zA-Z]/is',$wllm))
 {
     die("Ra's Al Ghul说不能用字母哦！");
