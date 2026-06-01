@@ -60,6 +60,24 @@ function Convert-MarkdownBody {
     $content = $content.Replace('{%', '&#123;%')
     $content = $content.Replace('%}', '%&#125;')
 
+    $lines = $content -split "`r?`n"
+    $inFence = $false
+    for ($i = 0; $i -lt $lines.Length; $i++) {
+        if ($lines[$i] -match '^\s*```') {
+            $inFence = -not $inFence
+            continue
+        }
+
+        if (-not $inFence) {
+            $lines[$i] = $lines[$i].Replace('<script', '&lt;script')
+            $lines[$i] = $lines[$i].Replace('</script>', '&lt;/script&gt;')
+            $lines[$i] = $lines[$i].Replace('<img', '&lt;img')
+            $lines[$i] = $lines[$i].Replace('<body', '&lt;body')
+        }
+    }
+
+    $content = [string]::Join("`r`n", $lines)
+
     return $content
 }
 

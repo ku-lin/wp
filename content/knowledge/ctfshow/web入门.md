@@ -1455,14 +1455,14 @@ echo '数据已接收（在宝塔文件管理中查看 cookie.txt）';
 
 ## 317
 
-<script>被禁用了，但是还有其他的可以使用，比如说<img >
+&lt;script>被禁用了，但是还有其他的可以使用，比如说&lt;img >
 
 ```bash
 <img src=x οnerrοr=alert(1)>
 ```
 
 ## 318
-<img> 被禁用了，但是body还能用
+&lt;img> 被禁用了，但是body还能用
 
 ```bash
 <body onload=***>
