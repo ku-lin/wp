@@ -1,0 +1,64 @@
+baseURL: https://example.org/
+locale: zh-CN
+title: My Blog
+theme:
+  - PaperMod
+
+enableRobotsTXT: true
+
+caches:
+  images:
+    dir: :cacheDir/images
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+markup:
+  highlight:
+    noClasses: false
+
+menu:
+  main:
+    - identifier: posts
+      name: 文章
+      url: /posts/
+      weight: 10
+    - identifier: archives
+      name: 归档
+      url: /archives/
+      weight: 20
+    - identifier: search
+      name: 搜索
+      url: /search/
+      weight: 30
+
+params:
+  env: production
+  description: 使用 Hugo + PaperMod 构建的博客
+  defaultTheme: auto
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  disableSpecial1stPost: true
+  disableScrollToTop: false
+  comments: false
+  hideSummary: false
+  homeInfoParams:
+    Title: 你的博客已经装好了
+    Content: 现在改 `hugo.yaml` 里的标题、描述和社交链接，然后开始写文章。
+  socialIcons:
+    - name: github
+      url: https://github.com/yourname
+
+pygmentsUseClasses: true
+taxonomies:
+  tag: tags
+  category: categories
