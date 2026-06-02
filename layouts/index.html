@@ -8,10 +8,10 @@
     <h1>{{ site.Title }}</h1>
     <p>{{ site.Params.description }}</p>
     <div class="portal-actions">
-      <a class="portal-btn portal-btn-primary" href="{{ "/knowledge/" | relURL }}">知识库</a>
-      <a class="portal-btn" href="{{ "/posts/" | relURL }}">文章</a>
-      <a class="portal-btn" href="{{ "/archives/" | relURL }}">归档</a>
-      <a class="portal-btn" href="{{ "/search/" | relURL }}">搜索</a>
+      <a class="portal-btn portal-btn-primary" href="{{ "knowledge/" | relLangURL }}">知识库</a>
+      <a class="portal-btn" href="{{ "posts/" | relLangURL }}">文章</a>
+      <a class="portal-btn" href="{{ "archives/" | relLangURL }}">归档</a>
+      <a class="portal-btn" href="{{ "search/" | relLangURL }}">搜索</a>
     </div>
   </div>
 
