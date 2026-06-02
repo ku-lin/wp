@@ -1,5 +1,6 @@
 ﻿---
 title: "pwn"
+lastmod: 2026-03-29T14:52:37+08:00
 draft: false
 ---
 ## ez-nc

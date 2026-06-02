@@ -1,5 +1,6 @@
 ﻿---
 title: "PyLingual 中文说明"
+lastmod: 2026-04-08T20:24:20+08:00
 draft: false
 ---
 ## 1. 这是什么

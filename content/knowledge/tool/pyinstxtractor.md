@@ -1,5 +1,6 @@
 ﻿---
 title: "pyinstxtractor 中文使用说明"
+lastmod: 2026-04-08T20:27:34+08:00
 draft: false
 ---
 ## 项目简介

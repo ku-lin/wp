@@ -1,5 +1,6 @@
 ﻿---
 title: "feroxbuster"
+lastmod: 2026-04-27T15:10:39+08:00
 draft: false
 ---
 - 原始文档：[feroxbuster.md](../../feroxbuster/)

@@ -1,5 +1,6 @@
 ﻿---
 title: "Pwn 与二进制利用"
+lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
 面向 ELF 分析、漏洞利用、libc 匹配、ROP 构造与 exploit 开发。

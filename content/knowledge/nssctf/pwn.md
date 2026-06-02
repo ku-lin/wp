@@ -1,5 +1,6 @@
 ﻿---
 title: "pwn"
+lastmod: 2026-03-26T18:13:24+08:00
 draft: false
 ---
 - [P391 [SWPUCTF 2021 新生赛]whitegive_pwn](#p391-swpuctf-2021-%E6%96%B0%E7%94%9F%E8%B5%9Bwhitegive_pwn)

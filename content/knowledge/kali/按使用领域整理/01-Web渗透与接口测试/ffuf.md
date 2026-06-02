@@ -1,5 +1,6 @@
 ﻿---
 title: "ffuf"
+lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
 - 原始文档：[ffuf.md](../../ffuf/)

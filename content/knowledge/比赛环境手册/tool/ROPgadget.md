@@ -1,5 +1,6 @@
 ﻿---
 title: "ROPgadget 中文 README"
+lastmod: 2026-04-06T23:00:28+08:00
 draft: false
 ---
 这是一份面向 CTF/Pwn 初学者和进阶选手的 `ROPgadget` 中文说明文档，兼顾命令参考与实战思路。

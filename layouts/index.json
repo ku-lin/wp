@@ -1,0 +1,25 @@
+{{- $.Scratch.Add "index" slice -}}
+{{- range site.RegularPages -}}
+  {{- if and (not .Params.searchHidden) (ne .Layout `archives`) (ne .Layout `search`) }}
+    {{- $pathParts := slice -}}
+    {{- range .Ancestors.Reverse }}
+      {{- if ne .Title "Home" }}
+        {{- $pathParts = $pathParts | append .Title -}}
+      {{- end }}
+    {{- end }}
+    {{- if eq .Section "knowledge" }}
+      {{- $pathParts = $pathParts | append "知识库" -}}
+    {{- end }}
+    {{- $path := delimit ($pathParts | uniq) " / " -}}
+    {{- $.Scratch.Add "index" (dict
+      "title" .Title
+      "content" .Plain
+      "permalink" .Permalink
+      "summary" (.Summary | plainify)
+      "path" $path
+      "section" .Section
+      "relpermalink" .RelPermalink
+    ) -}}
+  {{- end }}
+{{- end -}}
+{{- $.Scratch.Get "index" | jsonify -}}

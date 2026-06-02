@@ -1,5 +1,6 @@
 ﻿---
 title: "AwdPwnPatcher README"
+lastmod: 2026-03-26T18:10:54+08:00
 draft: false
 ---
 - [AwdPwnPatcher](#awdpwnpatcher)

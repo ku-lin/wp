@@ -1,5 +1,6 @@
 ﻿---
 title: "hashid"
+lastmod: 2026-04-24T14:56:17+08:00
 draft: false
 ---
 - 原始文档：[hashid.md](../../hashid/)

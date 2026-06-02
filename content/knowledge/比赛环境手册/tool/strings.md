@@ -1,5 +1,6 @@
 ﻿---
 title: "strings"
+lastmod: 2026-04-02T23:54:26+08:00
 draft: false
 ---
 这份文档按本机 `strings --help` 输出整理，目标是覆盖帮助页里列出的主要选项和行为。

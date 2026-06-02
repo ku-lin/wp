@@ -1,5 +1,6 @@
 ﻿---
 title: "AWDPweb课程讲义"
+lastmod: 2026-03-26T18:10:52+08:00
 draft: false
 ---
 - [AWDP Web攻防实战课程讲义](#awdp-web%E6%94%BB%E9%98%B2%E5%AE%9E%E6%88%98%E8%AF%BE%E7%A8%8B%E8%AE%B2%E4%B9%89)

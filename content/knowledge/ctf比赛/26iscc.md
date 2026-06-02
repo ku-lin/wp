@@ -1,5 +1,6 @@
 ﻿---
 title: "web"
+lastmod: 2026-05-10T20:06:07+08:00
 draft: false
 ---
 网址：[练武题 | ISCC 2026](https://iscc.isclab.org.cn/challenges#deepvoid)

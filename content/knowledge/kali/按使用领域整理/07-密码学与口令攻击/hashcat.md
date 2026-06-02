@@ -1,5 +1,6 @@
 ﻿---
 title: "hashcat"
+lastmod: 2026-04-27T15:13:55+08:00
 draft: false
 ---
 - 原始文档：[hashcat.md](../../hashcat/)

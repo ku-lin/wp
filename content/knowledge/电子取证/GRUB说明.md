@@ -1,5 +1,6 @@
 ﻿---
 title: "GRUB 与 grub rescue 说明"
+lastmod: 2026-05-05T20:17:54+08:00
 draft: false
 ---
 ## 1. GRUB 是什么

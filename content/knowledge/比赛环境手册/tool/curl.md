@@ -1,5 +1,6 @@
 ﻿---
 title: "curl"
+lastmod: 2026-04-02T23:54:26+08:00
 draft: false
 ---
 这份文档按本机 `curl.exe --help all` 输出整理。curl 选项非常多，这里按功能分类做中文归纳，尽量贴近完整帮助页。

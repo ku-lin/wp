@@ -1,5 +1,6 @@
 ﻿---
 title: "libc-database 使用说明"
+lastmod: 2026-04-16T22:17:20+08:00
 draft: false
 ---
 ## 1. 安装位置

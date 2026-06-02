@@ -1,5 +1,6 @@
 ﻿---
 title: "ssh"
+lastmod: 2026-04-24T14:14:31+08:00
 draft: false
 ---
 ### 在 Linux 上启用 SSH 服务

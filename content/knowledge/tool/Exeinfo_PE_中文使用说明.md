@@ -1,5 +1,6 @@
 ﻿---
 title: "Exeinfo PE 中文使用说明"
+lastmod: 2026-04-08T21:09:51+08:00
 draft: false
 ---
 ## 1. 这是什么软件

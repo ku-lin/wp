@@ -1,5 +1,6 @@
 ﻿---
 title: "PWN 小端序与 payload 顺序速查"
+lastmod: 2026-04-22T23:17:29+08:00
 draft: false
 ---
 做 pwn 时经常会遇到一种错觉：

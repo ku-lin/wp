@@ -1,5 +1,6 @@
 ﻿---
 title: "BurpSuite"
+lastmod: 2026-04-27T15:10:34+08:00
 draft: false
 ---
 - 原始文档：[burpsuite.md](../../burpsuite/)

@@ -1,5 +1,6 @@
 ﻿---
 title: "Sandboxie-Plus"
+lastmod: 2026-04-12T00:37:38+08:00
 draft: false
 ---
 - 平台：Windows（D:\tool）

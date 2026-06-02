@@ -1,5 +1,6 @@
 ﻿---
 title: "EXE 取证总结"
+lastmod: 2026-04-24T14:21:39+08:00
 draft: false
 ---
 来源：<https://forensics.xidian.edu.cn/wiki/writeups/Pinghang2026/>

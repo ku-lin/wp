@@ -1,0 +1,65 @@
+{{- define "main" -}}
+{{- $folders := .Sections.ByTitle -}}
+{{- $files := .RegularPages.ByTitle -}}
+{{- $ancestors := .Ancestors.Reverse -}}
+
+<section class="explorer-shell">
+  <header class="explorer-header">
+    <div class="explorer-toolbar">
+      <div class="explorer-crumbs">
+        <span class="explorer-drive">wp</span>
+        <span class="explorer-sep">/</span>
+        <a href="{{ "knowledge/" | relURL }}">knowledge</a>
+        {{- range $ancestors }}
+          {{- if ne .RelPermalink "/knowledge/" }}
+          <span class="explorer-sep">/</span>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          {{- end }}
+        {{- end }}
+        {{- if ne .RelPermalink "/knowledge/" }}
+        <span class="explorer-sep">/</span>
+        <strong>{{ .Title }}</strong>
+        {{- end }}
+      </div>
+      <div class="explorer-meta">
+        <span>{{ len $folders }} folders</span>
+        <span>{{ len $files }} files</span>
+      </div>
+    </div>
+    <div class="explorer-titlebar">
+      <h1>{{ .Title }}</h1>
+      <p>{{ .Description | default .Summary | default "按目录浏览知识库内容。" }}</p>
+    </div>
+  </header>
+
+  <div class="explorer-table">
+    <div class="explorer-head explorer-row">
+      <span>Name</span>
+      <span>Type</span>
+      <span>Count</span>
+    </div>
+
+    {{- range $folders }}
+    <a class="explorer-row explorer-entry explorer-folder" href="{{ .RelPermalink }}">
+      <span class="explorer-name">
+        <span class="explorer-icon explorer-icon-folder" aria-hidden="true"></span>
+        <span>{{ .Title }}</span>
+      </span>
+      <span class="explorer-type">Folder</span>
+      <span class="explorer-count">{{ len .RegularPagesRecursive }}</span>
+    </a>
+    {{- end }}
+
+    {{- range $files }}
+    <a class="explorer-row explorer-entry explorer-file" href="{{ .RelPermalink }}">
+      <span class="explorer-name">
+        <span class="explorer-icon explorer-icon-file" aria-hidden="true"></span>
+        <span>{{ .Title }}</span>
+      </span>
+      <span class="explorer-type">Markdown</span>
+      <span class="explorer-count">1</span>
+    </a>
+    {{- end }}
+  </div>
+</section>
+{{- end -}}

@@ -1,5 +1,6 @@
 ﻿---
 title: "sqlmap"
+lastmod: 2026-05-04T14:03:15+08:00
 draft: false
 ---
 - 原始文档：[sqlmap.md](../../sqlmap/)

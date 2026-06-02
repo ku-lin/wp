@@ -1,5 +1,6 @@
 ﻿---
 title: "AwdPwnPatcher"
+lastmod: 2026-03-26T18:10:55+08:00
 draft: false
 ---
 - [AwdPwnPatcher教程](#awdpwnpatcher%E6%95%99%E7%A8%8B)

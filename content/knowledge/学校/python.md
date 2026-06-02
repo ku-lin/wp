@@ -1,5 +1,6 @@
 ﻿---
 title: "python"
+lastmod: 2026-03-26T18:11:42+08:00
 draft: false
 ---
 - [正则表达式](#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F)

@@ -1,5 +1,6 @@
 ﻿---
 title: "one_gadget 与 Pwn 常用命令"
+lastmod: 2026-04-16T16:45:40+08:00
 draft: false
 ---
 ## 一、Pwn 常用命令速查

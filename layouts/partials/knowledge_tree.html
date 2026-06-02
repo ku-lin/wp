@@ -1,0 +1,22 @@
+{{- $page := .page -}}
+{{- $node := .node -}}
+{{- $isRoot := .isRoot | default false -}}
+{{- $isCurrentSection := eq $page.CurrentSection.RelPermalink $node.RelPermalink -}}
+{{- $isAncestorSection := and (ne $page.CurrentSection nil) (in $page.RelPermalink $node.RelPermalink) -}}
+{{- $shouldOpen := or $isRoot $isCurrentSection $isAncestorSection -}}
+
+<details class="knowledge-tree-group" {{ if $shouldOpen }}open{{ end }}>
+  <summary class="knowledge-tree-summary">
+    <a class="knowledge-nav-node {{ if $isCurrentSection }}is-active{{ end }}" href="{{ $node.RelPermalink }}">{{ $node.Title }}</a>
+  </summary>
+
+  <div class="knowledge-nav-children">
+    {{- range $node.Sections.ByTitle }}
+      {{- partial "knowledge_tree.html" (dict "page" $page "node" .) -}}
+    {{- end }}
+
+    {{- range $node.RegularPages.ByTitle }}
+    <a class="knowledge-nav-node knowledge-nav-file {{ if eq $page.RelPermalink .RelPermalink }}is-current{{ end }}" href="{{ .RelPermalink }}">{{ .Title }}</a>
+    {{- end }}
+  </div>
+</details>

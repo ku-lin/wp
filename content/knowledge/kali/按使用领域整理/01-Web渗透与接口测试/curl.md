@@ -1,5 +1,6 @@
 ﻿---
 title: "curl"
+lastmod: 2026-04-27T15:10:35+08:00
 draft: false
 ---
 - 原始文档：[curl.md](../../curl/)

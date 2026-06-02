@@ -1,5 +1,6 @@
 ﻿---
 title: "DIE"
+lastmod: 2026-04-12T00:37:37+08:00
 draft: false
 ---
 - 平台：Windows（D:\tool）

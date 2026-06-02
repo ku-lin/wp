@@ -1,5 +1,6 @@
 ﻿---
 title: "pwn"
+lastmod: 2026-06-02T23:00:05+08:00
 draft: false
 ---
 32位最短的shellcode为21字节，内容是
@@ -6784,4 +6785,26 @@ pwndbg> x/2gx 0x804d1d8
 0x804d1d8:      0x0000001100000000      0x0804d1f000000a61
 ```
 所以这个程序直接崩溃了
+最后就可以show(0)了
+可以按释放顺序看：
 
+1. add(0) 分到 note0
+2. add(1) 分到 note1
+3. delete(0)，note0 先进入 fastbin
+4. delete(1)，note1 后进入 fastbin
+
+fastbin 是单链表，后进先出。  （就是栈结构）
+所以这时同尺寸 chunk 的取回顺序通常是：
+
+1. 先取到 note1
+2. 再取到 note0
+
+但这题里 delete(1) 时还会先 free(content1) 再 free(note1)，而 delete(0) 也是一样。实际复用要看后续申请的 size 命中的是哪类 chunk。
+
+更关键的是：  
+最后那次 add(0x8, ...) 申请的是“content 大小为 8”的 note。程序内部会：
+
+1. malloc(8) 给新的 note 结构体
+2. 再 malloc(8) 给它的 content
+
+所以它会消耗两个不同大小的空闲块。真正被输入覆盖的，是第二次 malloc 拿到的那块。

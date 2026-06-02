@@ -1,5 +1,6 @@
 ﻿---
 title: "hydra"
+lastmod: 2026-04-27T15:13:47+08:00
 draft: false
 ---
 - 原始文档：[hydra.md](../../hydra/)

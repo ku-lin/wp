@@ -1,5 +1,6 @@
 ﻿---
 title: "Web 渗透与接口测试"
+lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
 面向站点探测、接口调试、目录爆破、SQL 注入与 Web Fuzz。

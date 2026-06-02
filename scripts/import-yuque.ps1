@@ -16,7 +16,11 @@ function Convert-MarkdownLink {
         return $Target
     }
 
-    if ($Target -match '^\.?/img/') {
+if ($Target -match '^\.?/img/') {
+        return $Target
+    }
+
+    if ($Target -match '^\.?/attachments/') {
         return $Target
     }
 
@@ -101,6 +105,12 @@ function Get-TitleAndBody {
     }
 }
 
+function Format-FrontMatterDate {
+    param([datetime]$Value)
+
+    return $Value.ToString('yyyy-MM-ddTHH:mm:ssK')
+}
+
 $destinationContent = Join-Path $SiteRoot 'content\knowledge'
 $destinationStatic = Join-Path $SiteRoot 'static\knowledge'
 
@@ -114,16 +124,16 @@ if (Test-Path -LiteralPath $destinationStatic) {
 New-Item -ItemType Directory -Path $destinationContent -Force | Out-Null
 New-Item -ItemType Directory -Path $destinationStatic -Force | Out-Null
 
-$imageDirectories = Get-ChildItem -LiteralPath $SourceRoot -Recurse -Directory | Where-Object { $_.Name -eq 'img' }
-foreach ($directory in $imageDirectories) {
+$assetDirectories = Get-ChildItem -LiteralPath $SourceRoot -Recurse -Directory | Where-Object { $_.Name -in @('img', 'attachments') }
+foreach ($directory in $assetDirectories) {
     $parentRelative = $directory.Parent.FullName.Substring($SourceRoot.Length).TrimStart('\')
-    $destinationImageDir = if ([string]::IsNullOrWhiteSpace($parentRelative)) {
-        Join-Path $destinationStatic 'img'
+    $destinationAssetDir = if ([string]::IsNullOrWhiteSpace($parentRelative)) {
+        Join-Path $destinationStatic $directory.Name
     } else {
-        Join-Path (Join-Path $destinationStatic $parentRelative) 'img'
+        Join-Path (Join-Path $destinationStatic $parentRelative) $directory.Name
     }
-    New-Item -ItemType Directory -Path (Split-Path $destinationImageDir -Parent) -Force | Out-Null
-    Copy-Item -LiteralPath $directory.FullName -Destination $destinationImageDir -Recurse -Force
+    New-Item -ItemType Directory -Path (Split-Path $destinationAssetDir -Parent) -Force | Out-Null
+    Copy-Item -LiteralPath $directory.FullName -Destination $destinationAssetDir -Recurse -Force
 }
 
 $rootIndex = @'
@@ -161,10 +171,12 @@ foreach ($file in $markdownFiles) {
     $fallbackTitle = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
     $parts = Get-TitleAndBody -RawContent $raw -FallbackTitle $fallbackTitle
     $body = Convert-MarkdownBody -Content $parts.Body
+    $lastmod = Format-FrontMatterDate -Value $file.LastWriteTime
 
     $frontMatter = @(
         '---'
         ('title: "{0}"' -f ($parts.Title -replace '"', '\"'))
+        ('lastmod: {0}' -f $lastmod)
         'draft: false'
         '---'
         ''
@@ -172,4 +184,23 @@ foreach ($file in $markdownFiles) {
 
     $output = $frontMatter + $body
     Set-Content -LiteralPath $destinationPath -Value $output -Encoding UTF8
+}
+
+$allDirectories = Get-ChildItem -LiteralPath $destinationContent -Recurse -Directory
+foreach ($directory in $allDirectories) {
+    $indexPath = Join-Path $directory.FullName '_index.md'
+    if (-not (Test-Path -LiteralPath $indexPath)) {
+        $title = $directory.Name
+        $lastmod = Format-FrontMatterDate -Value $directory.LastWriteTime
+        $content = @(
+            '---'
+            ('title: "{0}"' -f ($title -replace '"', '\"'))
+            ('lastmod: {0}' -f $lastmod)
+            'draft: false'
+            '---'
+            ''
+            ('{0} 目录。' -f $title)
+        ) -join "`r`n"
+        Set-Content -LiteralPath $indexPath -Value $content -Encoding UTF8
+    }
 }

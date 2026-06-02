@@ -1,5 +1,6 @@
 ﻿---
 title: "ida还原proto文件"
+lastmod: 2026-03-26T18:10:53+08:00
 draft: false
 ---
 搜索 （ctrl + i）常数0x28AAEEF9 或者 二进制搜索（ctrl + b）F9 EE AA 28

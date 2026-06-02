@@ -1,5 +1,6 @@
 ﻿---
 title: "PEiD 中文使用文档"
+lastmod: 2026-04-08T21:09:48+08:00
 draft: false
 ---
 ## 1. PEiD 是什么

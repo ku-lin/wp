@@ -1,5 +1,6 @@
 ﻿---
 title: "PEiD 和 DIE 交叉检测壳"
+lastmod: 2026-04-08T21:13:00+08:00
 draft: false
 ---
 ## 1. 这份文档是干什么的

@@ -1,5 +1,6 @@
 ﻿---
 title: "python3-pwntools"
+lastmod: 2026-04-12T00:37:32+08:00
 draft: false
 ---
 - 平台：Kali Linux（SSH: 192.168.70.145）

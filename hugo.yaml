@@ -71,3 +71,16 @@ pygmentsUseClasses: true
 taxonomies:
   tag: tags
   category: categories
+
+frontmatter:
+  lastmod:
+    - lastmod
+    - modified
+    - date
+    - publishDate
+
+cascade:
+  - _target:
+      path: /knowledge/**
+    ShowToc: true
+    TocOpen: true

@@ -1,5 +1,6 @@
 ﻿---
 title: "Pwn 栈溢出常用 Python 代码总结"
+lastmod: 2026-04-21T22:56:42+08:00
 draft: false
 ---
 这份文档按实战流程整理，默认使用 `pwntools`。

@@ -1,5 +1,6 @@
 ﻿---
 title: "binwalk"
+lastmod: 2026-05-10T19:15:15+08:00
 draft: false
 ---
 - 原始文档：[binwalk.md](../../binwalk/)

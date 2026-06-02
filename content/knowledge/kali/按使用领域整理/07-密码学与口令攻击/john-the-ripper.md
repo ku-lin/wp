@@ -1,5 +1,6 @@
 ﻿---
 title: "John the Ripper"
+lastmod: 2026-04-24T14:56:22+08:00
 draft: false
 ---
 - 原始文档：[john.md](../../john/)

@@ -1,5 +1,6 @@
 ﻿---
 title: "glibc-all-in-one"
+lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
 - 原始文档：[glibc-all-in-one.md](../../glibc-all-in-one/)

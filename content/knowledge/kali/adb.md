@@ -1,5 +1,6 @@
 ﻿---
 title: "adb"
+lastmod: 2026-04-12T00:36:54+08:00
 draft: false
 ---
 - 平台：Kali Linux（SSH: 192.168.70.145）

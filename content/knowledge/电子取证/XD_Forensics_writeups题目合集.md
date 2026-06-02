@@ -1,5 +1,6 @@
 ﻿---
 title: "XD Forensics Wiki 赛事题解题目合集"
+lastmod: 2026-04-30T20:10:01+08:00
 draft: false
 ---
 来源：<https://forensics.xidian.edu.cn/wiki/writeups/>
