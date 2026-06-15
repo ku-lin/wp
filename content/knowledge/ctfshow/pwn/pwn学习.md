@@ -1,6 +1,6 @@
 ﻿---
 title: "pwn学习"
-lastmod: 2026-05-13T23:41:13+08:00
+lastmod: 2026-06-15T14:41:39+08:00
 draft: false
 ---
 [[libc-database使用说明]]
@@ -1816,6 +1816,24 @@ short 对应：
 
 如果申请了很多的堆块，不考虑释放堆块，那么他们会按照申请的顺序依次从低地址到高地址排列
 
+### flag
+
+堆的存储空间的最低四位一定是0，所以程序用这个来放置标志位
+这个标志位是一般是
+- `PREV_INUSE = 0x1`
+- `IS_MMAPPED = 0x2`
+- `NON_MAIN_ARENA = 0x4`
+这三个是不同的标志位，在我们可能创建标志位的时候可能用到
+#### PREV_INUSE = 0x1
+1表示前一个相邻的堆是不是在使用
+#### IS_MMAPPED = 0x2
+表示这个 chunk 是不是通过 `mmap()` 单独申请来的
+0表示不是通过mmap申请的
+#### NON_MAIN_ARENA = 0x4
+表示这个 chunk 是否来自 **非 main arena**
+0代表来自main arena
+arena是在多线程的时候，为了防止进程锁而创建的多个空间
+
 ### 函数
 
 #### malloc
@@ -1864,6 +1882,13 @@ void *realloc(void *ptr, size_t size);
 返回新指针。
 
 注意如果是分配新内存，旧内存的数据并不会清空
+
+## UAF
+uaf漏洞，指use after free
+在正常的free会删除堆，但是会保留堆里面的值
+所以在释放以后依旧可以利用这个
+
+## 重复释放
 
 # 第三部分
 

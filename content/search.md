@@ -1,5 +1,5 @@
 ---
-title: "搜索"
+title: "search"
 layout: "search"
 url: "/search/"
 summary: search
