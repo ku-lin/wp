@@ -3,6 +3,8 @@ title: "hashid"
 lastmod: 2026-04-24T14:56:17+08:00
 draft: false
 ---
+# hashid
+
 - 原始文档：[hashid.md](../../hashid/)
 - 原文使用领域：Crypto / 密码爆破
 - 核心用途：命令行哈希类型识别工具，可辅助选择 john/hashcat 模式。

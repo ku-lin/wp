@@ -3,6 +3,8 @@ title: "Gopherus"
 lastmod: 2026-04-12T00:37:38+08:00
 draft: false
 ---
+# Gopherus
+
 - 平台：Windows（D:\tool）
 - 使用领域：CTF Web / SSRF / Gopher
 - 主要用途：生成 gopher payload，常用于 SSRF 打 Redis/MySQL/FastCGI 等协议。

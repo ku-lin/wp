@@ -1,8 +1,10 @@
 ﻿---
-title: "YARA"
+title: "yara"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# YARA
+
 - 原始文档：[yara.md](../../yara/)
 - 原文使用领域：Forensics / Malware
 - 核心用途：规则匹配工具，按字符串/十六进制/条件扫描文件和样本。

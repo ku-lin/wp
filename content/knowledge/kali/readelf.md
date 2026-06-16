@@ -3,6 +3,8 @@ title: "readelf"
 lastmod: 2026-04-12T00:37:33+08:00
 draft: false
 ---
+# readelf
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Pwn / Reverse
 - 主要用途：查看 ELF 头、段、节、符号、重定位、动态链接信息。

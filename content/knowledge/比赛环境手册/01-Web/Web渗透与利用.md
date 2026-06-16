@@ -1,8 +1,10 @@
 ﻿---
-title: "Web"
+title: "Web渗透与利用"
 lastmod: 2026-03-30T19:44:12+08:00
 draft: false
 ---
+# Web
+
 ## 常用工具
 
 - `burpsuite`：抓包、重放、爆破、宏、插件

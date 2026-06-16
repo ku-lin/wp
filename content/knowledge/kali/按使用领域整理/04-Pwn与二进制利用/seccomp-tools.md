@@ -3,6 +3,8 @@ title: "seccomp-tools"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# seccomp-tools
+
 - 原始文档：[seccomp-tools.md](../../seccomp-tools/)
 - 原文使用领域：Pwn / 沙箱
 - 核心用途：分析、反汇编、模拟 seccomp-bpf 规则，判断系统调用限制。

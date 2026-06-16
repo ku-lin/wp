@@ -3,6 +3,8 @@ title: "file"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# file
+
 - 原始文档：[file.md](../../file/)
 - 原文使用领域：Forensics / Reverse / Misc
 - 核心用途：根据 magic bytes 判断文件类型、架构、是否 stripped、脚本/压缩格式等。

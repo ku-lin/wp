@@ -1,8 +1,10 @@
 ﻿---
-title: "搭建服务器"
+title: "web入门"
 lastmod: 2026-06-15T23:36:55+08:00
 draft: false
 ---
+# 搭建服务器
+
 ```bash
 if [ -f /usr/bin/curl ];then curl -sSO https://download.bt.cn/install/install_panel.sh;else wget -O install_panel.sh https://download.bt.cn/install/install_panel.sh;fi;bash install_panel.sh ssl251104
 ```

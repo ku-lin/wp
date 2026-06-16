@@ -3,6 +3,8 @@ title: "rlwrap"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# rlwrap
+
 - 原始文档：[rlwrap.md](../../rlwrap/)
 - 原文使用领域：Shell / Pwn
 - 核心用途：给 nc、python shell 等交互程序补 readline、历史记录和方向键。

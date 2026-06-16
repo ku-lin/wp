@@ -1,8 +1,10 @@
 ﻿---
-title: "seccomp-tools 使用说明"
+title: "seccomp-tools"
 lastmod: 2026-04-05T17:04:49+08:00
 draft: false
 ---
+# seccomp-tools 使用说明
+
 这份 README 介绍的是 `seccomp-tools` 这个工具本身，和当前目录下的题目无关。
 
 `seccomp-tools` 是一个专门用来分析 Linux `seccomp-bpf` 过滤器的命令行工具，常用于：

@@ -3,6 +3,8 @@ title: "dirsearch"
 lastmod: 2026-04-12T00:36:55+08:00
 draft: false
 ---
+# dirsearch
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：CTF Web
 - 主要用途：Web 目录与文件爆破工具，适合快速发现后台、备份文件、接口路径。

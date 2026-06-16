@@ -1,8 +1,10 @@
 ﻿---
-title: "BloodHound"
+title: "bloodhound"
 lastmod: 2026-04-24T14:56:05+08:00
 draft: false
 ---
+# BloodHound
+
 - 原始文档：[bloodhound.md](../../bloodhound/)
 - 原文使用领域：AD / 内网
 - 核心用途：Active Directory 权限关系图谱分析，配合 SharpHound / BloodHound.py 找攻击路径。

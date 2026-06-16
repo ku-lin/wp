@@ -3,6 +3,8 @@ title: "ffuf"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# ffuf
+
 - 原始文档：[ffuf.md](../../ffuf/)
 - 原文使用领域：CTF Web / Fuzz
 - 核心用途：高性能 Web Fuzzer，可做目录、参数、虚拟主机、POST 字段爆破。

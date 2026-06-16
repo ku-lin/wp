@@ -3,6 +3,8 @@ title: "wfuzz"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# wfuzz
+
 - 原始文档：[wfuzz.md](../../wfuzz/)
 - 原文使用领域：CTF Web / Fuzz
 - 核心用途：Web 参数、目录、Header、认证等 Fuzz 工具。

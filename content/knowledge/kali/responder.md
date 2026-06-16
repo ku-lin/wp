@@ -3,6 +3,8 @@ title: "responder"
 lastmod: 2026-04-12T00:37:33+08:00
 draft: false
 ---
+# responder
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：AD / 内网
 - 主要用途：LLMNR/NBT-NS/MDNS 投毒与 NTLM 捕获工具，常用于内网凭证获取。

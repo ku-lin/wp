@@ -1,8 +1,10 @@
 ﻿---
-title: "WireGuard Tools"
+title: "wireguard-tools"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# WireGuard Tools
+
 - 原始文档：[wireguard-tools.md](../../wireguard-tools/)
 - 原文使用领域：比赛环境 / 网络
 - 核心用途：WireGuard VPN 工具，包括 wg 和 wg-quick。

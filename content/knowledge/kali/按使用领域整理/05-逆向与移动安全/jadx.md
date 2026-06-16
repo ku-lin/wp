@@ -3,6 +3,8 @@ title: "jadx"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# jadx
+
 - 原始文档：[jadx.md](../../jadx/)
 - 原文使用领域：Mobile / Reverse
 - 核心用途：Dex/APK 到 Java 伪源码的反编译工具，适合 Android 静态分析。

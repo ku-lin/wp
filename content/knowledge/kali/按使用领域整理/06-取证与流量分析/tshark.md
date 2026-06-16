@@ -3,6 +3,8 @@ title: "tshark"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# tshark
+
 - 原始文档：[tshark.md](../../tshark/)
 - 原文使用领域：流量分析 / Forensics
 - 核心用途：Wireshark 的命令行版，用于过滤、统计、批量解析 pcap。

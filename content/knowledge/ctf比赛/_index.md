@@ -1,8 +1,10 @@
 ﻿---
-title: "ctf比赛"
+title: "index"
 lastmod: 2026-06-11T12:25:36+08:00
 draft: false
 ---
+# ctf比赛
+
 - [2025上公ctf](2025上公ctf/)
 - [26iscc](26iscc/)
 - [26黄河流域](26黄河流域/)

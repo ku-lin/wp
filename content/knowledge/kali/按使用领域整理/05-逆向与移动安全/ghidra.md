@@ -1,8 +1,10 @@
 ﻿---
-title: "Ghidra"
+title: "ghidra"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# Ghidra
+
 - 原始文档：[ghidra.md](../../ghidra/)
 - 原文使用领域：Reverse
 - 核心用途：NSA 开源逆向平台，反编译、反汇编、函数/结构体恢复。

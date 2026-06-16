@@ -1,8 +1,10 @@
 ﻿---
-title: "The Sleuth Kit"
+title: "the-sleuth-kit"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# The Sleuth Kit
+
 - 原始文档：[sleuthkit.md](../../sleuthkit/)
 - 原文使用领域：Forensics / 磁盘镜像
 - 核心用途：文件系统取证命令套件，fls/icat/mmls/istat/tsk_recover 等。

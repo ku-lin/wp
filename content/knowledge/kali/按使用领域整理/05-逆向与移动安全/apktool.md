@@ -3,6 +3,8 @@ title: "apktool"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# apktool
+
 - 原始文档：[apktool.md](../../apktool/)
 - 原文使用领域：Mobile / Reverse
 - 核心用途：APK 资源与 smali 反编译、修改、重打包，常用于 Android 逆向和移动题。

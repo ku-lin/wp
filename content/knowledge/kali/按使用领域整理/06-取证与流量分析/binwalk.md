@@ -3,6 +3,8 @@ title: "binwalk"
 lastmod: 2026-05-10T19:15:15+08:00
 draft: false
 ---
+# binwalk
+
 - 原始文档：[binwalk.md](../../binwalk/)
 - 原文使用领域：Forensics / Misc / Firmware
 - 核心用途：固件与二进制 blob 扫描、识别内嵌文件、自动提取压缩包和文件系统。

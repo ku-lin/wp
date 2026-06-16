@@ -1,8 +1,10 @@
 ﻿---
-title: "John the Ripper"
+title: "john-the-ripper"
 lastmod: 2026-04-24T14:56:22+08:00
 draft: false
 ---
+# John the Ripper
+
 - 原始文档：[john.md](../../john/)
 - 原文使用领域：Crypto / 密码爆破
 - 核心用途：John the Ripper，CPU 哈希破解、格式转换、规则爆破。

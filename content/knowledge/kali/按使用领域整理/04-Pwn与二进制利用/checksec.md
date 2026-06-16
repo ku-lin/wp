@@ -3,6 +3,8 @@ title: "checksec"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# checksec
+
 - 原始文档：[checksec.md](../../checksec/)
 - 原文使用领域：Pwn
 - 核心用途：查看 ELF 的 NX、Canary、PIE、RELRO、Fortify 等保护状态。

@@ -1,8 +1,10 @@
 ﻿---
-title: "TShark"
+title: "tshark"
 lastmod: 2026-04-02T23:54:26+08:00
 draft: false
 ---
+# TShark
+
 这份文档按本机 `tshark -h` 输出整理，目标是贴近帮助页结构，覆盖抓包、读取、过滤、输出和统计相关选项。
 
 ## 工具定位

@@ -1,8 +1,10 @@
 ﻿---
-title: "ExifTool"
+title: "exiftool"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# ExifTool
+
 - 原始文档：[libimage-exiftool-perl.md](../../libimage-exiftool-perl/)
 - 原文使用领域：Forensics / Misc
 - 核心用途：ExifTool 元数据读取/修改工具，常用于图片、PDF、Office、音视频元信息分析。

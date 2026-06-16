@@ -1,8 +1,10 @@
 ﻿---
-title: "实验八 WEB 攻防实验报告"
+title: "实验八_WEB攻防实验报告"
 lastmod: 2026-06-15T14:41:35+08:00
 draft: false
 ---
+# 实验八 WEB 攻防实验报告
+
 > 靶机地址：`192.168.70.144`
 >
 > 本版完成：`sqli-labs Less-1 ~ Less-10`、`DVWA XSS Reflected / Stored Low-Medium-High`。

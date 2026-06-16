@@ -3,6 +3,8 @@ title: "seclists"
 lastmod: 2026-04-12T00:37:34+08:00
 draft: false
 ---
+# seclists
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：字典 / Web / 内网
 - 主要用途：SecLists 字典集合，目录、参数、用户名、密码、payload 都常用。

@@ -3,6 +3,8 @@ title: "malcat"
 lastmod: 2026-04-12T00:37:37+08:00
 draft: false
 ---
+# malcat
+
 - 平台：Windows（D:\tool）
 - 使用领域：Forensics / Malware / Reverse
 - 主要用途：样本静态分析和十六进制/结构化查看工具，适合恶意样本、未知二进制快速分析。

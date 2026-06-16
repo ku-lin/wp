@@ -3,6 +3,8 @@ title: "python3-pwntools"
 lastmod: 2026-04-12T00:37:32+08:00
 draft: false
 ---
+# python3-pwntools
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Pwn
 - 主要用途：pwntools 命令行入口和 Python 库，用于 exploit 交互、ROP、shellcode、ELF 分析。

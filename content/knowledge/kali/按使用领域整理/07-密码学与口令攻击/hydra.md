@@ -3,6 +3,8 @@ title: "hydra"
 lastmod: 2026-04-27T15:13:47+08:00
 draft: false
 ---
+# hydra
+
 - 原始文档：[hydra.md](../../hydra/)
 - 原文使用领域：密码爆破 / 网络服务
 - 核心用途：在线口令爆破工具，支持 SSH/FTP/HTTP/SMB/RDP 等协议。

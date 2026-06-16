@@ -3,6 +3,8 @@ title: "openssl"
 lastmod: 2026-04-12T00:37:30+08:00
 draft: false
 ---
+# openssl
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Crypto / TLS / 编码
 - 主要用途：加解密、证书、TLS 调试、哈希、base64、随机数等密码学工具箱。

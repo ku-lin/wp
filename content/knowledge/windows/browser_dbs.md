@@ -3,6 +3,8 @@ title: "browser_dbs"
 lastmod: 2026-04-12T00:37:37+08:00
 draft: false
 ---
+# browser_dbs
+
 - 平台：Windows（D:\tool）
 - 使用领域：Forensics / 浏览器取证
 - 主要用途：浏览器数据库/路径资料集合，用于定位 Chrome/Edge/Firefox 历史记录、Cookie、Login Data 等。

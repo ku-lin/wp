@@ -1,8 +1,10 @@
 ﻿---
-title: "Forensics"
+title: "Forensics取证分析"
 lastmod: 2026-03-30T19:44:12+08:00
 draft: false
 ---
+# Forensics
+
 ## 常用工具
 
 - `foremost`

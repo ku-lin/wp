@@ -1,8 +1,10 @@
 ﻿---
-title: "AwdPwnPatcher README"
+title: "AwdPwnPatcherREADME"
 lastmod: 2026-03-26T18:10:54+08:00
 draft: false
 ---
+# AwdPwnPatcher README
+
 - [AwdPwnPatcher](#awdpwnpatcher)
   * [依赖安装](#%E4%BE%9D%E8%B5%96%E5%AE%89%E8%A3%85)
   * [使用说明](#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E)

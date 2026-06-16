@@ -3,6 +3,8 @@ title: "ss"
 lastmod: 2026-04-12T00:37:35+08:00
 draft: false
 ---
+# ss
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Linux 网络 / 应急响应
 - 主要用途：查看 socket 监听、连接、进程、端口状态，netstat 的现代替代。

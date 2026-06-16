@@ -3,6 +3,8 @@ title: "PEiD"
 lastmod: 2026-04-12T00:37:37+08:00
 draft: false
 ---
+# PEiD
+
 - 平台：Windows（D:\tool）
 - 使用领域：Reverse / Forensics
 - 主要用途：经典 PE 壳/编译器识别工具，适合 Windows 可执行文件初筛。

@@ -3,6 +3,8 @@ title: "ldapsearch"
 lastmod: 2026-04-24T14:56:06+08:00
 draft: false
 ---
+# ldapsearch
+
 - 原始文档：[ldapsearch.md](../../ldapsearch/)
 - 原文使用领域：AD / 内网
 - 核心用途：LDAP 查询工具，枚举域用户、组、OU、SPN、策略等目录信息。

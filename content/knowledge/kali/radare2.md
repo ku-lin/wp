@@ -3,6 +3,8 @@ title: "radare2"
 lastmod: 2026-04-12T00:37:33+08:00
 draft: false
 ---
+# radare2
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Reverse / Pwn
 - 主要用途：命令行逆向框架，可做反汇编、调试、patch、脚本分析。

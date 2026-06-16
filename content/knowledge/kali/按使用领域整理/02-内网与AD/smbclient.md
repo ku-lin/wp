@@ -3,6 +3,8 @@ title: "smbclient"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# smbclient
+
 - 原始文档：[smbclient.md](../../smbclient/)
 - 原文使用领域：AD / 内网 / SMB
 - 核心用途：SMB/CIFS 命令行客户端，用于列共享、传文件、验证凭据。

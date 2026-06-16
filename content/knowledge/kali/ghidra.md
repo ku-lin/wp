@@ -3,6 +3,8 @@ title: "ghidra"
 lastmod: 2026-04-12T00:36:57+08:00
 draft: false
 ---
+# ghidra
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Reverse
 - 主要用途：NSA 开源逆向平台，反编译、反汇编、函数/结构体恢复。

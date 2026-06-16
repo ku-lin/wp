@@ -3,6 +3,8 @@ title: "Struts2扫描"
 lastmod: 2026-04-12T00:37:39+08:00
 draft: false
 ---
+# Struts2扫描
+
 - 平台：Windows（D:\tool）
 - 使用领域：CTF Web / Java / Struts2
 - 主要用途：Struts2_19.73.jar 图形/Java 工具，用于 Struts2 历史漏洞检测。

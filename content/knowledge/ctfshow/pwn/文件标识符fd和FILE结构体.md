@@ -1,8 +1,10 @@
 ﻿---
-title: "文件标识符（fd）和 FILE 结构体"
+title: "文件标识符fd和FILE结构体"
 lastmod: 2026-04-05T17:10:49+08:00
 draft: false
 ---
+# 文件标识符（fd）和 FILE 结构体
+
 > 整理说明：本文根据原文内容改写为 Markdown 笔记版，便于本地保存和阅读。
 > 原文链接：https://blog.csdn.net/apt1203JN/article/details/79682134
 > 原文标题：`文件标识符（fd）和FILE结构体`

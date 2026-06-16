@@ -3,6 +3,8 @@ title: "7zr"
 lastmod: 2026-04-12T00:37:40+08:00
 draft: false
 ---
+# 7zr
+
 - 平台：Windows（D:\tool）
 - 使用领域：通用 / 压缩解压
 - 主要用途：7-Zip 精简命令行解压工具，用于处理 7z/zip/rar 等压缩包。

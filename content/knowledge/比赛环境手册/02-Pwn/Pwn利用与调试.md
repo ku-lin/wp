@@ -1,8 +1,10 @@
 ﻿---
-title: "Pwn"
+title: "Pwn利用与调试"
 lastmod: 2026-03-30T19:44:12+08:00
 draft: false
 ---
+# Pwn
+
 ## 常用工具
 
 - `gdb`

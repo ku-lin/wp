@@ -3,6 +3,8 @@ title: "libc-database"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# libc-database
+
 - 原始文档：[libc-database使用说明.md](../../libc-database使用说明/)
 - 原文使用领域：Pwn / libc 匹配
 - 核心用途：根据泄露函数地址反查 libc 版本，配合 one_gadget、pwntools 做 ret2libc 利用。

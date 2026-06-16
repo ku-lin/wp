@@ -3,6 +3,8 @@ title: "sqlmap"
 lastmod: 2026-04-12T00:37:35+08:00
 draft: false
 ---
+# sqlmap
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：CTF Web / SQL 注入
 - 主要用途：自动化 SQL 注入检测与利用工具，可枚举库表、dump 数据、读写文件。

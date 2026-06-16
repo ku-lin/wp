@@ -1,8 +1,10 @@
 ﻿---
-title: "Responder"
+title: "responder"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# Responder
+
 - 原始文档：[responder.md](../../responder/)
 - 原文使用领域：AD / 内网
 - 核心用途：LLMNR/NBT-NS/MDNS 投毒与 NTLM 捕获工具，常用于内网凭证获取。

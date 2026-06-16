@@ -3,6 +3,8 @@ title: "BongoCat"
 lastmod: 2026-04-12T00:37:40+08:00
 draft: false
 ---
+# BongoCat
+
 - 平台：Windows（D:\tool）
 - 使用领域：其他
 - 主要用途：桌面娱乐/输入显示工具，和 CTF 比赛关系较弱。

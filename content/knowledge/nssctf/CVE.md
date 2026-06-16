@@ -1,8 +1,10 @@
 ﻿---
-title: "2021-43798"
+title: "CVE"
 lastmod: 2026-04-15T10:51:11+08:00
 draft: false
 ---
+# 2021-43798
+
 第一题，先找一下资源
 
 <https://nvd.nist.gov/vuln/detail/cve-2021-43798?utm_source=chatgpt.com>

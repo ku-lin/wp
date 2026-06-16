@@ -3,6 +3,8 @@ title: "binwalk"
 lastmod: 2026-04-24T14:59:50+08:00
 draft: false
 ---
+# binwalk
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Forensics / Misc / Firmware
 - 主要用途：固件与二进制 blob 扫描、识别内嵌文件、自动提取压缩包和文件系统。

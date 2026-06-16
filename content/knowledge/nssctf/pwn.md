@@ -1,5 +1,5 @@
 ﻿---
-title: "context(os=\"linux\", arch=\"amd64\", log_level=\"debug\")"
+title: "pwn"
 lastmod: 2026-06-15T09:08:19+08:00
 draft: false
 ---

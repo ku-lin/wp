@@ -3,6 +3,8 @@ title: "ffuf"
 lastmod: 2026-04-12T00:37:38+08:00
 draft: false
 ---
+# ffuf
+
 - 平台：Windows（D:\tool）
 - 使用领域：CTF Web / Fuzz
 - 主要用途：高性能 Web Fuzzer，可做目录、参数、虚拟主机、POST 字段爆破。

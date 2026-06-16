@@ -3,6 +3,8 @@ title: "tshark"
 lastmod: 2026-04-12T00:37:36+08:00
 draft: false
 ---
+# tshark
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：流量分析 / Forensics
 - 主要用途：Wireshark 的命令行版，用于过滤、统计、批量解析 pcap。

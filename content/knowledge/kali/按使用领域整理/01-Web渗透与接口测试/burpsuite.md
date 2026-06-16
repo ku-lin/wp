@@ -1,8 +1,10 @@
 ﻿---
-title: "BurpSuite"
+title: "burpsuite"
 lastmod: 2026-04-27T15:10:34+08:00
 draft: false
 ---
+# BurpSuite
+
 - 原始文档：[burpsuite.md](../../burpsuite/)
 - 原文使用领域：CTF Web / Web 渗透
 - 核心用途：HTTP/HTTPS 代理、抓包、改包、Repeater/Intruder 测试 Web 漏洞。

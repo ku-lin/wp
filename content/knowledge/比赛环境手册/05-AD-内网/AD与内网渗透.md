@@ -1,8 +1,10 @@
 ﻿---
-title: "AD 与内网"
+title: "AD与内网渗透"
 lastmod: 2026-03-30T19:44:12+08:00
 draft: false
 ---
+# AD 与内网
+
 ## 常用工具
 
 - `impacket-scripts`

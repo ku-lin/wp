@@ -3,6 +3,8 @@ title: "DIE"
 lastmod: 2026-04-12T00:37:37+08:00
 draft: false
 ---
+# DIE
+
 - 平台：Windows（D:\tool）
 - 使用领域：Reverse / Forensics
 - 主要用途：Detect It Easy 便携版，die.exe 是 GUI，diec.exe 是命令行检测入口。

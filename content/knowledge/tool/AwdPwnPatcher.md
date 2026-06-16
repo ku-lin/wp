@@ -3,6 +3,8 @@ title: "AwdPwnPatcher"
 lastmod: 2026-03-26T18:10:55+08:00
 draft: false
 ---
+# AwdPwnPatcher
+
 - [AwdPwnPatcher教程](#awdpwnpatcher%E6%95%99%E7%A8%8B)
   * [格式化字符串](#%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2)
     + [32位不开PIE](#32%E4%BD%8D%E4%B8%8D%E5%BC%80pie)

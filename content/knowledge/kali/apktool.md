@@ -3,6 +3,8 @@ title: "apktool"
 lastmod: 2026-04-12T00:36:54+08:00
 draft: false
 ---
+# apktool
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Mobile / Reverse
 - 主要用途：APK 资源与 smali 反编译、修改、重打包，常用于 Android 逆向和移动题。

@@ -3,6 +3,8 @@ title: "AwdPwnPatcher"
 lastmod: 2026-04-12T00:37:40+08:00
 draft: false
 ---
+# AwdPwnPatcher
+
 - 平台：Windows（D:\tool）
 - 使用领域：Pwn / AWDP
 - 主要用途：AWDP Pwn 自动 patch/加固辅助工具，用于修补二进制漏洞点。

@@ -3,6 +3,8 @@ title: "nuclei"
 lastmod: 2026-04-12T00:37:38+08:00
 draft: false
 ---
+# nuclei
+
 - 平台：Windows（D:\tool）
 - 使用领域：CTF Web / 漏洞模板扫描
 - 主要用途：基于 YAML 模板的漏洞/指纹扫描器；当前 Windows 目录是源码，未发现 exe。

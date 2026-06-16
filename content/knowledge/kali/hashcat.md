@@ -3,6 +3,8 @@ title: "hashcat"
 lastmod: 2026-04-12T00:37:20+08:00
 draft: false
 ---
+# hashcat
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Crypto / 密码爆破 / Forensics
 - 主要用途：GPU/CPU 哈希破解工具，支持字典、掩码、规则、组合等攻击模式。

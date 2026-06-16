@@ -3,6 +3,8 @@ title: "ss"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# ss
+
 - 原始文档：[ss.md](../../ss/)
 - 原文使用领域：Linux 网络 / 应急响应
 - 核心用途：查看 socket 监听、连接、进程、端口状态，netstat 的现代替代。

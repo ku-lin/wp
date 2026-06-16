@@ -1,8 +1,10 @@
 ﻿---
-title: "Exeinfo PE 中文使用说明"
+title: "Exeinfo_PE_中文使用说明"
 lastmod: 2026-04-08T21:09:51+08:00
 draft: false
 ---
+# Exeinfo PE 中文使用说明
+
 ## 1. 这是什么软件
 
 `Exeinfo PE` 是一个 **Windows PE 可执行文件快速识别工具**，常用于：

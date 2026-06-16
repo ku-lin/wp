@@ -3,6 +3,8 @@ title: "radare2"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# radare2
+
 - 原始文档：[radare2.md](../../radare2/)
 - 原文使用领域：Reverse / Pwn
 - 核心用途：命令行逆向框架，可做反汇编、调试、patch、脚本分析。

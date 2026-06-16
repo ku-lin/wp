@@ -3,6 +3,8 @@ title: "foremost"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# foremost
+
 - 原始文档：[foremost.md](../../foremost/)
 - 原文使用领域：Forensics
 - 核心用途：基于文件头尾特征的数据雕复工具，常用于磁盘镜像或混合文件恢复。

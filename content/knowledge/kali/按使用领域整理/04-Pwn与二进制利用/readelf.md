@@ -3,6 +3,8 @@ title: "readelf"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# readelf
+
 - 原始文档：[readelf.md](../../readelf/)
 - 原文使用领域：Pwn / Reverse
 - 核心用途：查看 ELF 头、段、节、符号、重定位、动态链接信息。

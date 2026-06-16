@@ -1,8 +1,10 @@
 ﻿---
-title: "PDFiD 使用方法"
+title: "pdfid"
 lastmod: 2026-04-24T14:49:23+08:00
 draft: false
 ---
+# PDFiD 使用方法
+
 ## 工具信息
 
 - 工具名称：`PDFiD`

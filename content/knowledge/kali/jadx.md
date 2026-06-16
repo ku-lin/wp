@@ -3,6 +3,8 @@ title: "jadx"
 lastmod: 2026-04-12T00:37:24+08:00
 draft: false
 ---
+# jadx
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Mobile / Reverse
 - 主要用途：Dex/APK 到 Java 伪源码的反编译工具，适合 Android 静态分析。

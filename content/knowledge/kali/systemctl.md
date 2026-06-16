@@ -3,6 +3,8 @@ title: "systemctl"
 lastmod: 2026-04-12T00:37:36+08:00
 draft: false
 ---
+# systemctl
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Linux 运维 / 应急响应
 - 主要用途：systemd 服务管理，查看服务状态、启动/停止、分析失败原因。

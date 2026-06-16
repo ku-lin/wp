@@ -3,6 +3,8 @@ title: "sleuthkit"
 lastmod: 2026-04-12T00:37:38+08:00
 draft: false
 ---
+# sleuthkit
+
 - 平台：Windows（D:\tool）
 - 使用领域：Forensics / 磁盘镜像
 - 主要用途：文件系统取证命令套件，fls/icat/mmls/istat/tsk_recover 等。

@@ -1,8 +1,10 @@
 ﻿---
-title: "ctfshow"
+title: "index"
 lastmod: 2026-06-11T12:25:36+08:00
 draft: false
 ---
+# ctfshow
+
 - [WEB](WEB/)
 - [web入门](web入门/)
 - [crypto](crypto/)

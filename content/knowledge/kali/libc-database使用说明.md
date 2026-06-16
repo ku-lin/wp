@@ -1,8 +1,10 @@
 ﻿---
-title: "libc-database 使用说明"
+title: "libc-database使用说明"
 lastmod: 2026-04-16T22:17:20+08:00
 draft: false
 ---
+# libc-database 使用说明
+
 ## 1. 安装位置
 
 已经在 Kali 上安装 `libc-database`：

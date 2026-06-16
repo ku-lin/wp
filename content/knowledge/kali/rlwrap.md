@@ -3,6 +3,8 @@ title: "rlwrap"
 lastmod: 2026-04-12T00:37:33+08:00
 draft: false
 ---
+# rlwrap
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Shell / Pwn
 - 主要用途：给 nc、python shell 等交互程序补 readline、历史记录和方向键。

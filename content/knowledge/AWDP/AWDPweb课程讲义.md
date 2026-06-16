@@ -3,6 +3,8 @@ title: "AWDPweb课程讲义"
 lastmod: 2026-03-26T18:10:52+08:00
 draft: false
 ---
+# AWDPweb课程讲义
+
 - [AWDP Web攻防实战课程讲义](#awdp-web%E6%94%BB%E9%98%B2%E5%AE%9E%E6%88%98%E8%AF%BE%E7%A8%8B%E8%AE%B2%E4%B9%89)
   * [一、AWDP赛制介绍](#%E4%B8%80awdp%E8%B5%9B%E5%88%B6%E4%BB%8B%E7%BB%8D)
     + [1.1 什么是AWDP？](#11-%E4%BB%80%E4%B9%88%E6%98%AFawdp)

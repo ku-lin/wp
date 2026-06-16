@@ -3,6 +3,8 @@ title: "hydra"
 lastmod: 2026-04-12T00:37:21+08:00
 draft: false
 ---
+# hydra
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：密码爆破 / 网络服务
 - 主要用途：在线口令爆破工具，支持 SSH/FTP/HTTP/SMB/RDP 等协议。

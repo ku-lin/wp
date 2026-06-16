@@ -3,6 +3,8 @@ title: "IDA-Pro"
 lastmod: 2026-04-12T00:37:40+08:00
 draft: false
 ---
+# IDA-Pro
+
 - 平台：Windows（D:\tool）
 - 使用领域：Reverse / Pwn
 - 主要用途：交互式反汇编与反编译工具，适合逆向和 Pwn 静态分析。

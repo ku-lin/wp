@@ -3,6 +3,8 @@ title: "libc-offset-utools-plugin"
 lastmod: 2026-04-12T00:37:40+08:00
 draft: false
 ---
+# libc-offset-utools-plugin
+
 - 平台：Windows（D:\tool）
 - 使用领域：Pwn / uTools
 - 主要用途：uTools libc 偏移查询插件，用于根据泄露函数地址匹配 libc。

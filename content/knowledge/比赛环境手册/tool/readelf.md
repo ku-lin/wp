@@ -3,6 +3,8 @@ title: "readelf"
 lastmod: 2026-04-02T23:54:26+08:00
 draft: false
 ---
+# readelf
+
 这份文档按本机 `readelf --help` 输出整理，目标是覆盖帮助页列出的主要能力和参数分类。
 
 ## 工具定位

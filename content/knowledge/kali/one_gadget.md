@@ -1,8 +1,10 @@
 ﻿---
-title: "one_gadget 与 Pwn 常用命令"
+title: "one_gadget"
 lastmod: 2026-04-16T16:45:40+08:00
 draft: false
 ---
+# one_gadget 与 Pwn 常用命令
+
 ## 一、Pwn 常用命令速查
 
 下面这些命令是做栈溢出、ret2libc、ROP、堆题时经常会用到的。建议先熟悉“信息收集 -> 调试 -> 找偏移 -> 找 gadget -> 写 exploit -> 远程打”的流程。

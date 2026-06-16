@@ -3,6 +3,8 @@ title: "wordlists"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# wordlists
+
 - 原始文档：[wordlists.md](../../wordlists/)
 - 原文使用领域：字典 / 密码爆破 / Web
 - 核心用途：Kali 自带字典目录，常用于目录扫描和密码爆破。

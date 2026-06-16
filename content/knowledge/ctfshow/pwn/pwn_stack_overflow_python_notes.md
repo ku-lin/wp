@@ -1,8 +1,10 @@
 ﻿---
-title: "Pwn 栈溢出常用 Python 代码总结"
+title: "pwn_stack_overflow_python_notes"
 lastmod: 2026-04-21T22:56:42+08:00
 draft: false
 ---
+# Pwn 栈溢出常用 Python 代码总结
+
 这份文档按实战流程整理，默认使用 `pwntools`。
 
 适用范围：

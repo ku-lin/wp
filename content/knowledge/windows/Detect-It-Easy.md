@@ -3,6 +3,8 @@ title: "Detect-It-Easy"
 lastmod: 2026-04-12T00:37:37+08:00
 draft: false
 ---
+# Detect-It-Easy
+
 - 平台：Windows（D:\tool）
 - 使用领域：Reverse / Forensics
 - 主要用途：文件类型、编译器、壳/加壳识别工具，适合 PE/ELF/APK 初筛。

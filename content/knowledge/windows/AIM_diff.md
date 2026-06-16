@@ -3,6 +3,8 @@ title: "AIM_diff"
 lastmod: 2026-04-12T00:37:37+08:00
 draft: false
 ---
+# AIM_diff
+
 - 平台：Windows（D:\tool）
 - 使用领域：Forensics / 磁盘镜像
 - 主要用途：与镜像挂载/差异分析相关的资料目录，适合核对挂载前后变化。

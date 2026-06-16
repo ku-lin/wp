@@ -3,6 +3,8 @@ title: "binwalk"
 lastmod: 2026-04-12T00:37:37+08:00
 draft: false
 ---
+# binwalk
+
 - 平台：Windows（D:\tool）
 - 使用领域：Forensics / Misc / Firmware
 - 主要用途：固件与二进制 blob 扫描、识别内嵌文件、自动提取压缩包和文件系统。

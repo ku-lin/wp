@@ -3,6 +3,8 @@ title: "journalctl"
 lastmod: 2026-04-12T00:37:25+08:00
 draft: false
 ---
+# journalctl
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Linux 取证 / 应急响应
 - 主要用途：systemd 日志查询工具，适合查服务启动、登录、异常报错时间线。

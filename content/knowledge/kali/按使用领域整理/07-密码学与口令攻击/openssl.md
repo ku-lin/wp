@@ -1,8 +1,10 @@
 ﻿---
-title: "OpenSSL"
+title: "openssl"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# OpenSSL
+
 - 原始文档：[openssl.md](../../openssl/)
 - 原文使用领域：Crypto / TLS / 编码
 - 核心用途：加解密、证书、TLS 调试、哈希、base64、随机数等密码学工具箱。

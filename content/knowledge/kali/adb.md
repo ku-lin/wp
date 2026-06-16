@@ -3,6 +3,8 @@ title: "adb"
 lastmod: 2026-04-12T00:36:54+08:00
 draft: false
 ---
+# adb
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Mobile / Android
 - 主要用途：Android Debug Bridge，用于连接手机/模拟器、传文件、装包、查看日志、执行 shell。

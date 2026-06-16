@@ -3,6 +3,8 @@ title: "gobuster"
 lastmod: 2026-04-12T00:36:58+08:00
 draft: false
 ---
+# gobuster
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：CTF Web / 网络
 - 主要用途：目录、DNS、虚拟主机、S3/GCS bucket 等枚举爆破。

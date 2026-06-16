@@ -1,8 +1,10 @@
 ﻿---
-title: "PEiD 中文使用文档"
+title: "PEiD_中文使用文档"
 lastmod: 2026-04-08T21:09:48+08:00
 draft: false
 ---
+# PEiD 中文使用文档
+
 ## 1. PEiD 是什么
 
 `PEiD` 是一个经典的 `PE` 文件识别工具，主要用于：

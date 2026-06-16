@@ -3,6 +3,8 @@ title: "nikto"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# nikto
+
 - 原始文档：[nikto.md](../../nikto/)
 - 原文使用领域：CTF Web / Web 漏扫
 - 核心用途：Web 服务器配置与常见漏洞扫描器，适合快速发现危险文件/配置。

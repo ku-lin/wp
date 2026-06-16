@@ -3,6 +3,8 @@ title: "john"
 lastmod: 2026-04-12T00:37:25+08:00
 draft: false
 ---
+# john
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Crypto / 密码爆破
 - 主要用途：John the Ripper，CPU 哈希破解、格式转换、规则爆破。

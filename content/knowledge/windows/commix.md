@@ -3,6 +3,8 @@ title: "commix"
 lastmod: 2026-04-12T00:37:38+08:00
 draft: false
 ---
+# commix
+
 - 平台：Windows（D:\tool）
 - 使用领域：CTF Web / 命令注入
 - 主要用途：自动化命令注入检测与利用工具。

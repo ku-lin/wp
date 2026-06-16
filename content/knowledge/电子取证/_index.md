@@ -1,8 +1,10 @@
 ﻿---
-title: "电子取证"
+title: "index"
 lastmod: 2026-03-26T18:12:29+08:00
 draft: false
 ---
+# 电子取证
+
 - [手动仿真取证](#%E6%89%8B%E5%8A%A8%E4%BB%BF%E7%9C%9F%E5%8F%96%E8%AF%81)
 - [Volatility](#volatility)
   * [一、通用命令（所有系统通用）](#%E4%B8%80%E9%80%9A%E7%94%A8%E5%91%BD%E4%BB%A4%E6%89%80%E6%9C%89%E7%B3%BB%E7%BB%9F%E9%80%9A%E7%94%A8)

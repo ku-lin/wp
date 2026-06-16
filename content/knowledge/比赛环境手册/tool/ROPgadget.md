@@ -1,8 +1,10 @@
 ﻿---
-title: "ROPgadget 中文 README"
+title: "ROPgadget"
 lastmod: 2026-04-06T23:00:28+08:00
 draft: false
 ---
+# ROPgadget 中文 README
+
 这是一份面向 CTF/Pwn 初学者和进阶选手的 `ROPgadget` 中文说明文档，兼顾命令参考与实战思路。
 
 本文基于本机已安装的 `ROPgadget 7.7` 帮助输出整理，同时参考官方项目页与 PyPI 页面。适合用来快速上手：

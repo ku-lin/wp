@@ -1,8 +1,10 @@
 ﻿---
-title: "NetExec"
+title: "netexec"
 lastmod: 2026-04-24T14:56:06+08:00
 draft: false
 ---
+# NetExec
+
 - 原始文档：[netexec.md](../../netexec/)
 - 原文使用领域：AD / 内网
 - 核心用途：NetExec（CME 后继）用于 SMB/LDAP/WinRM/MSSQL/SSH 等服务枚举、认证验证和横向。

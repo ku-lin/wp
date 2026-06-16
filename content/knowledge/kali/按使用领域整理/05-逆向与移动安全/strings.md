@@ -3,6 +3,8 @@ title: "strings"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# strings
+
 - 原始文档：[strings.md](../../strings/)
 - 原文使用领域：Reverse / Forensics / Misc
 - 核心用途：从二进制中提取可打印字符串，快速找 flag、URL、密钥、调试信息。

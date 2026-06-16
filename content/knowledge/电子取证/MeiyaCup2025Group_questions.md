@@ -1,8 +1,10 @@
 ﻿---
-title: "25美亚团体题目提取"
+title: "MeiyaCup2025Group_questions"
 lastmod: 2026-04-24T14:37:48+08:00
 draft: false
 ---
+# 25美亚团体题目提取
+
 - 来源：https://forensics.xidian.edu.cn/wiki/writeups/MeiyaCup2025Group/
 - 题目总数：263
 

@@ -3,6 +3,8 @@ title: "OpenVPN-Connect"
 lastmod: 2026-04-12T00:37:40+08:00
 draft: false
 ---
+# OpenVPN-Connect
+
 - 平台：Windows（D:\tool）
 - 使用领域：比赛环境 / VPN
 - 主要用途：OpenVPN Connect 安装包，用于导入 ovpn 连接比赛网络。

@@ -3,6 +3,8 @@ title: "socat"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# socat
+
 - 原始文档：[socat.md](../../socat/)
 - 原文使用领域：网络 / Pwn / 运维
 - 核心用途：通用双向数据转发器，可做端口转发、反连 shell、伪终端。

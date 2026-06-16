@@ -3,6 +3,8 @@ title: "nikto"
 lastmod: 2026-04-12T00:37:29+08:00
 draft: false
 ---
+# nikto
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：CTF Web / Web 漏扫
 - 主要用途：Web 服务器配置与常见漏洞扫描器，适合快速发现危险文件/配置。

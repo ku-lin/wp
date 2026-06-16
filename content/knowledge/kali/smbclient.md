@@ -3,6 +3,8 @@ title: "smbclient"
 lastmod: 2026-04-12T00:37:35+08:00
 draft: false
 ---
+# smbclient
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：AD / 内网 / SMB
 - 主要用途：SMB/CIFS 命令行客户端，用于列共享、传文件、验证凭据。

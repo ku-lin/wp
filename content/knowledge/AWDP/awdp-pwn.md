@@ -1,9 +1,11 @@
 ﻿---
-title: "awdp - pwn"
+title: "awdp-pwn"
 lastmod: 2026-03-26T18:10:53+08:00
 draft: false
 ---
-* [打包](#%E6%89%93%E5%8C%85)
+# awdp - pwn
+
+  * [打包](#%E6%89%93%E5%8C%85)
 - [check主要逻辑](#check%E4%B8%BB%E8%A6%81%E9%80%BB%E8%BE%91)
 - [fix（注意还原libc的指向）](#fix%E6%B3%A8%E6%84%8F%E8%BF%98%E5%8E%9Flibc%E7%9A%84%E6%8C%87%E5%90%91)
   * [ida-keypatch](#ida-keypatch)

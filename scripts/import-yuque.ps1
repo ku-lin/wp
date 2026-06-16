@@ -85,24 +85,10 @@ function Convert-MarkdownBody {
     return $content
 }
 
-function Get-TitleAndBody {
-    param([string]$RawContent, [string]$FallbackTitle)
+function Get-BodyContent {
+    param([string]$RawContent)
 
-    $content = $RawContent.TrimStart([char]0xFEFF)
-    $title = $FallbackTitle
-
-    $headingMatch = [regex]::Match($content, '(?m)^#\s+(.+?)\s*$')
-    if ($headingMatch.Success) {
-        $title = $headingMatch.Groups[1].Value.Trim()
-    }
-
-    $body = [regex]::Replace($content, '\A#\s+.+?\r?\n(\r?\n)?', '', 1)
-    $body = $body.TrimStart()
-
-    return @{
-        Title = $title
-        Body  = $body
-    }
+    return $RawContent.TrimStart([char]0xFEFF)
 }
 
 function Format-FrontMatterDate {
@@ -168,14 +154,13 @@ foreach ($file in $markdownFiles) {
     New-Item -ItemType Directory -Path $destinationDir -Force | Out-Null
 
     $raw = Get-Content -LiteralPath $file.FullName -Raw
-    $fallbackTitle = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
-    $parts = Get-TitleAndBody -RawContent $raw -FallbackTitle $fallbackTitle
-    $body = Convert-MarkdownBody -Content $parts.Body
+    $title = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
+    $body = Convert-MarkdownBody -Content (Get-BodyContent -RawContent $raw)
     $lastmod = Format-FrontMatterDate -Value $file.LastWriteTime
 
     $frontMatter = @(
         '---'
-        ('title: "{0}"' -f ($parts.Title -replace '"', '\"'))
+        ('title: "{0}"' -f ($title -replace '"', '\"'))
         ('lastmod: {0}' -f $lastmod)
         'draft: false'
         '---'

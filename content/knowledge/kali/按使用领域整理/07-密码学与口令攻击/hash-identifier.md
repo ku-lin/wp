@@ -3,6 +3,8 @@ title: "hash-identifier"
 lastmod: 2026-04-24T14:56:17+08:00
 draft: false
 ---
+# hash-identifier
+
 - 原始文档：[hash-identifier.md](../../hash-identifier/)
 - 原文使用领域：Crypto / 密码爆破
 - 核心用途：交互式哈希类型识别工具，用于爆破前判断 hash 模式。

@@ -3,6 +3,8 @@ title: "impacket-scripts"
 lastmod: 2026-04-12T00:37:24+08:00
 draft: false
 ---
+# impacket-scripts
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：AD / 内网 / 协议
 - 主要用途：Impacket 协议脚本套件，常用于 SMB/Kerberos/NTLM/MSSQL/远程执行/凭证导出。

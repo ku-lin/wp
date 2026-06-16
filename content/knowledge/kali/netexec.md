@@ -3,6 +3,8 @@ title: "netexec"
 lastmod: 2026-04-12T00:37:29+08:00
 draft: false
 ---
+# netexec
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：AD / 内网
 - 主要用途：NetExec（CME 后继）用于 SMB/LDAP/WinRM/MSSQL/SSH 等服务枚举、认证验证和横向。

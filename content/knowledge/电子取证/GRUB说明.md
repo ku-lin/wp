@@ -1,8 +1,10 @@
 ﻿---
-title: "GRUB 与 grub rescue 说明"
+title: "GRUB说明"
 lastmod: 2026-05-05T20:17:54+08:00
 draft: false
 ---
+# GRUB 与 grub rescue 说明
+
 ## 1. GRUB 是什么
 
 GRUB 全称是 GNU GRUB，是 Linux 系统常用的启动加载器。

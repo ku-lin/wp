@@ -3,6 +3,8 @@ title: "yara"
 lastmod: 2026-04-12T00:37:37+08:00
 draft: false
 ---
+# yara
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Forensics / Malware
 - 主要用途：规则匹配工具，按字符串/十六进制/条件扫描文件和样本。

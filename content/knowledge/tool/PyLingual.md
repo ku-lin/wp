@@ -1,8 +1,10 @@
 ﻿---
-title: "PyLingual 中文说明"
+title: "PyLingual"
 lastmod: 2026-04-08T20:24:20+08:00
 draft: false
 ---
+# PyLingual 中文说明
+
 ## 1. 这是什么
 
 `PyLingual` 是一个 Python 字节码反编译工具，官方说明支持 `Python 3.6` 之后的已发布 CPython 版本。本地仓库当前 `pyproject.toml` 标注的项目描述是支持 `3.6 - 3.13`，并要求运行环境为 `Python 3.12+`。

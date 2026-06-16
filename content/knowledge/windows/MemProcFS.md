@@ -3,6 +3,8 @@ title: "MemProcFS"
 lastmod: 2026-04-12T00:37:37+08:00
 draft: false
 ---
+# MemProcFS
+
 - 平台：Windows（D:\tool）
 - 使用领域：Forensics / 内存取证
 - 主要用途：将内存镜像挂载成虚拟文件系统，便于进程、文件、注册表、网络连接分析。

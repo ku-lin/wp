@@ -3,6 +3,8 @@ title: "feroxbuster"
 lastmod: 2026-04-27T15:10:39+08:00
 draft: false
 ---
+# feroxbuster
+
 - 原始文档：[feroxbuster.md](../../feroxbuster/)
 - 原文使用领域：CTF Web
 - 核心用途：高速递归目录扫描器，适合目录爆破、状态码过滤、扩展名探测。

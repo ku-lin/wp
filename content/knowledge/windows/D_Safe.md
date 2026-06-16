@@ -3,6 +3,8 @@ title: "D_Safe"
 lastmod: 2026-04-12T00:37:40+08:00
 draft: false
 ---
+# D_Safe
+
 - 平台：Windows（D:\tool）
 - 使用领域：AWDP / Web 防护 / 加固
 - 主要用途：D盾/WebShell 查杀与网站安全管理工具，用于 AWDP 加固和木马排查。

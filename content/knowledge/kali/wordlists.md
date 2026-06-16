@@ -3,6 +3,8 @@ title: "wordlists"
 lastmod: 2026-04-12T00:37:37+08:00
 draft: false
 ---
+# wordlists
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：字典 / 密码爆破 / Web
 - 主要用途：Kali 自带字典目录，常用于目录扫描和密码爆破。

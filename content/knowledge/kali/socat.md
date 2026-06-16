@@ -3,6 +3,8 @@ title: "socat"
 lastmod: 2026-04-12T00:37:35+08:00
 draft: false
 ---
+# socat
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：网络 / Pwn / 运维
 - 主要用途：通用双向数据转发器，可做端口转发、反连 shell、伪终端。

@@ -1,8 +1,10 @@
 ﻿---
-title: "ROPgadget"
+title: "ropgadget"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# ROPgadget
+
 - 原始文档：[ROPgadget 1.md](../../ROPgadget 1/)
 - 原文使用领域：Pwn / ROP
 - 核心用途：在 ELF/PE/Mach-O/Raw 中搜索 ret、syscall、jmp 等 gadget，为 ROP 链拼装零件。

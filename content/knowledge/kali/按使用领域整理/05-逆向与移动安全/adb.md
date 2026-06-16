@@ -3,6 +3,8 @@ title: "adb"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# adb
+
 - 原始文档：[adb.md](../../adb/)
 - 原文使用领域：Mobile / Android
 - 核心用途：Android Debug Bridge，用于连接手机/模拟器、传文件、装包、查看日志、执行 shell。

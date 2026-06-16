@@ -3,6 +3,8 @@ title: "pwntools"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# pwntools
+
 - 原始文档：[python3-pwntools.md](../../python3-pwntools/)
 - 原文使用领域：Pwn
 - 核心用途：pwntools 命令行入口和 Python 库，用于 exploit 交互、ROP、shellcode、ELF 分析。

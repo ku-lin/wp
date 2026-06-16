@@ -3,6 +3,8 @@ title: "Sandboxie-Plus"
 lastmod: 2026-04-12T00:37:38+08:00
 draft: false
 ---
+# Sandboxie-Plus
+
 - 平台：Windows（D:\tool）
 - 使用领域：Malware / 动态分析 / 隔离
 - 主要用途：Windows 沙箱隔离运行工具，适合可疑程序动态行为观察。

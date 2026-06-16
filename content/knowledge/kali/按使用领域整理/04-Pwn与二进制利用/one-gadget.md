@@ -1,8 +1,10 @@
 ﻿---
-title: "one_gadget"
+title: "one-gadget"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# one_gadget
+
 - 原始文档：[one_gadget.md](../../one_gadget/)
 - 原文使用领域：Pwn / libc 利用
 - 核心用途：结合泄露的 libc 版本快速搜索可触发 execve("/bin/sh") 的 gadget，并整理常用 Pwn 命令流。

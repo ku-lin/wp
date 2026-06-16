@@ -1,8 +1,10 @@
 ﻿---
 title: "python"
-lastmod: 2026-03-26T18:11:42+08:00
+lastmod: 2026-06-16T19:10:17+08:00
 draft: false
 ---
+# python
+
 - [正则表达式](#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F)
   * [一、正则表达式核心语法（模式规则）](#%E4%B8%80%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%E6%A8%A1%E5%BC%8F%E8%A7%84%E5%88%99)
     + [1. 基础匹配（匹配固定字符 / 位置）](#1-%E5%9F%BA%E7%A1%80%E5%8C%B9%E9%85%8D%E5%8C%B9%E9%85%8D%E5%9B%BA%E5%AE%9A%E5%AD%97%E7%AC%A6--%E4%BD%8D%E7%BD%AE)
@@ -87,7 +89,7 @@ draft: false
     + [enumerate(iterable, start=0)](#enumerateiterable-start0)
     + [map(function, iterable, ...)](#mapfunction-iterable-)
     + [open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None) as file:](#openfile-moder-buffering-1-encodingnone-errorsnone-newlinenone-closefdtrue-openernone-as-file)
-    + [![1767834856994-ba19ea74-36ce-445b-8ca1-31cd7ea32073.png](./img/N9PuQgqwmMlFhUkL/1767834856994-ba19ea74-36ce-445b-8ca1-31cd7ea32073-250098.png)](#1767834856994-ba19ea74-36ce-445b-8ca1-31cd7ea32073pngimgn9puqgqwmmlfhukl1767834856994-ba19ea74-36ce-445b-8ca1-31cd7ea32073-250098png)
+    + [![1767834856994-ba19ea74-36ce-445b-8ca1-31cd7ea32073.png](1767834856994-ba19ea74-36ce-445b-8ca1-31cd7ea32073-250098.png)](#1767834856994-ba19ea74-36ce-445b-8ca1-31cd7ea32073pngimgn9puqgqwmmlfhukl1767834856994-ba19ea74-36ce-445b-8ca1-31cd7ea32073-250098png)
   * [fractions](#fractions)
     + [fractions.fraction(A, B)](#fractionsfractiona-b)
   * [decimal](#decimal)
@@ -816,7 +818,7 @@ A：需要转换成unicode的编码
 
 `opener`：可选参数，自定义文件打开器（需是可调用对象，返回文件描述符）。
 
-### ![1767834856994-ba19ea74-36ce-445b-8ca1-31cd7ea32073.png](./img/N9PuQgqwmMlFhUkL/1767834856994-ba19ea74-36ce-445b-8ca1-31cd7ea32073-250098.png)
+### ![1767834856994-ba19ea74-36ce-445b-8ca1-31cd7ea32073.png](1767834856994-ba19ea74-36ce-445b-8ca1-31cd7ea32073-250098.png)
 
 ## fractions
 

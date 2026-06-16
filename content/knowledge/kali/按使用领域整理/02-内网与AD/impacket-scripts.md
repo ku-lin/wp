@@ -1,8 +1,10 @@
 ﻿---
-title: "Impacket Scripts"
+title: "impacket-scripts"
 lastmod: 2026-04-24T14:56:06+08:00
 draft: false
 ---
+# Impacket Scripts
+
 - 原始文档：[impacket-scripts.md](../../impacket-scripts/)
 - 原文使用领域：AD / 内网 / 协议
 - 核心用途：Impacket 协议脚本套件，常用于 SMB/Kerberos/NTLM/MSSQL/远程执行/凭证导出。

@@ -3,6 +3,8 @@ title: "PyLingual"
 lastmod: 2026-04-12T00:37:38+08:00
 draft: false
 ---
+# PyLingual
+
 - 平台：Windows（D:\tool）
 - 使用领域：Reverse / Python
 - 主要用途：Python 字节码反编译/控制流恢复工具，适合 pyc 或 PyInstaller 提取后的代码恢复。

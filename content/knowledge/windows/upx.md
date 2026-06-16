@@ -3,6 +3,8 @@ title: "upx"
 lastmod: 2026-04-12T00:37:38+08:00
 draft: false
 ---
+# upx
+
 - 平台：Windows（D:\tool）
 - 使用领域：Reverse / Pwn / Forensics
 - 主要用途：UPX 壳压缩/脱壳工具，CTF 中常用 `upx -d` 尝试脱壳。

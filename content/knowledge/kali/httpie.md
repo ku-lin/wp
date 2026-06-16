@@ -3,6 +3,8 @@ title: "httpie"
 lastmod: 2026-04-12T00:37:21+08:00
 draft: false
 ---
+# httpie
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Web / 网络
 - 主要用途：更易读的 HTTP 命令行客户端，适合调 API、构造 JSON 请求。

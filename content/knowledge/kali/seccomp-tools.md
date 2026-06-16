@@ -3,6 +3,8 @@ title: "seccomp-tools"
 lastmod: 2026-04-12T00:37:34+08:00
 draft: false
 ---
+# seccomp-tools
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Pwn / 沙箱
 - 主要用途：分析、反汇编、模拟 seccomp-bpf 规则，判断系统调用限制。

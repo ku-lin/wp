@@ -3,6 +3,8 @@ title: "gobuster"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# gobuster
+
 - 原始文档：[gobuster.md](../../gobuster/)
 - 原文使用领域：CTF Web / 网络
 - 核心用途：目录、DNS、虚拟主机、S3/GCS bucket 等枚举爆破。

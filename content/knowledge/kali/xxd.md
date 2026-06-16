@@ -3,6 +3,8 @@ title: "xxd"
 lastmod: 2026-04-12T00:37:37+08:00
 draft: false
 ---
+# xxd
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Misc / Reverse
 - 主要用途：十六进制查看/转换工具，可生成 hexdump 或从 hexdump 还原二进制。

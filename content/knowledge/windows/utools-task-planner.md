@@ -3,6 +3,8 @@ title: "utools-task-planner"
 lastmod: 2026-04-12T00:37:40+08:00
 draft: false
 ---
+# utools-task-planner
+
 - 平台：Windows（D:\tool）
 - 使用领域：通用 / uTools
 - 主要用途：任务规划插件项目，和比赛工具关系较弱。

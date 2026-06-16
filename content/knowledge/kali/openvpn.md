@@ -3,6 +3,8 @@ title: "openvpn"
 lastmod: 2026-04-12T00:37:30+08:00
 draft: false
 ---
+# openvpn
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：比赛环境 / 网络
 - 主要用途：OpenVPN 客户端，用于连接比赛 VPN、导入 ovpn 配置。

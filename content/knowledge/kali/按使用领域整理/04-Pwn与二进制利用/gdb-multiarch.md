@@ -3,6 +3,8 @@ title: "gdb-multiarch"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# gdb-multiarch
+
 - 原始文档：[gdb-multiarch.md](../../gdb-multiarch/)
 - 原文使用领域：Pwn / Reverse
 - 核心用途：支持多架构目标的 GDB，常用于 ARM/MIPS 等交叉架构调试。

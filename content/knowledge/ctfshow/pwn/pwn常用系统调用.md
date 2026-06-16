@@ -1,8 +1,10 @@
 ﻿---
-title: "PWN 常用系统调用速查"
+title: "pwn常用系统调用"
 lastmod: 2026-04-20T21:20:49+08:00
 draft: false
 ---
+# PWN 常用系统调用速查
+
 这份笔记主要面向 Linux PWN 里的 `ret2syscall`、SROP、ORW、沙箱绕过和 shellcode 编写。默认讨论 `i386` 和 `amd64` 两种最常见架构。
 
 ## 1. 系统调用约定

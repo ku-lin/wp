@@ -3,6 +3,8 @@ title: "python3"
 lastmod: 2026-04-12T00:37:33+08:00
 draft: false
 ---
+# python3
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：通用脚本 / CTF
 - 主要用途：Python 解释器，比赛中用于快速写脚本、编码解码、网络交互、批处理。

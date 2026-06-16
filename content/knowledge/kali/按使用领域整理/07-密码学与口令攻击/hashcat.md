@@ -3,6 +3,8 @@ title: "hashcat"
 lastmod: 2026-04-27T15:13:55+08:00
 draft: false
 ---
+# hashcat
+
 - 原始文档：[hashcat.md](../../hashcat/)
 - 原文使用领域：Crypto / 密码爆破 / Forensics
 - 核心用途：GPU/CPU 哈希破解工具，支持字典、规则、掩码、组合、混合等攻击模式。

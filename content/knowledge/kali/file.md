@@ -3,6 +3,8 @@ title: "file"
 lastmod: 2026-04-12T00:36:55+08:00
 draft: false
 ---
+# file
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Forensics / Reverse / Misc
 - 主要用途：根据 magic bytes 判断文件类型、架构、是否 stripped、脚本/压缩格式等。

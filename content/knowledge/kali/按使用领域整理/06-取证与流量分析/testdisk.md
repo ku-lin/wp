@@ -1,8 +1,10 @@
 ﻿---
-title: "TestDisk"
+title: "testdisk"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# TestDisk
+
 - 原始文档：[testdisk.md](../../testdisk/)
 - 原文使用领域：Forensics / 数据恢复
 - 核心用途：分区表恢复、文件系统恢复、磁盘修复的交互式工具。

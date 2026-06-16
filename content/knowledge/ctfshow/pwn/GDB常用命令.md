@@ -1,5 +1,5 @@
 ﻿---
-title: "堆利用命令"
+title: "GDB常用命令"
 lastmod: 2026-05-26T22:20:53+08:00
 draft: false
 ---

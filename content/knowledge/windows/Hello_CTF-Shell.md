@@ -3,6 +3,8 @@ title: "Hello_CTF-Shell"
 lastmod: 2026-04-12T00:37:40+08:00
 draft: false
 ---
+# Hello_CTF-Shell
+
 - 平台：Windows（D:\tool）
 - 使用领域：Pwn / Shellcode 学习
 - 主要用途：CTF shellcode 练习/生成相关项目。

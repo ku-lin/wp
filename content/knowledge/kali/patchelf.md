@@ -3,6 +3,8 @@ title: "patchelf"
 lastmod: 2026-04-12T00:37:30+08:00
 draft: false
 ---
+# patchelf
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Pwn
 - 主要用途：修改 ELF interpreter、RPATH/RUNPATH、依赖库等，常用于指定题目 libc。

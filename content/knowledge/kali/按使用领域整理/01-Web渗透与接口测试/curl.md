@@ -3,6 +3,8 @@ title: "curl"
 lastmod: 2026-04-27T15:10:35+08:00
 draft: false
 ---
+# curl
+
 - 原始文档：[curl.md](../../curl/)
 - 原文使用领域：Web / 网络
 - 核心用途：命令行 HTTP/TCP 客户端，适合复现请求、带 Cookie/Header、上传下载和调接口。

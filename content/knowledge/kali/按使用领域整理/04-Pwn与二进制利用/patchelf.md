@@ -3,6 +3,8 @@ title: "patchelf"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# patchelf
+
 - 原始文档：[patchelf.md](../../patchelf/)
 - 原文使用领域：Pwn
 - 核心用途：修改 ELF interpreter、RPATH/RUNPATH、依赖库等，常用于指定题目 libc。

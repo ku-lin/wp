@@ -3,6 +3,8 @@ title: "gdb"
 lastmod: 2026-04-12T00:36:56+08:00
 draft: false
 ---
+# gdb
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Pwn / Reverse
 - 主要用途：GNU 调试器，用于断点、单步、查看寄存器/内存、调试漏洞利用。

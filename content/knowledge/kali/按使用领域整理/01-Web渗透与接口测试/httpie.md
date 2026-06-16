@@ -1,8 +1,10 @@
 ﻿---
-title: "HTTPie"
+title: "httpie"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# HTTPie
+
 - 原始文档：[httpie.md](../../httpie/)
 - 原文使用领域：Web / 网络
 - 核心用途：更易读的 HTTP 命令行客户端，适合调 API、构造 JSON 请求。

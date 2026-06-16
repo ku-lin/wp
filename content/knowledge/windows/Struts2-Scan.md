@@ -3,6 +3,8 @@ title: "Struts2-Scan"
 lastmod: 2026-04-12T00:37:39+08:00
 draft: false
 ---
+# Struts2-Scan
+
 - 平台：Windows（D:\tool）
 - 使用领域：CTF Web / Java / Struts2
 - 主要用途：Struts2 漏洞扫描/利用脚本，适合 Java Web 靶场中验证历史 S2 漏洞。

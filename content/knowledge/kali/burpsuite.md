@@ -3,6 +3,8 @@ title: "burpsuite"
 lastmod: 2026-04-12T00:36:54+08:00
 draft: false
 ---
+# burpsuite
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：CTF Web / Web 渗透
 - 主要用途：HTTP/HTTPS 代理、抓包、改包、Repeater/Intruder 测试 Web 漏洞。

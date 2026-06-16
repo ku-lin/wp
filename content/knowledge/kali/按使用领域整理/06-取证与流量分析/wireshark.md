@@ -1,8 +1,10 @@
 ﻿---
-title: "Wireshark"
+title: "wireshark"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# Wireshark
+
 - 原始文档：[wireshark.md](../../wireshark/)
 - 原文使用领域：流量分析 / Forensics
 - 核心用途：图形化抓包与 pcap 分析工具。

@@ -1,5 +1,5 @@
 ﻿---
-title: "offset = 72"
+title: "pwntools 常用命令速查表"
 lastmod: 2026-05-10T22:25:49+08:00
 draft: false
 ---

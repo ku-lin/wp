@@ -1,8 +1,10 @@
 ﻿---
-title: "pyinstxtractor 中文使用说明"
+title: "pyinstxtractor"
 lastmod: 2026-04-08T20:27:34+08:00
 draft: false
 ---
+# pyinstxtractor 中文使用说明
+
 ## 项目简介
 
 `pyinstxtractor.py` 是一个用于提取 `PyInstaller` 打包生成可执行文件内容的脚本。

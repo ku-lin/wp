@@ -3,6 +3,8 @@ title: "dalfox"
 lastmod: 2026-04-12T00:37:38+08:00
 draft: false
 ---
+# dalfox
+
 - 平台：Windows（D:\tool）
 - 使用领域：CTF Web / XSS
 - 主要用途：XSS 扫描与参数分析工具；当前 Windows 目录是源码，未发现已编译 exe。

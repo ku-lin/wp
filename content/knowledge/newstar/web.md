@@ -3,6 +3,8 @@ title: "web"
 lastmod: 2026-03-26T18:13:28+08:00
 draft: false
 ---
+# web
+
 - [multi-headach3](#multi-headach3)
 - [strange_login](#strange_login)
 - [宇宙的中心是php](#%E5%AE%87%E5%AE%99%E7%9A%84%E4%B8%AD%E5%BF%83%E6%98%AFphp)

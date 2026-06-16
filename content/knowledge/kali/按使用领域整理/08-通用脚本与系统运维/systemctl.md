@@ -3,6 +3,8 @@ title: "systemctl"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# systemctl
+
 - 原始文档：[systemctl.md](../../systemctl/)
 - 原文使用领域：Linux 运维 / 应急响应
 - 核心用途：systemd 服务管理，查看服务状态、启动/停止、分析失败原因。

@@ -3,6 +3,8 @@ title: "curl"
 lastmod: 2026-04-12T00:36:55+08:00
 draft: false
 ---
+# curl
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Web / 网络
 - 主要用途：命令行 HTTP/TCP 客户端，适合复现请求、带 Cookie/Header、上传下载和调接口。

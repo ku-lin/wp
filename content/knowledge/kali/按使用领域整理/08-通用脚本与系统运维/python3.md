@@ -3,6 +3,8 @@ title: "python3"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# python3
+
 - 原始文档：[python3.md](../../python3/)
 - 原文使用领域：通用脚本 / CTF
 - 核心用途：Python 解释器，比赛中用于快速写脚本、编码解码、网络交互、批处理。

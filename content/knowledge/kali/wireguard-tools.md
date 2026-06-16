@@ -3,6 +3,8 @@ title: "wireguard-tools"
 lastmod: 2026-04-12T00:37:37+08:00
 draft: false
 ---
+# wireguard-tools
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：比赛环境 / 网络
 - 主要用途：WireGuard VPN 工具，包括 wg 和 wg-quick。

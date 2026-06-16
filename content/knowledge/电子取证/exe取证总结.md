@@ -1,8 +1,10 @@
 ﻿---
-title: "EXE 取证总结"
+title: "exe取证总结"
 lastmod: 2026-04-24T14:21:39+08:00
 draft: false
 ---
+# EXE 取证总结
+
 来源：<https://forensics.xidian.edu.cn/wiki/writeups/Pinghang2026/>
 
 说明：这里把“exe取证”按“Windows 可执行样本/恶意脚本/宏病毒/.NET 木马/内存联动取证”来整理，主要覆盖 `宏病毒分析`、`WinPE 逆向 (.NET)`、`倩倩的 PC`、`倩倩的 PC 内存`，并吸收少量样本恢复相关内容。

@@ -1,8 +1,10 @@
 ﻿---
-title: "Wireshark"
+title: "wireshark"
 lastmod: 2026-04-02T23:54:26+08:00
 draft: false
 ---
+# Wireshark
+
 这份文档按本机 `wireshark -h` 输出整理，并补充了 GUI 场景下最关键的模块说明。
 
 ## 工具定位

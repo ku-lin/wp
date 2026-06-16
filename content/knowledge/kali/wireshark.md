@@ -3,6 +3,8 @@ title: "wireshark"
 lastmod: 2026-04-12T00:37:37+08:00
 draft: false
 ---
+# wireshark
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：流量分析 / Forensics
 - 主要用途：图形化抓包与 pcap 分析工具。

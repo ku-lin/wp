@@ -3,6 +3,8 @@ title: "glibc-all-in-one"
 lastmod: 2026-04-12T00:36:57+08:00
 draft: false
 ---
+# glibc-all-in-one
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Pwn
 - 主要用途：glibc/libc 收集与切换辅助项目，用于匹配远端 libc、下载调试符号。

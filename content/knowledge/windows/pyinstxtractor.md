@@ -3,6 +3,8 @@ title: "pyinstxtractor"
 lastmod: 2026-04-12T00:37:37+08:00
 draft: false
 ---
+# pyinstxtractor
+
 - 平台：Windows（D:\tool）
 - 使用领域：Reverse / Forensics / Python
 - 主要用途：提取 PyInstaller 打包程序中的 pyc 和资源，常用于 Python 逆向。

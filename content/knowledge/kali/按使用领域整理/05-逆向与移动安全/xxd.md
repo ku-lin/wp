@@ -3,6 +3,8 @@ title: "xxd"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# xxd
+
 - 原始文档：[xxd.md](../../xxd/)
 - 原文使用领域：Misc / Reverse
 - 核心用途：十六进制查看/转换工具，可生成 hexdump 或从 hexdump 还原二进制。

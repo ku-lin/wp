@@ -3,6 +3,8 @@ title: "gdb-multiarch"
 lastmod: 2026-04-12T00:36:56+08:00
 draft: false
 ---
+# gdb-multiarch
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Pwn / Reverse
 - 主要用途：支持多架构目标的 GDB，常用于 ARM/MIPS 等交叉架构调试。

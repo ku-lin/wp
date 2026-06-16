@@ -3,6 +3,8 @@ title: "testdisk"
 lastmod: 2026-04-12T00:37:36+08:00
 draft: false
 ---
+# testdisk
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Forensics / 数据恢复
 - 主要用途：分区表恢复、文件系统恢复、磁盘修复的交互式工具。

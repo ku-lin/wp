@@ -1,8 +1,10 @@
 ﻿---
-title: "XD Forensics Wiki 赛事题解题目合集"
+title: "XD_Forensics_writeups题目合集"
 lastmod: 2026-04-30T20:10:01+08:00
 draft: false
 ---
+# XD Forensics Wiki 赛事题解题目合集
+
 来源：<https://forensics.xidian.edu.cn/wiki/writeups/>
 
 说明：自动收集 writeups 目录下各赛事 WP 正文里的题目标题；保留页面链接，不收集答案。过滤规则以编号题目和明确问句为主，因此不包含大多数章节分组标题。

@@ -3,6 +3,8 @@ title: "hashid"
 lastmod: 2026-04-12T00:37:21+08:00
 draft: false
 ---
+# hashid
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Crypto / 密码爆破
 - 主要用途：命令行哈希类型识别工具，可辅助选择 john/hashcat 模式。

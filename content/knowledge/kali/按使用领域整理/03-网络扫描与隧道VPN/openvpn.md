@@ -1,8 +1,10 @@
 ﻿---
-title: "OpenVPN"
+title: "openvpn"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# OpenVPN
+
 - 原始文档：[openvpn.md](../../openvpn/)
 - 原文使用领域：比赛环境 / 网络
 - 核心用途：OpenVPN 客户端，用于连接比赛 VPN、导入 ovpn 配置。

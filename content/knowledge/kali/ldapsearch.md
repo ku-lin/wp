@@ -3,6 +3,8 @@ title: "ldapsearch"
 lastmod: 2026-04-12T00:37:25+08:00
 draft: false
 ---
+# ldapsearch
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：AD / 内网
 - 主要用途：LDAP 查询工具，枚举域用户、组、OU、SPN、策略等目录信息。

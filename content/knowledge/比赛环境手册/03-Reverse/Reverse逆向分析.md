@@ -1,8 +1,10 @@
 ﻿---
-title: "Reverse"
+title: "Reverse逆向分析"
 lastmod: 2026-03-30T19:44:12+08:00
 draft: false
 ---
+# Reverse
+
 ## 常用工具
 
 - `ghidra`

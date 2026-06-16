@@ -3,6 +3,8 @@ title: "strings"
 lastmod: 2026-04-12T00:37:35+08:00
 draft: false
 ---
+# strings
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Reverse / Forensics / Misc
 - 主要用途：从二进制中提取可打印字符串，快速找 flag、URL、密钥、调试信息。

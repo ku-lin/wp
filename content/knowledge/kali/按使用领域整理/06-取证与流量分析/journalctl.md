@@ -3,6 +3,8 @@ title: "journalctl"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# journalctl
+
 - 原始文档：[journalctl.md](../../journalctl/)
 - 原文使用领域：Linux 取证 / 应急响应
 - 核心用途：systemd 日志查询工具，适合查服务启动、登录、异常报错时间线。

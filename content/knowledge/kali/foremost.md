@@ -3,6 +3,8 @@ title: "foremost"
 lastmod: 2026-04-12T00:36:55+08:00
 draft: false
 ---
+# foremost
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Forensics
 - 主要用途：基于文件头尾特征的数据雕复工具，常用于磁盘镜像或混合文件恢复。

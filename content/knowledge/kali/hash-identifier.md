@@ -3,6 +3,8 @@ title: "hash-identifier"
 lastmod: 2026-04-12T00:37:20+08:00
 draft: false
 ---
+# hash-identifier
+
 - 平台：Kali Linux（SSH: 192.168.70.145）
 - 使用领域：Crypto / 密码爆破
 - 主要用途：交互式哈希类型识别工具，用于爆破前判断 hash 模式。

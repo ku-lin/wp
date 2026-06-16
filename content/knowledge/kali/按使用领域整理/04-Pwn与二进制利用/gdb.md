@@ -3,6 +3,8 @@ title: "gdb"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# gdb
+
 - 原始文档：[gdb.md](../../gdb/)
 - 原文使用领域：Pwn / Reverse
 - 核心用途：GNU 调试器，用于断点、单步、查看寄存器/内存、调试漏洞利用。

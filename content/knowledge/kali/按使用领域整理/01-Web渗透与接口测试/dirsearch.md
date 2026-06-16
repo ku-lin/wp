@@ -3,6 +3,8 @@ title: "dirsearch"
 lastmod: 2026-04-24T14:52:30+08:00
 draft: false
 ---
+# dirsearch
+
 - 原始文档：[dirsearch.md](../../dirsearch/)
 - 原文使用领域：CTF Web
 - 核心用途：Web 目录与文件爆破工具，适合快速发现后台、备份文件、接口路径。
