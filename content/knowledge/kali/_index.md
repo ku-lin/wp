@@ -1,6 +1,6 @@
 ﻿---
 title: "kali"
-lastmod: 2026-06-15T23:37:13+08:00
+lastmod: 2026-06-16T19:07:02+08:00
 draft: false
 ---
 
