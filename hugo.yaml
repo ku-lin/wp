@@ -22,6 +22,10 @@ markup:
   goldmark:
     renderer:
       unsafe: true
+  tableOfContents:
+    startLevel: 1
+    endLevel: 3
+    ordered: false
   highlight:
     noClasses: false
 

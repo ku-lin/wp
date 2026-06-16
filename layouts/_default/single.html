@@ -2,6 +2,20 @@
 {{- $isKnowledge := eq .Section "knowledge" -}}
 {{- $headers := findRE "<h[1-6].*?>(.|\\n])+?</h[1-6]>" .Content -}}
 {{- $hasHeaders := ge (len $headers) 1 -}}
+{{- $tocHTML := .TableOfContents -}}
+{{- $tocContent := $tocHTML -}}
+{{- $contentH1ID := "" -}}
+{{- $contentH1Text := "" -}}
+{{- with index (findRE `(?s)<h1 id="[^"]+".*?>.*?<a hidden class="anchor".*?</h1>` .Content 1) 0 -}}
+  {{- $contentH1ID = replaceRE `(?s).*?<h1 id="([^"]+)".*` `$1` . -}}
+  {{- $contentH1Text = replaceRE `(?s).*?<h1 id="[^"]+".*?>(.*?)<a hidden class="anchor".*` `$1` . | plainify -}}
+{{- end -}}
+{{- if and $contentH1ID $tocHTML -}}
+  {{- $tocInner := replaceRE `(?s)^<nav id="TableOfContents">\s*<ul>(.*)</ul>\s*</nav>$` `$1` $tocHTML -}}
+  {{- if ne $tocInner $tocHTML -}}
+    {{- $tocContent = printf `<nav id="TableOfContents"><ul><li><a href="#%s">%s</a><ul>%s</ul></li></ul></nav>` $contentH1ID $contentH1Text $tocInner -}}
+  {{- end -}}
+{{- end -}}
 {{- $root := site.GetPage "/knowledge" -}}
 {{- $rootFolders := slice -}}
 {{- $rootFiles := slice -}}
@@ -102,7 +116,7 @@
     <div class="reading-toc">
       <div class="reading-toc-head"># {{ .Title }}</div>
       <div class="reading-toc-body">
-        {{- .TableOfContents -}}
+        {{- $tocContent | safeHTML -}}
       </div>
     </div>
   </aside>
