@@ -138,13 +138,14 @@ $markdownFiles = Get-ChildItem -LiteralPath $SourceRoot -Recurse -Filter '*.md' 
 foreach ($file in $markdownFiles) {
     $relativePath = $file.FullName.Substring($SourceRoot.Length).TrimStart('\')
     $relativePath = $relativePath -replace '\\', '/'
+    $isSectionIndex = [System.IO.Path]::GetFileName($relativePath) -ieq 'index.md'
 
     if ($relativePath -eq 'index.md') {
         continue
     }
 
     $destinationRelative = $relativePath
-    if ([System.IO.Path]::GetFileName($relativePath) -ieq 'index.md') {
+    if ($isSectionIndex) {
         $parent = Split-Path $relativePath -Parent
         $destinationRelative = if ([string]::IsNullOrWhiteSpace($parent)) { '_index.md' } else { ($parent -replace '\\', '/') + '/_index.md' }
     }
@@ -154,7 +155,11 @@ foreach ($file in $markdownFiles) {
     New-Item -ItemType Directory -Path $destinationDir -Force | Out-Null
 
     $raw = Get-Content -LiteralPath $file.FullName -Raw
-    $title = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
+    $title = if ($isSectionIndex) {
+        [System.IO.Path]::GetFileName($file.DirectoryName)
+    } else {
+        [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
+    }
     $body = Convert-MarkdownBody -Content (Get-BodyContent -RawContent $raw)
     $lastmod = Format-FrontMatterDate -Value $file.LastWriteTime
 

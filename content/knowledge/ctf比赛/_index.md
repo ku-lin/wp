@@ -1,5 +1,5 @@
 ﻿---
-title: "index"
+title: "ctf比赛"
 lastmod: 2026-06-11T12:25:36+08:00
 draft: false
 ---

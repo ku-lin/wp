@@ -1,5 +1,5 @@
 ﻿---
-title: "index"
+title: "ctfshow"
 lastmod: 2026-06-17T14:40:44+08:00
 draft: false
 ---
