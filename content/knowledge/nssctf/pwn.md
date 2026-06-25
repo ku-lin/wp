@@ -1,6 +1,6 @@
 ﻿---
 title: "pwn"
-lastmod: 2026-06-15T09:08:19+08:00
+lastmod: 2026-06-19T00:26:58+08:00
 draft: false
 ---
 ## P100[CISCN 2019华北]PWN1
@@ -49,3 +49,4 @@ io.sendline(payload)#send不会输出换行符，只能用sendline
 
 io.interactive()
 ```
+

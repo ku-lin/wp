@@ -1,11 +1,11 @@
 ﻿---
 title: "index"
-lastmod: 2026-06-11T12:25:36+08:00
+lastmod: 2026-06-17T14:40:44+08:00
 draft: false
 ---
 # ctfshow
 
-- [WEB](WEB/)
+- [WEB](ctfshow/web/WEB/)
 - [web入门](web入门/)
 - [crypto](crypto/)
 - [stega](stega/)

