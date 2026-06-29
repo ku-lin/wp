@@ -1,9 +1,79 @@
 param(
     [string]$SourceRoot = 'D:\wp\yuque-export\1',
-    [string]$SiteRoot = 'S:\wp\blog'
+    [string]$SiteRoot = 'S:\wp\blog',
+    [string]$BlacklistPath = ''
 )
 
 $ErrorActionPreference = 'Stop'
+
+function Normalize-PathString {
+    param([string]$PathValue)
+
+    if ([string]::IsNullOrWhiteSpace($PathValue)) {
+        return ''
+    }
+
+    $expanded = [Environment]::ExpandEnvironmentVariables($PathValue.Trim())
+    $normalized = $expanded -replace '/', '\'
+
+    try {
+        return [System.IO.Path]::GetFullPath($normalized).TrimEnd('\')
+    } catch {
+        return $normalized.TrimEnd('\')
+    }
+}
+
+function Get-BlacklistEntries {
+    param([string]$FilePath)
+
+    $entries = @()
+    if ([string]::IsNullOrWhiteSpace($FilePath)) {
+        return $entries
+    }
+
+    if (-not (Test-Path -LiteralPath $FilePath)) {
+        return $entries
+    }
+
+    foreach ($line in Get-Content -LiteralPath $FilePath) {
+        $trimmed = $line.Trim()
+        if ([string]::IsNullOrWhiteSpace($trimmed)) {
+            continue
+        }
+
+        if ($trimmed.StartsWith('#')) {
+            continue
+        }
+
+        $entries += Normalize-PathString -PathValue $trimmed
+    }
+
+    return $entries | Select-Object -Unique
+}
+
+function Test-BlacklistedPath {
+    param(
+        [string]$CandidatePath,
+        [string[]]$BlacklistEntries
+    )
+
+    $normalizedCandidate = Normalize-PathString -PathValue $CandidatePath
+    if ([string]::IsNullOrWhiteSpace($normalizedCandidate)) {
+        return $false
+    }
+
+    foreach ($entry in $BlacklistEntries) {
+        if ($normalizedCandidate -ieq $entry) {
+            return $true
+        }
+
+        if ($normalizedCandidate.StartsWith($entry + '\', [System.StringComparison]::OrdinalIgnoreCase)) {
+            return $true
+        }
+    }
+
+    return $false
+}
 
 function Convert-MarkdownLink {
     param([string]$Target)
@@ -97,6 +167,14 @@ function Format-FrontMatterDate {
     return $Value.ToString('yyyy-MM-ddTHH:mm:ssK')
 }
 
+$resolvedSourceRoot = Normalize-PathString -PathValue $SourceRoot
+$resolvedBlacklistPath = if ([string]::IsNullOrWhiteSpace($BlacklistPath)) {
+    Join-Path (Split-Path $SiteRoot -Parent) 'yuque-import-blacklist.txt'
+} else {
+    Normalize-PathString -PathValue $BlacklistPath
+}
+$blacklistEntries = Get-BlacklistEntries -FilePath $resolvedBlacklistPath
+
 $destinationContent = Join-Path $SiteRoot 'content\knowledge'
 $destinationStatic = Join-Path $SiteRoot 'static\knowledge'
 
@@ -110,9 +188,11 @@ if (Test-Path -LiteralPath $destinationStatic) {
 New-Item -ItemType Directory -Path $destinationContent -Force | Out-Null
 New-Item -ItemType Directory -Path $destinationStatic -Force | Out-Null
 
-$assetDirectories = Get-ChildItem -LiteralPath $SourceRoot -Recurse -Directory | Where-Object { $_.Name -in @('img', 'attachments') }
+$assetDirectories = Get-ChildItem -LiteralPath $resolvedSourceRoot -Recurse -Directory | Where-Object {
+    $_.Name -in @('img', 'attachments') -and -not (Test-BlacklistedPath -CandidatePath $_.FullName -BlacklistEntries $blacklistEntries)
+}
 foreach ($directory in $assetDirectories) {
-    $parentRelative = $directory.Parent.FullName.Substring($SourceRoot.Length).TrimStart('\')
+    $parentRelative = $directory.Parent.FullName.Substring($resolvedSourceRoot.Length).TrimStart('\')
     $destinationAssetDir = if ([string]::IsNullOrWhiteSpace($parentRelative)) {
         Join-Path $destinationStatic $directory.Name
     } else {
@@ -133,10 +213,12 @@ summary: "从语雀导入的知识库内容。"
 '@
 Set-Content -LiteralPath (Join-Path $destinationContent '_index.md') -Value $rootIndex -Encoding UTF8
 
-$markdownFiles = Get-ChildItem -LiteralPath $SourceRoot -Recurse -Filter '*.md' | Sort-Object FullName
+$markdownFiles = Get-ChildItem -LiteralPath $resolvedSourceRoot -Recurse -Filter '*.md' | Where-Object {
+    -not (Test-BlacklistedPath -CandidatePath $_.FullName -BlacklistEntries $blacklistEntries)
+} | Sort-Object FullName
 
 foreach ($file in $markdownFiles) {
-    $relativePath = $file.FullName.Substring($SourceRoot.Length).TrimStart('\')
+    $relativePath = $file.FullName.Substring($resolvedSourceRoot.Length).TrimStart('\')
     $relativePath = $relativePath -replace '\\', '/'
     $isSectionIndex = [System.IO.Path]::GetFileName($relativePath) -ieq 'index.md'
 
